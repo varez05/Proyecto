@@ -1,0 +1,295 @@
+:root {
+    --color-barra-lateral: #FFFFFF;             /* Blanco principal */
+    --color-texto: #000000;                     /* Negro puro */
+    --color-texto-menu: #333333;                /* Gris oscuro (negro más claro) */
+  
+    --color-boton: #F4C542;                     /* Amarillo principal del sol */
+    --color-boton-texto: #000000;               /* Texto negro sobre botón amarillo */
+  
+    --color-menu-hover: #F5F5F5;                /* Blanco alternativo (gris muy claro) */
+    --color-menu-hover-texto: #2E5F31;          /* Verde oscuro del cactus */
+     
+    --color-linea: #49c10c;                     /* Azul oscuro del triángulo como divisor */
+    --color-switch-base: #A4E4EA;               /* Azul claro del triángulo */
+    --color-switch-circulo: #74D0DB;            /* Azul principal del triángulo */
+
+    --color-scroll: rgb(192, 192, 192);         /* Gris claro */
+    --color-scroll-hover: rgb(134,134,134);     /* Gris claro */
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+body {
+    font-family: 'Roboto', Arial, sans-serif; /* Cambiar a una fuente moderna */
+    font-size: 16px; /* Tamaño base del texto */
+    line-height: 1.6; /* Espaciado entre líneas */
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-barra-lateral);
+    color: var(--color-texto);
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: var(--color-menu-hover);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.container-boton {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.header-container {
+    display: flex;
+    justify-content: flex-end; /* Alinear el botón a la derecha */
+    margin-bottom: 20px; /* Espaciado inferior */
+}
+
+h1, h2 {
+    text-align: center;
+    font-weight: 700; /* Texto más grueso para encabezados */
+    font-size: 24px; /* Tamaño más grande para encabezados */
+    color: var(--color-texto-menu); /* Usar color definido */
+    margin-bottom: 20px; /* Espaciado inferior */
+}
+
+.form-unidad {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.form-unidad label {
+    font-size: 16px; /* Tamaño del texto en etiquetas */
+    font-weight: 500; /* Peso medio */
+    color: var(--color-texto-menu); /* Usar color definido */
+}
+
+.form-unidad input {
+    padding: 8px;
+    border: 1px solid var(--color-scroll);
+    border-radius: 4px;
+    font-size: 14px; /* Tamaño del texto en los campos de entrada */
+    font-family: 'Roboto', Arial, sans-serif; /* Fuente consistente */
+}
+
+.form-unidad button {
+    padding: 10px;
+    background-color: var(--color-boton);
+    color: var(--color-boton-texto);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-unidad button:hover {
+    background-color: var(--color-menu-hover-texto);
+    color: var(--color-barra-lateral);
+}
+
+/* Estilo general de la tabla */
+.tabla-unidades {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: var(--color-barra-lateral); /* Fondo blanco */
+    border: 1px solid var(--color-scroll); /* Borde gris claro */
+    border-radius: 8px; /* Bordes redondeados */
+    overflow: hidden; /* Evitar desbordes */
+}
+
+/* Centrar contenido de todas las columnas */
+.tabla-unidades th, .tabla-unidades td {
+    text-align: center; /* Centrar horizontalmente */
+    vertical-align: middle; /* Centrar verticalmente */
+    font-size: 14px; /* Tamaño del texto */
+    font-weight: 500; /* Peso medio */
+    padding: 12px; /* Espaciado interno */
+    text-align: left; /* Alinear texto a la izquierda */
+    border-bottom: 1px solid var(--color-scroll); /* Línea divisoria */
+}
+
+/* Ajustar el ancho de las columnas */
+.tabla-unidades th:nth-child(1), 
+.tabla-unidades td:nth-child(1) {
+    width: 15%; /* Ancho para la columna ID */
+}
+
+.tabla-unidades th:nth-child(2), 
+.tabla-unidades td:nth-child(2) {
+    width: 45%; /* Más espacio para la columna Nombre */
+}
+
+.tabla-unidades th:nth-child(3), 
+.tabla-unidades td:nth-child(3) {
+    width: 40%; /* Reducir el espacio para la columna Acciones */
+    text-align: center; /* Centrar contenido horizontalmente */
+    vertical-align: middle; /* Centrar contenido verticalmente */
+}
+
+.tabla-unidades th {
+    background-color: var(--color-linea); /* Fondo verde oscuro */
+    color: var(--color-barra-lateral); /* Texto blanco */
+    text-transform: uppercase; /* Texto en mayúsculas */
+    letter-spacing: 1px; /* Espaciado entre letras */
+}
+
+.tabla-unidades td {
+    color: var(--color-texto-menu); /* Texto gris oscuro */
+}
+
+/* Alternar colores en las filas */
+.tabla-unidades tr:nth-child(even) {
+    background-color: var(--color-switch-base); /* Fondo azul claro para filas pares */
+}
+
+.tabla-unidades tr:hover {
+    background-color: var(--color-switch-circulo); /* Fondo azul más oscuro al pasar el cursor */
+}
+
+/* Botones de acción */
+.btn-eliminar, .btn-modificar {
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin: 0 5px; /* Espaciado entre botones */
+}
+
+.btn-eliminar {
+    background-color: #ff4d4d; /* Rojo */
+    color: #fff; /* Texto blanco */
+    border: 1px solid #ff4d4d;
+}
+
+.btn-eliminar:hover {
+    background-color: #ff0000; /* Rojo más oscuro */
+    border-color: #ff0000;
+}
+
+.btn-modificar {
+    background-color: var(--color-linea); /* Verde oscuro */
+    color: var(--color-barra-lateral); /* Texto blanco */
+    border: 1px solid var(--color-linea);
+}
+
+.btn-modificar:hover {
+    background-color: var(--color-menu-hover-texto); /* Verde más oscuro */
+    color: var(--color-barra-lateral); /* Mantener texto blanco */
+    border-color: var(--color-menu-hover-texto);
+}
+
+/* Estilo para el scrollbar */
+::-webkit-scrollbar {
+    width: 10px; /* Ancho del scrollbar */
+    height: 10px; /* Altura del scrollbar horizontal */
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-scroll); /* Color del fondo del scrollbar */
+    border-radius: 10px; /* Bordes redondeados */
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-scroll-hover); /* Color del "pulgar" del scrollbar */
+    border-radius: 10px; /* Bordes redondeados */
+    border: 2px solid var(--color-menu-hover); /* Espacio entre el pulgar y el track */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-menu-hover-texto); /* Color del pulgar al pasar el cursor */
+}
+
+.modificar-container {
+    position: fixed;
+    top: 20px; /* Separación desde la parte superior */
+    left: 50%; /* Centrar horizontalmente */
+    transform: translateX(-50%); /* Ajustar el centro */
+    width: 90%; /* Ancho relativo al viewport */
+    max-width: 400px; /* Máximo ancho del cuadro */
+    background-color: var(--color-menu-hover);
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    border-radius: 8px; /* Bordes redondeados */
+    border: 2px solid var(--color-linea); /* Borde para destacar */
+}
+
+.modificar-container h2 {
+    margin: 0 0 10px;
+    font-size: 18px; /* Tamaño más pequeño para el título */
+    color: var(--color-texto-menu);
+    text-align: center; /* Centrar el texto */
+}
+
+.form-modificar {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-modificar input {
+    padding: 10px;
+    border: 1px solid var(--color-scroll);
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.form-modificar button {
+    padding: 10px;
+    background-color: var(--color-boton);
+    color: var(--color-boton-texto);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-modificar button:hover {
+    background-color: var(--color-menu-hover-texto);
+    color: var(--color-barra-lateral);
+}
+
+.btn-cancelar {
+    text-decoration: none;
+    color: var(--color-texto-menu);
+    font-size: 14px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.mensaje {
+    position: fixed; /* Posición fija para que siempre esté visible */
+    top: 20px; /* Separación desde la parte superior */
+    right: 20px; /* Separación desde la parte derecha */
+    background-color: var(--color-boton); /* Fondo verde oscuro */
+    color: var(--color-boton-texto); /* Texto blanco */
+    padding: 10px 15px; /* Espaciado interno */
+    border-radius: 4px; /* Bordes redondeados */
+    font-size: 14px; /* Tamaño del texto */
+    font-weight: 500; /* Peso medio */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
+    z-index: 1000; /* Asegurar que esté por encima de otros elementos */
+    display: none; /* Ocultar por defecto */
+    animation: fadeInOut 4s ease-in-out; /* Animación para aparecer y desaparecer */
+}
+
+/* Animación para mostrar y ocultar el mensaje */
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateX(100%); } /* Comienza fuera de la pantalla */
+    10% { opacity: 1; transform: translateX(0); } /* Aparece */
+    90% { opacity: 1; transform: translateX(0); } /* Permanece visible */
+    100% { opacity: 0; transform: translateX(100%); } /* Desaparece */
+}

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">    
 <head>
@@ -28,8 +29,23 @@
         <div class="Container">
             <i class="uil uil-times form_close"></i>
             <div class="Forma">
-                <form action="../Controladores/Ingresar.php" method="post">
+                <form action="../Controladores/Ingresar_Administrador.php" method="post">
                     <h2>Ingresar</h2>
+
+                      <?php 
+                      if (isset($_GET['error']) && $_GET['error'] == 1): ?>
+                      <div style="color: red; text-align: center; margin-bottom: 10px;">
+                      ❌ Usuario o contraseña incorrectos.
+                      </div>
+                      <script>
+                               const  home = document.querySelector(".home")
+                               window.addEventListener("DOMContentLoaded", () => {
+                               const urlParams = new URLSearchParams(window.location.search);
+                               if (urlParams.has('error')) {
+                                home.classList.add("Show"); }});
+                      </script> 
+                      <?php endif; ?>
+
                     <div class="input_box">
                         <input id="usuario" name="usuario" type="text" placeholder="Ingrese su usuario" required>
                         <i class="uil uil-user-circle email"></i>

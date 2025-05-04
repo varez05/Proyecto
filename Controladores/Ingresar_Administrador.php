@@ -30,7 +30,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: ../vista/Sidebar.html");
         exit;
     } else {
-        echo "❌ Usuario o contraseña incorrectos.";
+        header("Location: ../vista/Paginaprincipal.php?error=1"); 
+    exit;
     }
 
     $stmt->close();

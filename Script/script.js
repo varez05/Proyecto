@@ -37,3 +37,4 @@ togglePassword.addEventListener("click", function() {
     this.classList.toggle("uil-eye");
     this.classList.toggle("uil-eye-slash");
 });
+
