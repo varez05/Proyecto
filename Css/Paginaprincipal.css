@@ -10,7 +10,7 @@ a{
     text-decoration: none;
 }
 .header{
-    background: linear-gradient(to right, #66c00b, #89d631);
+    background: linear-gradient(to right, #4B944E,#74B576 );
     position: fixed;
     height: 80px;
     width: 100%;
@@ -73,7 +73,7 @@ a{
     position: relative;
     height: 100vh;
     width: 100%;
-    background-image: url(../imagen/Manos.avif);
+    background-image: url(../imagen/Fondo1.jpg);
     background-size: cover;
     background-position: center;
 }
