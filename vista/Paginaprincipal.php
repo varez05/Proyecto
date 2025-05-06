@@ -47,7 +47,7 @@
         <div class="ContainerConsulta">
             <i class="uil uil-times Consultar_close"></i>
             <div class="Forma">
-                <form action="#">
+                <form action="http://localhost/proyecto/vista/paginaConsultaNoBeneficiario.php">
                     <h2>Consultar</h2>
                     <div class="input_box Consultar">
                         <select id="tipoDocumento" required>
