@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">    
 <head>
@@ -10,7 +11,7 @@
 <body>
     <header class="header">
         <nav class="nav">
-            <a href="#" class="nav_logo">Koutuushi Wapushua</a>
+            <a href="Paginaprincipal.php" class="nav_logo">Koutuushi Wapushua</a>
             <div class="nav_menu">
                 <ul class="menuitem">
                     <li class="menuitem"><a href="#" class="nav_link">Inicio</a></li>
@@ -28,18 +29,33 @@
         <div class="Container">
             <i class="uil uil-times form_close"></i>
             <div class="Forma">
-                <form action="#">
+                <form action="../Controladores/Ingresar_Administrador.php" method="post">
                     <h2>Ingresar</h2>
+
+                      <?php 
+                      if (isset($_GET['error']) && $_GET['error'] == 1): ?>
+                      <div style="color: red; text-align: center; margin-bottom: 10px;">
+                      ❌ Usuario o contraseña incorrectos.
+                      </div>
+                      <script>
+                               const  home = document.querySelector(".home")
+                               window.addEventListener("DOMContentLoaded", () => {
+                               const urlParams = new URLSearchParams(window.location.search);
+                               if (urlParams.has('error')) {
+                                home.classList.add("Show"); }});
+                      </script> 
+                      <?php endif; ?>
+
                     <div class="input_box">
-                        <input type="text" placeholder="Ingrese su usuario" required>
+                        <input id="usuario" name="usuario" type="text" placeholder="Ingrese su usuario" required>
                         <i class="uil uil-user-circle email"></i>
                     </div>
                     <div class="input_box">
-                        <input type="password" placeholder="Ingrese su Contraseña" required id="passwordField">
+                        <input type="password" name="passwordField" placeholder="Ingrese su Contraseña" required id="passwordField">
                         <i class="uil uil-lock password"></i>
                         <i class="uil uil-eye-slash pw_hide" id="togglePassword"></i>
                     </div>
-                    <button class="buton" id="Entrar_boton">Entrar</button>
+                    <button type="submit" name="Botoningresar" class="buton" id="Entrar_boton">Entrar</button>
                 </form>
             </div>
         </div>
