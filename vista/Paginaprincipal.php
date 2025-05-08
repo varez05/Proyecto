@@ -16,7 +16,7 @@
                 <ul class="menuitem">
                     <li class="menuitem"><a href="#" class="nav_link">Inicio</a></li>
                     <li class="menuitem"><a href="#" class="nav_link">Sobre Nosotros</a></li>
-                    <li class="menuitem"><a href="#" class="nav_link">Contacto</a></li>
+                    <li class="menuitem"><a href="Contactanos.php" class="nav_link">Contacto</a></li>
                 </ul>
             </div>
             <div class="nav_buttons">
