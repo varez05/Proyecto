@@ -1,0 +1,338 @@
+:root {
+    --color-barra-lateral: #FFFFFF;             /* Blanco principal */
+    --color-texto: #000000;                     /* Negro puro */
+    --color-texto-menu: #333333;                /* Gris oscuro (negro más claro) */
+  
+    --color-boton: #F4C542;                     /* Amarillo principal del sol */
+    --color-boton-texto: #000000;               /* Texto negro sobre botón amarillo */
+  
+    --color-menu-hover: #F5F5F5;                /* Blanco alternativo (gris muy claro) */
+    --color-menu-hover-texto: #2E5F31;          /* Verde oscuro del cactus */
+     
+    --color-linea: #49c10c;                     /* Verde oscuro como divisor */
+    --color-switch-base: #A4E4EA;               /* Azul claro del triángulo */
+    --color-switch-circulo: #74D0DB;            /* Azul principal del triángulo */
+
+    --color-scroll: rgb(192, 192, 192);         /* Gris claro */
+    --color-scroll-hover: rgb(134,134,134);     /* Gris claro */
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+
+
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background: var(--color-menu-hover);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--color-texto-menu);
+    margin-bottom: 20px;
+}
+
+/* Contenedor del encabezado con botón de agregar */
+.header-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+/* Botón Agregar Líder más grande */
+#btn-agregar {
+    font-size: 16px; /* Aumentar el tamaño de la fuente */
+    padding: 10px 20px; /* Aumentar el padding */
+    border-radius: 6px; /* Ajustar el borde redondeado */
+    font-weight: bold; /* Hacer el texto más destacado */
+    background-color: var(--color-boton); /* Mantener el color del botón */
+    color: var(--color-boton-texto); /* Mantener el color del texto */
+    border: none; /* Eliminar bordes adicionales */
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#btn-agregar:hover {
+    background-color: var(--color-menu-hover-texto); /* Cambiar color al pasar el cursor */
+    color: var(--color-barra-lateral); /* Cambiar el color del texto */
+}
+
+/* Tabla de líderes */
+.tabla-container {
+    overflow-x: auto; /* Hacer desplazable horizontalmente */
+    margin-top: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--color-scroll);
+    background-color: var(--color-barra-lateral);
+}
+
+.tabla-lideres {
+    width: 100%;
+    border-collapse: separate; /* Cambiado de collapse a separate */
+    border-spacing: 0; /* Espaciado entre celdas */
+    margin-top: 20px;
+    background-color: var(--color-barra-lateral);
+    border: 1px solid var(--color-scroll);
+    border-radius: 8px;
+    overflow: hidden;
+    text-align: center; /* Centrar contenido */
+}
+
+.tabla-lideres th, .tabla-lideres td {
+    vertical-align: middle;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 12px;
+    text-align: center; /* Centrar texto */
+    border-bottom: 1px solid var(--color-scroll);
+}
+
+.tabla-lideres th {
+    background-color: var(--color-linea);
+    color: var(--color-barra-lateral);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: sticky; /* Encabezado fijo */
+    top: 0;
+    z-index: 1;
+}
+
+.tabla-lideres td {
+    color: var(--color-texto-menu);
+}
+
+/* Alternar colores en las filas */
+.tabla-lideres tr:nth-child(even) {
+    background-color: var(--color-switch-base);
+}
+
+.tabla-lideres tr:hover {
+    background-color: var(--color-switch-circulo);
+}
+
+.center {
+    text-align: center;
+}
+
+/* Botones de acción compactos */
+.btn-eliminar, .btn-modificar, .btn-cancelar {
+    display: inline-block;
+    padding: 4px 8px; /* Reducir el padding */
+    border-radius: 4px; /* Ajustar el borde redondeado */
+    font-size: 12px; /* Reducir el tamaño de la fuente */
+    font-weight: 600; /* Mantener el texto legible */
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin: 0 3px; /* Reducir el margen entre botones */
+    cursor: pointer;
+}
+
+.btn-eliminar {
+    background-color: #ff4d4d;
+    color: #fff;
+    border: 1px solid #ff4d4d;
+}
+
+.btn-eliminar:hover {
+    background-color: #ff0000;
+    border-color: #ff0000;
+}
+
+.btn-modificar {
+    background-color: var(--color-linea);
+    color: var(--color-barra-lateral);
+    border: 1px solid var(--color-linea);
+}
+
+.btn-modificar:hover {
+    background-color: var(--color-menu-hover-texto);
+    color: var(--color-barra-lateral);
+    border-color: var(--color-menu-hover-texto);
+}
+
+.btn-cancelar {
+    background-color: #95a5a6;
+    color: #fff;
+    border: 1px solid #95a5a6;
+    margin-top: 0;
+}
+
+.btn-cancelar:hover {
+    background-color: #7f8c8d;
+    border-color: #7f8c8d;
+}
+
+/* Estilo para el scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-scroll);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-scroll-hover);
+    border-radius: 10px;
+    border: 2px solid var(--color-menu-hover);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-menu-hover-texto);
+}
+
+/* Formulario para modificar y agregar */
+.modificar-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 450px;
+    background-color: var(--color-menu-hover);
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    border-radius: 8px;
+    border: 2px solid var(--color-linea);
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modificar-container h2 {
+    margin: 0 0 20px;
+    font-size: 20px;
+    color: var(--color-texto-menu);
+    text-align: center;
+}
+
+.form-modificar {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-modificar label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-texto-menu);
+    margin-bottom: 5px;
+    display: block;
+}
+
+.form-modificar input[type="text"],
+.form-modificar input[type="email"],
+.form-modificar input[type="tel"],
+.form-modificar input[type="date"],
+.form-modificar select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--color-scroll);
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: 'Roboto', Arial, sans-serif;
+    box-sizing: border-box;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.form-buttons button {
+    padding: 10px 15px;
+    background-color: var(--color-boton);
+    color: var(--color-boton-texto);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.form-buttons button:hover {
+    background-color: var(--color-menu-hover-texto);
+    color: var(--color-barra-lateral);
+}
+
+/* Mensaje de notificación */
+.mensaje {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: var(--color-boton);
+    color: var(--color-boton-texto);
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 1001;
+    display: none;
+    animation: fadeInOut 4s ease-in-out;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateX(100%); }
+    10% { opacity: 1; transform: translateX(0); }
+    90% { opacity: 1; transform: translateX(0); }
+    100% { opacity: 0; transform: translateX(100%); }
+}
+
+/* Estilo para imágenes de perfil */
+.profile-img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.current-img {
+    display: block;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .tabla-lideres {
+        font-size: 13px;
+    }
+    
+    .btn-eliminar, .btn-modificar {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+    
+    .modificar-container {
+        width: 95%;
+        padding: 15px;
+    }
+    
+    .form-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .btn-cancelar {
+        text-align: center;
+    }
+}
