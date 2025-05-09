@@ -10,7 +10,7 @@ a{
     text-decoration: none;
 }
 .header{
-    background: linear-gradient(to right, #4B944E,#74B576 );
+    background: linear-gradient(to right, #14b8a6,#14b8a6 );
     position: fixed;
     height: 80px;
     width: 100%;
@@ -153,7 +153,7 @@ transition: all 0.4s ease-out;
     border-bottom: 1.5px solid #aaaaaa;
 }
 .input_box input:focus{
-    border-color: #4caf50;
+    border-color: #14b8a6;
 }
 .input_box i {
     position: absolute;
@@ -172,7 +172,7 @@ transition: all 0.4s ease-out;
 .input_box input:focus ~ i.password,
 .input_box input:focus ~ i.document-type,
 .input_box input:focus ~ i.document-number{
-    color: #4caf50;
+    color: #14b8a6;
 }
 
 .input_box i.pw_hide {
@@ -181,7 +181,7 @@ transition: all 0.4s ease-out;
     cursor: pointer;
 }
 .Container .buton{
-    background: #4caf50;
+    background: #14b8a6;
     margin-top: 30px;
     width: 100%;
     padding: 12px 0;
@@ -214,12 +214,12 @@ transition: all 0.4s ease-out;
     top: 50%;
     left: 10px;
     transform: translateY(-50%);
-    color: #4caf50;
+    color: #14b8a6;
     font-size: 18px;
 }
 .buto {
     width: 100%;
-    background: #4caf50;
+    background: #14b8a6;
     border: none;
     padding: 12px;
     margin-top: 20px;
@@ -232,6 +232,6 @@ transition: all 0.4s ease-out;
 }
 
 .buto:hover {
-    background: #45a049;
+    background: #14b8a6;
 }
 

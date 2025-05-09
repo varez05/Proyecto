@@ -14,7 +14,7 @@
             <a href="Paginaprincipal.php" class="nav_logo">Koutuushi Wapushua</a>
             <div class="nav_menu">
                 <ul class="menuitem">
-                    <li class="menuitem"><a href="#" class="nav_link">Inicio</a></li>
+                    <li class="menuitem"><a href="#" class="nav_link">Inicio</a></li>                    
                     <li class="menuitem"><a href="#" class="nav_link">Sobre Nosotros</a></li>
                     <li class="menuitem"><a href="Contactanos.php" class="nav_link">Contacto</a></li>
                 </ul>

@@ -1,28 +1,90 @@
 <?php
-session_start(); // Iniciar sesión para usar variables de sesión
+/**
+ * Lideres.php - Sistema de gestión de líderes
+ * 
+ * Este archivo maneja las operaciones CRUD para la entidad Lider
+ * en la base de datos corporacion.
+ */
 
-// Conexión a la base de datos
-$conn = new mysqli('localhost', 'root', '', 'corporacion'); // Cambia 'corporacion' por el nombre de tu base de datos
+// Inicializar sesión y conectar a la base de datos
+session_start();
 
-// Verificar conexión
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
+// Configuración de la base de datos
+define('DB_HOST', 'localhost');
+define('DB_USER', 'root');
+define('DB_PASS', '');
+define('DB_NAME', 'corporacion');
+define('UPLOAD_DIR', '../uploads/');
+
+// Funciones de utilidad
+function conectarBaseDatos() {
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    if ($conn->connect_error) {
+        die("Conexión fallida: " . $conn->connect_error);
+    }
+    return $conn;
 }
 
-// Eliminar líder
-if (isset($_GET['eliminar'])) {
-    $id = intval($_GET['eliminar']); // Asegurarse de que el ID sea un número entero
-    $sql = "DELETE FROM Lider WHERE Id_lider = $id";
-    if ($conn->query($sql)) {
-        $_SESSION['mensaje'] = "Líder eliminado correctamente"; // Guardar mensaje en la sesión
-    } else {
-        $_SESSION['mensaje'] = "Error al eliminar el líder"; // Guardar mensaje de error
-    }
-    header("Location: Lideres.php"); // Redirigir para evitar reenvío del formulario
+function guardarMensaje($mensaje) {
+    $_SESSION['mensaje'] = $mensaje;
+}
+
+function redirigir($ubicacion) {
+    header("Location: $ubicacion");
     exit();
 }
 
-// Modificar líder
+function procesarImagen($archivos, $prefijo, $id = null) {
+    if (!isset($archivos['img']) || $archivos['img']['error'] != 0) {
+        return "";
+    }
+    
+    // Crear directorio si no existe
+    if (!file_exists(UPLOAD_DIR)) {
+        mkdir(UPLOAD_DIR, 0777, true);
+    }
+    
+    $extension = pathinfo($archivos['img']['name'], PATHINFO_EXTENSION);
+    $nombreArchivo = $prefijo . ($id ? "_" . $id : "") . "_" . time() . "." . $extension;
+    $rutaDestino = UPLOAD_DIR . $nombreArchivo;
+    
+    if (move_uploaded_file($archivos['img']['tmp_name'], $rutaDestino)) {
+        return $nombreArchivo;
+    } else {
+        guardarMensaje("Error al subir la imagen.");
+        return "";
+    }
+}
+
+function obtenerImagenActual($conn, $id) {
+    $consulta = "SELECT Img FROM Lider WHERE Id_lider = $id";
+    $resultado = $conn->query($consulta);
+    if ($resultado->num_rows > 0) {
+        $fila = $resultado->fetch_assoc();
+        return $fila['Img'];
+    }
+    return "";
+}
+
+// Conexión a la base de datos
+$conn = conectarBaseDatos();
+
+// GESTIÓN DE OPERACIONES CRUD
+
+// 1. Eliminar líder
+if (isset($_GET['eliminar'])) {
+    $id = intval($_GET['eliminar']);
+    $sql = "DELETE FROM Lider WHERE Id_lider = $id";
+    
+    if ($conn->query($sql)) {
+        guardarMensaje("Líder eliminado correctamente");
+    } else {
+        guardarMensaje("Error al eliminar el líder");
+    }
+    redirigir("Lideres.php");
+}
+
+// 2. Modificar líder existente
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_lider'])) {
     $id = intval($_POST['id_lider']);
     $tipo_documento = $conn->real_escape_string($_POST['tipo_documento']);
@@ -35,33 +97,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_lider'])) {
     $telefono = $conn->real_escape_string($_POST['telefono']);
     $rol = $conn->real_escape_string($_POST['rol']);
     
-    // Procesamiento de la imagen
-    $img = "";
-    if (isset($_FILES['img']) && $_FILES['img']['error'] == 0) {
-        $target_dir = "../uploads/";
-        if (!file_exists($target_dir)) {
-            mkdir($target_dir, 0777, true);
-        }
-        
-        $extension = pathinfo($_FILES['img']['name'], PATHINFO_EXTENSION);
-        $img = "lider_" . $id . "_" . time() . "." . $extension;
-        $target_file = $target_dir . $img;
-        
-        if (move_uploaded_file($_FILES['img']['tmp_name'], $target_file)) {
-            // La imagen se subió correctamente
-        } else {
-            $_SESSION['mensaje'] = "Error al subir la imagen.";
-            header("Location: Lideres.php");
-            exit();
-        }
-    } else {
-        // Si no se subió una nueva imagen, mantener la existente
-        $consulta = "SELECT Img FROM Lider WHERE Id_lider = $id";
-        $resultado = $conn->query($consulta);
-        if ($resultado->num_rows > 0) {
-            $fila = $resultado->fetch_assoc();
-            $img = $fila['Img'];
-        }
+    // Procesar imagen o mantener la existente
+    $img = procesarImagen($_FILES, "lider", $id);
+    if (empty($img)) {
+        $img = obtenerImagenActual($conn, $id);
     }
     
     $sql = "UPDATE Lider SET 
@@ -73,25 +112,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_lider'])) {
                 Sexo = '$sexo', 
                 Correo = '$correo', 
                 Telefono = '$telefono', 
-                Rol = '$rol'";
-    
-    // Agregar la imagen a la consulta solo si se subió una nueva
-    if (!empty($img)) {
-        $sql .= ", Img = '$img'";
-    }
-    
-    $sql .= " WHERE Id_lider = $id";
+                Rol = '$rol',
+                Img = '$img'  
+            WHERE Id_lider = $id";
     
     if ($conn->query($sql)) {
-        $_SESSION['mensaje'] = "Líder modificado correctamente"; // Guardar mensaje en la sesión
+        guardarMensaje("Líder modificado correctamente");
     } else {
-        $_SESSION['mensaje'] = "Error al modificar el líder: " . $conn->error; // Guardar mensaje de error
+        guardarMensaje("Error al modificar el líder: " . $conn->error);
     }
-    header("Location: Lideres.php"); // Redirigir para evitar reenvío del formulario
-    exit();
+    redirigir("Lideres.php");
 }
 
-// Agregar nuevo líder
+// 3. Agregar nuevo líder
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['id_lider'])) {
     $tipo_documento = $conn->real_escape_string($_POST['tipo_documento']);
     $numero_documento = $conn->real_escape_string($_POST['numero_documento']);
@@ -102,50 +135,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['id_lider'])) {
     $correo = $conn->real_escape_string($_POST['correo']);
     $telefono = $conn->real_escape_string($_POST['telefono']);
     $rol = $conn->real_escape_string($_POST['rol']);
-    $img = "";
     
-    // Verificar si ya existe un líder con ese número de documento
+    // Verificar si ya existe el número de documento
     $check_query = "SELECT * FROM Lider WHERE Numero_documento = '$numero_documento'";
     $check_result = $conn->query($check_query);
     
     if ($check_result->num_rows > 0) {
-        $_SESSION['mensaje'] = "Error: Ya existe un líder con ese número de documento";
-        header("Location: Lideres.php");
-        exit();
+        guardarMensaje("Error: Ya existe un líder con ese número de documento");
+        redirigir("Lideres.php");
     }
     
-    // Procesamiento de la imagen si se ha enviado
-    if (isset($_FILES['img']) && $_FILES['img']['error'] == 0) {
-        $target_dir = "../uploads/";
-        if (!file_exists($target_dir)) {
-            mkdir($target_dir, 0777, true);
-        }
-        
-        $extension = pathinfo($_FILES['img']['name'], PATHINFO_EXTENSION);
-        $img = "lider_" . time() . "." . $extension;
-        $target_file = $target_dir . $img;
-        
-        if (move_uploaded_file($_FILES['img']['tmp_name'], $target_file)) {
-            // La imagen se subió correctamente
-        } else {
-            $_SESSION['mensaje'] = "Error al subir la imagen.";
-            header("Location: Lideres.php");
-            exit();
-        }
-    }
+    // Procesar imagen
+    $img = procesarImagen($_FILES, "lider");
     
-    $sql = "INSERT INTO Lider (Tipo_documento, Numero_documento, Nombres, Apellidos, Fecha_nacimiento, Sexo, Correo, Telefono, Rol, Img) 
-            VALUES ('$tipo_documento', '$numero_documento', '$nombres', '$apellidos', '$fecha_nacimiento', '$sexo', '$correo', '$telefono', '$rol', '$img')";
+    $sql = "INSERT INTO Lider (Tipo_documento, Numero_documento, Nombres, Apellidos, Fecha_nacimiento, 
+                              Sexo, Correo, Telefono, Rol, Img) 
+            VALUES ('$tipo_documento', '$numero_documento', '$nombres', '$apellidos', '$fecha_nacimiento', 
+                   '$sexo', '$correo', '$telefono', '$rol', '$img')";
     
     if ($conn->query($sql)) {
-        $_SESSION['mensaje'] = "Líder agregado correctamente";
+        guardarMensaje("Líder agregado correctamente");
     } else {
-        $_SESSION['mensaje'] = "Error al agregar el líder: " . $conn->error;
+        guardarMensaje("Error al agregar el líder: " . $conn->error);
     }
-    
-    header("Location: Lideres.php");
-    exit();
+    redirigir("Lideres.php");
 }
+
+// 4. Consultar líder para modificar
+$lider = null;
+if (isset($_GET['modificar'])) {
+    $id = intval($_GET['modificar']);
+    $sql = "SELECT * FROM Lider WHERE Id_lider = $id";
+    $result = $conn->query($sql);
+    $lider = $result->fetch_assoc();
+}
+
+// 5. Listar todos los líderes
+$sql = "SELECT * FROM Lider";
+$result = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -153,17 +180,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['id_lider'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Líderes</title>
-    <link rel="stylesheet" href="../Css/Lider.css"> <!-- Archivo CSS externo -->
+    <title>Gestión de Líderes</title>
+    <link rel="stylesheet" href="../Css/Lider.css">
 </head>
 <body>
-    <!-- Contenedor principal -->
     <div class="container">
-        <!-- Contenedor para mostrar mensajes -->
+        <!-- Contenedor para mensajes -->
         <div id="mensaje" class="mensaje" style="display: none;"></div>
 
-        <!-- Botón para agregar líder -->
+        <!-- Sección de agregar líder -->
         <div class="header-container">
+            <h1>Gestión de Líderes</h1>
             <button id="btn-agregar" class="btn-modificar">Agregar Líder</button>
         </div>
 
@@ -240,7 +267,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['id_lider'])) {
             </form>
         </div>
 
-        <!-- Mostrar contenido de la tabla Lider -->
+        <!-- Tabla de líderes -->
         <h2>Lista de Líderes</h2>
         <table class="tabla-lideres">
             <thead>
@@ -259,15 +286,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['id_lider'])) {
                 </tr>
             </thead>
             <tbody>
-                <?php
-                // Consultar datos de la tabla Lider
-                $sql = "SELECT * FROM Lider";
-                $result = $conn->query($sql);
-
-                // Mostrar datos en la tabla
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        ?>
+                <?php if ($result->num_rows > 0): ?>
+                    <?php while ($row = $result->fetch_assoc()): ?>
                         <tr>
                             <td class="center"><?php echo $row['Id_lider']; ?></td>
                             <td><?php echo $row['Tipo_documento'] . ': ' . htmlspecialchars($row['Numero_documento']); ?></td>
@@ -286,32 +306,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['id_lider'])) {
                                 <?php endif; ?>
                             </td>
                             <td class="center">
-                                <a href="Lideres.php?eliminar=<?php echo $row['Id_lider']; ?>" class="btn-eliminar" onclick="return confirm('¿Está seguro de eliminar este líder?');">Eliminar</a>
+                                <a href="Lideres.php?eliminar=<?php echo $row['Id_lider']; ?>" class="btn-eliminar" 
+                                   onclick="return confirm('¿Está seguro de eliminar este líder?');">Eliminar</a>
                                 <a href="Lideres.php?modificar=<?php echo $row['Id_lider']; ?>" class="btn-modificar">Modificar</a>
                             </td>
                         </tr>
-                        <?php
-                    }
-                } else {
-                    ?>
+                    <?php endwhile; ?>
+                <?php else: ?>
                     <tr>
                         <td colspan="11" class="center">No hay líderes registrados</td>
                     </tr>
-                    <?php
-                }
-                ?>
+                <?php endif; ?>
             </tbody>
         </table>
     </div>
 
     <!-- Formulario para modificar líder -->
-    <?php if (isset($_GET['modificar'])): ?>
-        <?php
-        $id = intval($_GET['modificar']);
-        $sql = "SELECT * FROM Lider WHERE Id_lider = $id";
-        $result = $conn->query($sql);
-        $lider = $result->fetch_assoc();
-        ?>
+    <?php if ($lider): ?>
         <div class="modificar-container">
             <h2>Modificar Líder</h2>
             <form action="Lideres.php" method="POST" class="form-modificar" enctype="multipart/form-data">
@@ -392,18 +403,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['id_lider'])) {
     <?php endif; ?>
 
     <script>
-        // Mostrar el formulario de agregar líder
+    /**
+     * Script para manejar la interacción del usuario
+     */
+    document.addEventListener('DOMContentLoaded', function() {
+        // Mostrar/ocultar formulario de agregar líder
         document.getElementById('btn-agregar').addEventListener('click', function() {
             document.getElementById('agregar-container').style.display = 'block';
         });
 
-        // Ocultar el formulario de agregar líder
         document.getElementById('btn-cancelar-agregar').addEventListener('click', function(event) {
             event.preventDefault();
             document.getElementById('agregar-container').style.display = 'none';
         });
 
-        // Mostrar mensaje desde la sesión
+        // Gestión de mensajes de sesión
         <?php if (isset($_SESSION['mensaje'])): ?>
             const mensaje = "<?php echo $_SESSION['mensaje']; ?>";
             const mensajeDiv = document.createElement('div');
@@ -418,8 +432,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['id_lider'])) {
                 mensajeDiv.remove();
             }, 4000);
 
-            <?php unset($_SESSION['mensaje']); // Limpiar el mensaje ?>
+            <?php unset($_SESSION['mensaje']); ?>
         <?php endif; ?>
+    });
     </script>
 </body>
 </html>
