@@ -7,9 +7,9 @@
     --color-boton-texto: #000000;               /* Texto negro sobre botón amarillo */
   
     --color-menu-hover: #F5F5F5;                /* Blanco alternativo (gris muy claro) */
-    --color-menu-hover-texto: #2E5F31;          /* Verde oscuro del cactus */
+    --color-menu-hover-texto: #1eafad;          /* Verde oscuro del cactus */
      
-    --color-linea: #49c10c;                     /* Azul oscuro del triángulo como divisor */
+    --color-linea:#14b8a6;                     /* Azul oscuro del triángulo como divisor */
     --color-switch-base: #A4E4EA;               /* Azul claro del triángulo */
     --color-switch-circulo: #74D0DB;            /* Azul principal del triángulo */
 
@@ -21,13 +21,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
 body {
-    font-family: 'Roboto', Arial, sans-serif; /* Cambiar a una fuente moderna */
-    font-size: 16px; /* Tamaño base del texto */
-    line-height: 1.6; /* Espaciado entre líneas */
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    color: #2c2c2c;
     margin: 0;
     padding: 0;
-    background-color: var(--color-barra-lateral);
-    color: var(--color-texto);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .container {

@@ -2,7 +2,7 @@
 session_start(); // Iniciar sesión para usar variables de sesión
 
 // Conexión a la base de datos
-$conn = new mysqli('localhost', 'root', '', 'corporacion'); // Cambia 'corporacion' por el nombre de tu base de datos
+$conn = new mysqli("b8b6wjxwwgatbkzi3sc7-mysql.services.clever-cloud.com", "uvzy20bldxipuq8x", "cTXQO8Rz00laC0L5lFP8", "b8b6wjxwwgatbkzi3sc7"); // Cambia 'corporacion' por el nombre de tu base de datos
 
 // Verificar conexión
 if ($conn->connect_error) {
@@ -121,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_unidad']) && isset
     <!-- Formulario para modificar unidad -->
     <?php if (isset($_GET['modificar'])): ?>
         <?php
-        $conn = new mysqli('localhost', 'root', '', 'corporacion'); 
+        $conn = new mysqli("b8b6wjxwwgatbkzi3sc7-mysql.services.clever-cloud.com", "uvzy20bldxipuq8x", "cTXQO8Rz00laC0L5lFP8", "b8b6wjxwwgatbkzi3sc7");
         $id = intval($_GET['modificar']);
         $sql = "SELECT * FROM Unidad WHERE Id_unidad = $id";
         $result = $conn->query($sql);

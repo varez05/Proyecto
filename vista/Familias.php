@@ -6,6 +6,6 @@
     <title>Familias</title>
 </head>
 <body>
-    <P>Familias</P>
+    
 </body>
 </html>

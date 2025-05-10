@@ -18,7 +18,7 @@ define('UPLOAD_DIR', '../uploads/');
 
 // Funciones de utilidad
 function conectarBaseDatos() {
-    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    $conn = new mysqli("b8b6wjxwwgatbkzi3sc7-mysql.services.clever-cloud.com", "uvzy20bldxipuq8x", "cTXQO8Rz00laC0L5lFP8", "b8b6wjxwwgatbkzi3sc7");
     if ($conn->connect_error) {
         die("Conexión fallida: " . $conn->connect_error);
     }
@@ -137,28 +137,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['id_lider'])) {
     $rol = $conn->real_escape_string($_POST['rol']);
     
     // Verificar si ya existe el número de documento
-    $check_query = "SELECT * FROM Lider WHERE Numero_documento = '$numero_documento'";
-    $check_result = $conn->query($check_query);
+    $check_documento_query = "SELECT * FROM Lider WHERE Numero_documento = '$numero_documento'";
+    $check_documento_result = $conn->query($check_documento_query);
     
-    if ($check_result->num_rows > 0) {
-        guardarMensaje("Error: Ya existe un líder con ese número de documento");
-        redirigir("Lideres.php");
-    }
+    // Verificar si ya existe el correo
+    $check_correo_query = "SELECT * FROM Lider WHERE Correo = '$correo'";
+    $check_correo_result = $conn->query($check_correo_query);
     
-    // Procesar imagen
-    $img = procesarImagen($_FILES, "lider");
+    // Verificar si ya existe el teléfono
+    $check_telefono_query = "SELECT * FROM Lider WHERE Telefono = '$telefono'";
+    $check_telefono_result = $conn->query($check_telefono_query);
     
-    $sql = "INSERT INTO Lider (Tipo_documento, Numero_documento, Nombres, Apellidos, Fecha_nacimiento, 
-                              Sexo, Correo, Telefono, Rol, Img) 
-            VALUES ('$tipo_documento', '$numero_documento', '$nombres', '$apellidos', '$fecha_nacimiento', 
-                   '$sexo', '$correo', '$telefono', '$rol', '$img')";
-    
-    if ($conn->query($sql)) {
-        guardarMensaje("Líder agregado correctamente");
+    if ($check_documento_result->num_rows > 0) {
+        echo "<script>alert('Error: Ya existe un líder con ese número de documento');</script>";
+    } elseif ($check_correo_result->num_rows > 0) {
+        guardarMensaje("Error: Ya existe un líder con ese correo electrónico");
+    } elseif ($check_telefono_result->num_rows > 0) {
+        guardarMensaje("Error: Ya existe un líder con ese número de teléfono");
     } else {
-        guardarMensaje("Error al agregar el líder: " . $conn->error);
+        // Validar que la fecha de nacimiento no sea mayor a la fecha actual
+        $fecha_actual = date('Y-m-d');
+        if ($fecha_nacimiento > $fecha_actual) {
+            guardarMensaje("Error: La fecha de nacimiento no puede ser mayor a la fecha actual");
+        } else {
+            // Procesar imagen
+            $img = procesarImagen($_FILES, "lider");
+            
+            $sql = "INSERT INTO Lider (Tipo_documento, Numero_documento, Nombres, Apellidos, Fecha_nacimiento, 
+                                      Sexo, Correo, Telefono, Rol, Img) 
+                    VALUES ('$tipo_documento', '$numero_documento', '$nombres', '$apellidos', '$fecha_nacimiento', 
+                           '$sexo', '$correo', '$telefono', '$rol', '$img')";
+            
+            if ($conn->query($sql)) {
+                guardarMensaje("Líder agregado correctamente");
+            } else {
+                guardarMensaje("Error al agregar el líder: " . $conn->error);
+            }
+            redirigir("Lideres.php");
+        }
     }
-    redirigir("Lideres.php");
 }
 
 // 4. Consultar líder para modificar
@@ -167,7 +184,9 @@ if (isset($_GET['modificar'])) {
     $id = intval($_GET['modificar']);
     $sql = "SELECT * FROM Lider WHERE Id_lider = $id";
     $result = $conn->query($sql);
-    $lider = $result->fetch_assoc();
+    if ($result->num_rows > 0) {
+        $lider = $result->fetch_assoc();
+    }
 }
 
 // 5. Listar todos los líderes
@@ -182,20 +201,20 @@ $result = $conn->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Líderes</title>
     <link rel="stylesheet" href="../Css/Lider.css">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </head>
 <body>
-    <div class="container">
-        <!-- Contenedor para mensajes -->
-        <div id="mensaje" class="mensaje" style="display: none;"></div>
-
-        <!-- Sección de agregar líder -->
-        <div class="header-container">
-            <h1>Gestión de Líderes</h1>
-            <button id="btn-agregar" class="btn-modificar">Agregar Líder</button>
+    <?php if (isset($_SESSION['mensaje'])): ?>
+        <div id="mensaje" class="mensaje">
+            <?php $_SESSION['mensaje']; unset($_SESSION['mensaje']); ?>
         </div>
+    <?php endif; ?>
 
-        <!-- Formulario para agregar un nuevo líder -->
-        <div id="agregar-container" class="modificar-container" style="display: none;">
+    <!-- Modal para agregar líder -->
+    <div id="modal-agregar" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span id="btn-cerrar-modal" class="close">&times;</span>
             <h2>Agregar Líder</h2>
             <form action="Lideres.php" method="POST" class="form-modificar" enctype="multipart/form-data">
                 <div class="form-group">
@@ -207,27 +226,22 @@ $result = $conn->query($sql);
                         <option value="Cédula Extranjería">Cédula Extranjería</option>
                     </select>
                 </div>
-                
                 <div class="form-group">
                     <label for="numero_documento">Número de Documento:</label>
                     <input type="text" id="numero_documento" name="numero_documento" required>
                 </div>
-                
                 <div class="form-group">
                     <label for="nombres">Nombres:</label>
                     <input type="text" id="nombres" name="nombres" required>
                 </div>
-                
                 <div class="form-group">
                     <label for="apellidos">Apellidos:</label>
                     <input type="text" id="apellidos" name="apellidos" required>
                 </div>
-                
                 <div class="form-group">
                     <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
                     <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
                 </div>
-                
                 <div class="form-group">
                     <label for="sexo">Sexo:</label>
                     <select id="sexo" name="sexo" required>
@@ -235,17 +249,14 @@ $result = $conn->query($sql);
                         <option value="Femenino">Femenino</option>
                     </select>
                 </div>
-                
                 <div class="form-group">
                     <label for="correo">Correo Electrónico:</label>
                     <input type="email" id="correo" name="correo">
                 </div>
-                
                 <div class="form-group">
                     <label for="telefono">Teléfono:</label>
                     <input type="tel" id="telefono" name="telefono">
                 </div>
-                
                 <div class="form-group">
                     <label for="rol">Rol:</label>
                     <select id="rol" name="rol" required>
@@ -254,18 +265,109 @@ $result = $conn->query($sql);
                         <option value="Técnico">Técnico</option>
                     </select>
                 </div>
-                
                 <div class="form-group">
                     <label for="img">Imagen (opcional):</label>
                     <input type="file" id="img" name="img" accept="image/*">
                 </div>
-                
                 <div class="form-buttons">
                     <button type="submit">Guardar</button>
-                    <a href="#" id="btn-cancelar-agregar" class="btn-cancelar">Cancelar</a>
+                    <button type="button" id="btn-cancelar-modal" class="btn-cancelar">Cancelar</button>
                 </div>
             </form>
         </div>
+    </div>
+
+    <!-- Modal para modificar líder -->
+    <?php if ($lider): ?>
+        <div id="modal-modificar" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span id="btn-cerrar-modal-modificar" class="close">&times;</span>
+                <h2>Modificar Líder</h2>
+                <form action="Lideres.php" method="POST" class="form-modificar" enctype="multipart/form-data">
+                    <input type="hidden" name="id_lider" value="<?php echo $lider['Id_lider']; ?>">
+                    
+                    <div class="form-group">
+                        <label for="tipo_documento">Tipo de Documento:</label>
+                        <select id="tipo_documento" name="tipo_documento" required>
+                            <option value="Cédula" <?php echo ($lider['Tipo_documento'] == 'Cédula') ? 'selected' : ''; ?>>Cédula</option>
+                            <option value="Tarjeta de Identidad" <?php echo ($lider['Tipo_documento'] == 'Tarjeta de Identidad') ? 'selected' : ''; ?>>Tarjeta de Identidad</option>
+                            <option value="Pasaporte" <?php echo ($lider['Tipo_documento'] == 'Pasaporte') ? 'selected' : ''; ?>>Pasaporte</option>
+                            <option value="Cédula Extranjería" <?php echo ($lider['Tipo_documento'] == 'Cédula Extranjería') ? 'selected' : ''; ?>>Cédula Extranjería</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="numero_documento">Número de Documento:</label>
+                        <input type="text" id="numero_documento" name="numero_documento" value="<?php echo htmlspecialchars($lider['Numero_documento']); ?>" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="nombres">Nombres:</label>
+                        <input type="text" id="nombres" name="nombres" value="<?php echo htmlspecialchars($lider['Nombres']); ?>" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="apellidos">Apellidos:</label>
+                        <input type="text" id="apellidos" name="apellidos" value="<?php echo htmlspecialchars($lider['Apellidos']); ?>" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
+                        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="<?php echo $lider['Fecha_nacimiento']; ?>" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="sexo">Sexo:</label>
+                        <select id="sexo" name="sexo" required>
+                            <option value="Masculino" <?php echo ($lider['Sexo'] == 'Masculino') ? 'selected' : ''; ?>>Masculino</option>
+                            <option value="Femenino" <?php echo ($lider['Sexo'] == 'Femenino') ? 'selected' : ''; ?>>Femenino</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="correo">Correo Electrónico:</label>
+                        <input type="email" id="correo" name="correo" value="<?php echo htmlspecialchars($lider['Correo']); ?>">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="telefono">Teléfono:</label>
+                        <input type="tel" id="telefono" name="telefono" value="<?php echo htmlspecialchars($lider['Telefono']); ?>">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="rol">Rol:</label>
+                        <select id="rol" name="rol" required>
+                            <option value="Pedagógico" <?php echo ($lider['Rol'] == 'Pedagógico') ? 'selected' : ''; ?>>Pedagógico</option>
+                            <option value="Comunitario" <?php echo ($lider['Rol'] == 'Comunitario') ? 'selected' : ''; ?>>Comunitario</option>
+                            <option value="Técnico" <?php echo ($lider['Rol'] == 'Técnico') ? 'selected' : ''; ?>>Técnico</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <?php if (!empty($lider['Img'])): ?>
+                            <label>Imagen Actual:</label>
+                            <img src="../uploads/<?php echo htmlspecialchars($lider['Img']); ?>" alt="Imagen actual" class="current-img">
+                        <?php endif; ?>
+                        <label for="img">Nueva Imagen (opcional):</label>
+                        <input type="file" id="img" name="img" accept="image/*">
+                    </div>
+                    
+                    <div class="form-buttons">
+                        <button type="submit">Guardar Cambios</button>
+                        <button type="button" id="btn-cancelar-modal-modificar" class="btn-cancelar">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    <?php endif; ?>
+             <div class="header-container">
+             <h1>Gestión de Líderes</h1>
+             <button id="btn-agregar" class="btn-modificar">Agregar Líder</button>
+             </div>
+    <!-- Contenido principal -->
+    <div class="container">
+        <!-- Contenedor para mensajes -->
+        <div id="mensaje" class="mensaje" style="display: none;"></div>
 
         <!-- Tabla de líderes -->
         <h2>Lista de Líderes</h2>
@@ -306,9 +408,14 @@ $result = $conn->query($sql);
                                 <?php endif; ?>
                             </td>
                             <td class="center">
-                                <a href="Lideres.php?eliminar=<?php echo $row['Id_lider']; ?>" class="btn-eliminar" 
-                                   onclick="return confirm('¿Está seguro de eliminar este líder?');">Eliminar</a>
-                                <a href="Lideres.php?modificar=<?php echo $row['Id_lider']; ?>" class="btn-modificar">Modificar</a>
+                                <div class="dropdown">
+                                    <ion-icon name="ellipsis-vertical-outline" class="dropdown-icon"></ion-icon>
+                                    <div class="dropdown-menu">
+                                        <a href="Lideres.php?modificar=<?php echo $row['Id_lider']; ?>" class="dropdown-item">Modificar</a>
+                                        <a href="Lideres.php?eliminar=<?php echo $row['Id_lider']; ?>" class="dropdown-item btn-eliminar" 
+                                           onclick="return confirm('¿Está seguro de eliminar este líder?');">Eliminar</a>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                     <?php endwhile; ?>
@@ -320,120 +427,58 @@ $result = $conn->query($sql);
             </tbody>
         </table>
     </div>
-
-    <!-- Formulario para modificar líder -->
-    <?php if ($lider): ?>
-        <div class="modificar-container">
-            <h2>Modificar Líder</h2>
-            <form action="Lideres.php" method="POST" class="form-modificar" enctype="multipart/form-data">
-                <input type="hidden" name="id_lider" value="<?php echo $lider['Id_lider']; ?>">
-                
-                <div class="form-group">
-                    <label for="tipo_documento">Tipo de Documento:</label>
-                    <select id="tipo_documento" name="tipo_documento" required>
-                        <option value="Cédula" <?php echo ($lider['Tipo_documento'] == 'Cédula') ? 'selected' : ''; ?>>Cédula</option>
-                        <option value="Tarjeta de Identidad" <?php echo ($lider['Tipo_documento'] == 'Tarjeta de Identidad') ? 'selected' : ''; ?>>Tarjeta de Identidad</option>
-                        <option value="Pasaporte" <?php echo ($lider['Tipo_documento'] == 'Pasaporte') ? 'selected' : ''; ?>>Pasaporte</option>
-                        <option value="Cédula Extranjería" <?php echo ($lider['Tipo_documento'] == 'Cédula Extranjería') ? 'selected' : ''; ?>>Cédula Extranjería</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="numero_documento">Número de Documento:</label>
-                    <input type="text" id="numero_documento" name="numero_documento" value="<?php echo htmlspecialchars($lider['Numero_documento']); ?>" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="nombres">Nombres:</label>
-                    <input type="text" id="nombres" name="nombres" value="<?php echo htmlspecialchars($lider['Nombres']); ?>" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="apellidos">Apellidos:</label>
-                    <input type="text" id="apellidos" name="apellidos" value="<?php echo htmlspecialchars($lider['Apellidos']); ?>" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
-                    <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="<?php echo $lider['Fecha_nacimiento']; ?>" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="sexo">Sexo:</label>
-                    <select id="sexo" name="sexo" required>
-                        <option value="Masculino" <?php echo ($lider['Sexo'] == 'Masculino') ? 'selected' : ''; ?>>Masculino</option>
-                        <option value="Femenino" <?php echo ($lider['Sexo'] == 'Femenino') ? 'selected' : ''; ?>>Femenino</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="correo">Correo Electrónico:</label>
-                    <input type="email" id="correo" name="correo" value="<?php echo htmlspecialchars($lider['Correo']); ?>">
-                </div>
-                
-                <div class="form-group">
-                    <label for="telefono">Teléfono:</label>
-                    <input type="tel" id="telefono" name="telefono" value="<?php echo htmlspecialchars($lider['Telefono']); ?>">
-                </div>
-                
-                <div class="form-group">
-                    <label for="rol">Rol:</label>
-                    <select id="rol" name="rol" required>
-                        <option value="Pedagógico" <?php echo ($lider['Rol'] == 'Pedagógico') ? 'selected' : ''; ?>>Pedagógico</option>
-                        <option value="Comunitario" <?php echo ($lider['Rol'] == 'Comunitario') ? 'selected' : ''; ?>>Comunitario</option>
-                        <option value="Técnico" <?php echo ($lider['Rol'] == 'Técnico') ? 'selected' : ''; ?>>Técnico</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <?php if (!empty($lider['Img'])): ?>
-                        <label>Imagen Actual:</label>
-                        <img src="../uploads/<?php echo htmlspecialchars($lider['Img']); ?>" alt="Imagen actual" class="current-img">
-                    <?php endif; ?>
-                    <label for="img">Nueva Imagen (opcional):</label>
-                    <input type="file" id="img" name="img" accept="image/*">
-                </div>
-                
-                <div class="form-buttons">
-                    <button type="submit">Guardar Cambios</button>
-                    <a href="Lideres.php" class="btn-cancelar">Cancelar</a>
-                </div>
-            </form>
-        </div>
-    <?php endif; ?>
-
     <script>
-    /**
-     * Script para manejar la interacción del usuario
-     */
-    document.addEventListener('DOMContentLoaded', function() {
-        // Mostrar/ocultar formulario de agregar líder
-        document.getElementById('btn-agregar').addEventListener('click', function() {
-            document.getElementById('agregar-container').style.display = 'block';
+    document.addEventListener('DOMContentLoaded', function () {
+        const modalAgregar = document.getElementById('modal-agregar');
+        const modalModificar = document.getElementById('modal-modificar');
+        const btnAbrirModalAgregar = document.getElementById('btn-agregar');
+        const btnCerrarModalAgregar = document.getElementById('btn-cerrar-modal');
+        const btnCancelarModalAgregar = document.getElementById('btn-cancelar-modal');
+        const btnCerrarModalModificar = document.getElementById('btn-cerrar-modal-modificar');
+        const btnCancelarModalModificar = document.getElementById('btn-cancelar-modal-modificar');
+
+        // Mostrar el modal de agregar
+        btnAbrirModalAgregar.addEventListener('click', function () {
+            modalAgregar.style.display = 'flex';
         });
 
-        document.getElementById('btn-cancelar-agregar').addEventListener('click', function(event) {
-            event.preventDefault();
-            document.getElementById('agregar-container').style.display = 'none';
+        // Ocultar el modal de agregar
+        btnCerrarModalAgregar.addEventListener('click', function () {
+            modalAgregar.style.display = 'none';
+        });
+        btnCancelarModalAgregar.addEventListener('click', function () {
+            modalAgregar.style.display = 'none';
         });
 
-        // Gestión de mensajes de sesión
-        <?php if (isset($_SESSION['mensaje'])): ?>
-            const mensaje = "<?php echo $_SESSION['mensaje']; ?>";
-            const mensajeDiv = document.createElement('div');
-            mensajeDiv.className = 'mensaje';
-            mensajeDiv.textContent = mensaje;
-            document.body.appendChild(mensajeDiv);
-            mensajeDiv.style.display = 'block';
+        // Mostrar el modal de modificar si existe
+        if (modalModificar) {
+            modalModificar.style.display = 'flex';
+        }
 
-            // Eliminar el mensaje después de 4 segundos
+        // Ocultar el modal de modificar
+        btnCerrarModalModificar.addEventListener('click', function () {
+            modalModificar.style.display = 'none';
+        });
+        btnCancelarModalModificar.addEventListener('click', function () {
+            modalModificar.style.display = 'none';
+        });
+
+        // Ocultar los modales al hacer clic fuera del contenido
+        window.addEventListener('click', function (event) {
+            if (event.target === modalAgregar) {
+                modalAgregar.style.display = 'none';
+            }
+            if (event.target === modalModificar) {
+                modalModificar.style.display = 'none';
+            }
+        });
+
+        const mensaje = document.getElementById('mensaje');
+        if (mensaje) {
             setTimeout(() => {
-                mensajeDiv.style.display = 'none';
-                mensajeDiv.remove();
-            }, 4000);
-
-            <?php unset($_SESSION['mensaje']); ?>
-        <?php endif; ?>
+                mensaje.style.display = 'none';
+            }, 5000); // 5 segundos
+        }
     });
     </script>
 </body>

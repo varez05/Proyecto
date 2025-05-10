@@ -50,7 +50,7 @@
 body {
 height: 100vh;
 width: 100%;
-background-color: #319635;
+background-image: url(../imagen/Fondo.nuevo.jpg);
 }
 
 .menu{
