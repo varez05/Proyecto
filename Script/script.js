@@ -6,7 +6,10 @@ const formOpenBtn = document.querySelector("#Abrir_boton"),
       togglePassword = document.querySelector("#togglePassword"),
       passwordField = document.querySelector("#passwordField"),
       closeConsultaBtn = document.querySelector(".Consultar_close"),
-      abrirConsultaBtn = document.querySelector("#Consultar_boton");
+      abrirConsultaBtn = document.querySelector("#Consultar_boton"),
+      exitoBoton = document.querySelector("#Exito_boton"),
+      modalContactanos = document.getElementById("modalContactanos"),
+      closeModalContactanos = document.getElementById("closeModalContactanos");
 
 // Mostrar formulario de INGRESAR
 formOpenBtn.addEventListener("click", () => {
@@ -36,5 +39,26 @@ togglePassword.addEventListener("click", function() {
     passwordField.setAttribute("type", type);
     this.classList.toggle("uil-eye");
     this.classList.toggle("uil-eye-slash");
+});
+
+// Mostrar el modal de Éxito
+exitoBoton.addEventListener("click", () => {
+    modalContactanos.style.display = "block";
+    document.body.style.overflow = "hidden"; // Deshabilitar scroll
+});
+
+// Cerrar el modal de Contactanos
+closeModalContactanos.addEventListener("click", () => {
+    console.log("Botón de cierre del modal clickeado");
+    modalContactanos.style.display = "none";
+    document.body.style.overflow = ""; // Restaurar scroll
+});
+
+// Cerrar el modal al hacer clic fuera del contenido
+modalContactanos.addEventListener("click", (event) => {
+    if (event.target === modalContactanos) {
+        modalContactanos.style.display = "none";
+        document.body.style.overflow = "";
+    }
 });
 

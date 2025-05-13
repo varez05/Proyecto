@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">    
 <head>
@@ -22,6 +21,7 @@
             <div class="nav_buttons">
                 <button class="boton" id="Consultar_boton">Consultar</button>
                 <button class="boton" id="Abrir_boton">Ingresar</button>
+                <button class="boton" id="Exito_boton">Exitoso</button>
             </div>
         </nav>
     </header>
@@ -85,6 +85,14 @@
             </div>
         </div>
     </section>
+
+    <div id="modalContactanos" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span id="closeModalContactanos" class="close">&times;</span>
+            <?php include 'Contactanos.php'; ?>
+        </div>
+    </div>
+
 <script src="../Script/script.js"> </script> 
 </body>
 </html>

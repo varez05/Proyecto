@@ -7,11 +7,6 @@
   <link rel="stylesheet" href="../Css/Contactanos.css" />
 </head>
 <body>
-<div style="position: absolute; top: 20px; left: 20px;">
-  <a href="paginaprincipal.php" style="display: inline-block; padding: 10px 20px; background-color: #14b8a6; color: #fff; text-decoration: none; border-radius: 5px; font-weight: bold;">
-    Volver a la Página Principal
-  </a>
-</div>
 <div class="container">
   <h1>Contáctenos</h1>
 
