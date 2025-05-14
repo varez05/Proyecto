@@ -15,13 +15,13 @@
                 <ul class="menuitem">
                     <li class="menuitem"><a href="#" class="nav_link">Inicio</a></li>                    
                     <li class="menuitem"><a href="#" class="nav_link">Sobre Nosotros</a></li>
-                    <li class="menuitem"><a href="Contactanos.php" class="nav_link">Contacto</a></li>
+                    <li class="menuitem">< <a href="" onclick="showModal()">Contáctanos</a></li>
+                
                 </ul>
             </div>
             <div class="nav_buttons">
                 <button class="boton" id="Consultar_boton">Consultar</button>
                 <button class="boton" id="Abrir_boton">Ingresar</button>
-                <button class="boton" id="Exito_boton">Exitoso</button>
             </div>
         </nav>
     </header>
@@ -94,5 +94,6 @@
     </div>
 
 <script src="../Script/script.js"> </script> 
+<script src="../Script/abrir_modal.js"> </script> 
 </body>
 </html>
