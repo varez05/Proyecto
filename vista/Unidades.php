@@ -16,7 +16,7 @@ if (isset($_GET['eliminar'])) {
     if ($conn->query($sql)) {
         $_SESSION['mensaje'] = "Unidad eliminada correctamente"; // Guardar mensaje en la sesión
     } else {
-        $_SESSION['mensaje'] = "Error al eliminar la unidad"; // Guardar mensaje de error
+        $_SESSION['mensaje'] = " Error al eliminar la unidad, debe eliminar todas las comunidades asociadas "; // Guardar mensaje de error
     }
     header("Location: Unidades.php"); // Redirigir para evitar reenvío del formulario
     exit();
@@ -52,7 +52,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_unidad']) && isset
         <div id="mensaje" class="mensaje" style="display: none;"></div>
 
         <!-- Botón para agregar unidad -->
-        <div class="header-container">
+        <div class="header">
+            <h1>Gestión de Unidades</h1>
             <button id="btn-agregar" class="btn-modificar">Agregar Unidad</button>
         </div>
 
@@ -67,7 +68,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_unidad']) && isset
             </form>
         </div>
 
-        <!-- Mostrar contenido de la tabla Unidad -->
+        <div class="tabla">
+            <!-- Mostrar contenido de la tabla Unidad -->
         <h2>Lista de Unidades</h2>
         <table class="tabla-unidades">
             <thead>
@@ -116,6 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_unidad']) && isset
                 ?>
             </tbody>
         </table>
+        </div>
     </div>
 
     <!-- Formulario para modificar unidad -->

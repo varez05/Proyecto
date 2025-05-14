@@ -1,12 +1,12 @@
 :root {
     --color-barra-lateral: #FFFFFF;             /* Blanco principal */
-    --color-texto: #000000;                     /* Negro puro */
+    --color-texto: #2c2c2c;                     /* Negro puro */
     --color-texto-menu: #333333;                /* Gris oscuro (negro más claro) */
   
     --color-boton: #F4C542;                     /* Amarillo principal del sol */
     --color-boton-texto: #000000;               /* Texto negro sobre botón amarillo */
   
-    --color-menu-hover: #F5F5F5;                /* Blanco alternativo (gris muy claro) */
+    --color-menu-hover: #eaeaea;                /* Blanco alternativo (gris muy claro) */
     --color-menu-hover-texto: #1eafad;          /* Verde oscuro del cactus */
      
     --color-linea:#14b8a6;                     /* Azul oscuro del triángulo como divisor */
@@ -35,9 +35,19 @@ body {
     max-width: 800px;
     margin: 20px auto;
     padding: 20px;
-    background: var(--color-menu-hover);
+    background: var(--color-barra-lateral);
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: auto;
+}
+.tabla {
+    margin: 20px auto;
+    margin-top: 20px;
+    width: 80%;
+    background-color: var(--color-menu-hover);
+    padding: 20px;
+    border-radius: 12px; /* Esquinas redondeadas */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .container-boton {
@@ -45,18 +55,37 @@ body {
     margin-bottom: 20px;
 }
 
-.header-container {
+.header {
     display: flex;
-    justify-content: flex-end; /* Alinear el botón a la derecha */
-    margin-bottom: 20px; /* Espaciado inferior */
+    justify-content: space-between;
+    border-radius: 12px; /* Esquinas redondeadas */
+    align-items: center;
+    padding: 10px 20px; /* 10px arriba/abajo, 20px izquierda/derecha */
+    background-color: var(--color-menu-hover);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.header button {
+    background-color: var(--color-boton);
+    color: var(--color-boton-texto);
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 8px; /* Esquinas redondeadas */
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 h1, h2 {
     text-align: center;
-    font-weight: 700; /* Texto más grueso para encabezados */
-    font-size: 24px; /* Tamaño más grande para encabezados */
-    color: var(--color-texto-menu); /* Usar color definido */
-    margin-bottom: 20px; /* Espaciado inferior */
+    color: var(--color-menu-hover-texto);
+    font-weight: 600;
+    margin-bottom: 20px;
 }
 
 .form-unidad {
@@ -100,21 +129,29 @@ h1, h2 {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    background-color: var(--color-barra-lateral); /* Fondo blanco */
-    border: 1px solid var(--color-scroll); /* Borde gris claro */
-    border-radius: 8px; /* Bordes redondeados */
-    overflow: hidden; /* Evitar desbordes */
+    font-size: 14px;
+    border-radius: 8px; /* Esquinas redondeadas */
+    overflow: hidden; /* Asegura que el contenido no sobresalga */
 }
 
 /* Centrar contenido de todas las columnas */
 .tabla-unidades th, .tabla-unidades td {
-    text-align: center; /* Centrar horizontalmente */
-    vertical-align: middle; /* Centrar verticalmente */
-    font-size: 14px; /* Tamaño del texto */
-    font-weight: 500; /* Peso medio */
-    padding: 12px; /* Espaciado interno */
-    text-align: left; /* Alinear texto a la izquierda */
-    border-bottom: 1px solid var(--color-scroll); /* Línea divisoria */
+    border: 1px solid var(--color-linea);
+    padding: 12px;
+    text-align: center;
+}
+.tabla-unidades th {
+     background-color: var(--color-linea);
+    color: var(--color-barra-lateral);
+    font-weight: 600;
+}
+.tabla-unidades tr:nth-child(even) {
+    background-color: var(--color-switch-base);
+}
+
+.tabla-unidades tr:hover {
+    background-color: var(--color-switch-circulo);
+    transition: background-color 0.3s ease;
 }
 
 /* Ajustar el ancho de las columnas */

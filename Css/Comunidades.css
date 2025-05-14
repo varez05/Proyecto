@@ -45,6 +45,7 @@ h1, h2 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+
 .header-section h1 {
     margin: 0;
     font-size: 24px;
@@ -68,8 +69,8 @@ h1, h2 {
 }
 
 .mensaje {
-    background-color: var(--color-menu-texto); /* Color de fondo para mensajes de éxito */
-    color: white;
+    background-color: var(--color-boton); /* Color de fondo para mensajes de éxito */
+    color: var(--color-boton-texto);
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -194,7 +195,7 @@ button {
 }
 
 button:hover {
-    background-color: var(--color-scroll-hover);
+    background-color: var(--color-switch-circulo);
     transform: scale(1.05);
 }
 
@@ -248,8 +249,7 @@ table tbody tr:hover {
 .dropdown {
     position: relative;
     display: inline-block;
-    cursor: pointer;
-    border-collapse: collapse;
+    cursor: pointer;;
     
 }
 
@@ -273,6 +273,7 @@ table tbody tr:hover {
 }
 
 .dropdown-content a {
+     text-align: center;
     display: block;
     padding: 8px 12px; /* Reducir el tamaño del padding */
     text-decoration: none;
@@ -283,23 +284,24 @@ table tbody tr:hover {
 
 /* Estilo para la opción "Eliminar" */
 .dropdown-content a:first-child {
-    background-color: var(--color-boton); /* Fondo con el color del botón */
+    background-color: var(--color-barra-lateral); /* Fondo con el color del botón */
     color: var(--color-boton-texto); /* Texto con el color definido */
     font-weight: bold; /* Resaltar el texto */
 }
 
 .dropdown-content a:first-child:hover {
-    background-color: #e0b93d; /* Color más oscuro al pasar el cursor */
+    background-color: var(--color-menu) /* Color más oscuro al pasar el cursor */
 }
 
 /* Estilo para la opción "Modificar" */
 .dropdown-content a:last-child {
-    color: #333; /* Texto con color predeterminado */
+    background-color: var(--color-boton); /* Fondo con el color del botón */
+    color: var(--color-boton-texto); /* Texto con color predeterminado */
     font-weight: normal; /* Texto sin negrita */
 }
 
 .dropdown-content a:last-child:hover {
-    background-color: #f1f1f1; /* Fondo gris claro al pasar el cursor */
+    background-color: var(--color-menu-texto); /* Fondo gris claro al pasar el cursor */
     color: #000; /* Texto negro al pasar el cursor */
 }
 

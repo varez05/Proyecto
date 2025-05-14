@@ -32,7 +32,7 @@ body {
     width: 95%;
     max-width: 1250px;
     margin: 20px auto;
-    background: var(--color-barra-lateral);
+    background: var(--color-menu);
     padding: 20px;
     border-radius: 12px; /* Esquinas redondeadas */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -50,12 +50,29 @@ h1, h2 {
 .header-container {
     display: flex;
     justify-content: space-between;
+    border-radius: 12px; /* Esquinas redondeadas */
     align-items: center;
     padding: 20px;
     background-color: var(--color-menu);
-    border-radius: 12px; /* Esquinas redondeadas */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+header-container h1 {
+    margin: 0;
+    font-size: 24px;
+}
+ 
+.header-container button {
+     background-color: var(--color-boton);
+    color: var(--color-boton-texto);
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 8px; /* Esquinas redondeadas */
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
 
 .btn-modificar, .btn-eliminar, .btn-cancelar {
     background-color: var(--color-boton);
@@ -129,6 +146,54 @@ h1, h2 {
 
 .mensaje.error {
     background-color: #f44336;
+}
+
+/* Estilos para las notificaciones */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 9999;
+    font-size: 14px;
+    min-width: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    animation: slideIn 0.5s ease-out, fadeOut 0.5s ease-out 4.5s forwards;
+}
+
+.notification.success {
+    background-color: var(--color-boton);
+    color: var(--color-boton-texto);
+}
+
+.notification.error {
+    background-color: var(--color-boton);
+    color: var(--color-boton-texto);
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
 }
 
 /* Formularios */

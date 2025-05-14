@@ -25,8 +25,11 @@ function conectarBaseDatos() {
     return $conn;
 }
 
-function guardarMensaje($mensaje) {
-    $_SESSION['mensaje'] = $mensaje;
+    function guardarMensaje($mensaje, $tipo = 'success') {
+    $_SESSION['mensaje'] = [
+        'texto' => $mensaje,
+        'tipo' => $tipo
+    ];
 }
 
 function redirigir($ubicacion) {
@@ -51,7 +54,7 @@ function procesarImagen($archivos, $prefijo, $id = null) {
     if (move_uploaded_file($archivos['img']['tmp_name'], $rutaDestino)) {
         return $nombreArchivo;
     } else {
-        guardarMensaje("Error al subir la imagen.");
+        guardarMensaje("Error al subir la imagen.", 'error');
         return "";
     }
 }
@@ -77,9 +80,9 @@ if (isset($_GET['eliminar'])) {
     $sql = "DELETE FROM Lider WHERE Id_lider = $id";
     
     if ($conn->query($sql)) {
-        guardarMensaje("Líder eliminado correctamente");
+        guardarMensaje("Líder eliminado correctamente", "success");
     } else {
-        guardarMensaje("Error al eliminar el líder");
+        guardarMensaje("Error al eliminar el líder", "error");
     }
     redirigir("Lideres.php");
 }
@@ -117,9 +120,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_lider'])) {
             WHERE Id_lider = $id";
     
     if ($conn->query($sql)) {
-        guardarMensaje("Líder modificado correctamente");
+        guardarMensaje("Líder modificado correctamente", "success");
     } else {
-        guardarMensaje("Error al modificar el líder: " . $conn->error);
+        guardarMensaje("Error al modificar el líder: " . $conn->error, "error");
     }
     redirigir("Lideres.php");
 }
@@ -151,14 +154,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['id_lider'])) {
     if ($check_documento_result->num_rows > 0) {
         echo "<script>alert('Error: Ya existe un líder con ese número de documento');</script>";
     } elseif ($check_correo_result->num_rows > 0) {
-        guardarMensaje("Error: Ya existe un líder con ese correo electrónico");
+        guardarMensaje("Error: Ya existe un líder con ese correo electrónico", "error");
     } elseif ($check_telefono_result->num_rows > 0) {
-        guardarMensaje("Error: Ya existe un líder con ese número de teléfono");
+        guardarMensaje("Error: Ya existe un líder con ese número de teléfono", "error");
     } else {
         // Validar que la fecha de nacimiento no sea mayor a la fecha actual
         $fecha_actual = date('Y-m-d');
         if ($fecha_nacimiento > $fecha_actual) {
-            guardarMensaje("Error: La fecha de nacimiento no puede ser mayor a la fecha actual");
+            guardarMensaje("Error: La fecha de nacimiento no puede ser mayor a la fecha actual", "error");
         } else {
             // Procesar imagen
             $img = procesarImagen($_FILES, "lider");
@@ -169,9 +172,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['id_lider'])) {
                            '$sexo', '$correo', '$telefono', '$rol', '$img')";
             
             if ($conn->query($sql)) {
-                guardarMensaje("Líder agregado correctamente");
+                guardarMensaje("Líder agregado correctamente", "success");
             } else {
-                guardarMensaje("Error al agregar el líder: " . $conn->error);
+                guardarMensaje("Error al agregar el líder: " . $conn->error, "error");
             }
             redirigir("Lideres.php");
         }
@@ -206,8 +209,11 @@ $result = $conn->query($sql);
 </head>
 <body>
     <?php if (isset($_SESSION['mensaje'])): ?>
-        <div id="mensaje" class="mensaje">
-            <?php $_SESSION['mensaje']; unset($_SESSION['mensaje']); ?>
+        <div class="notification <?php echo $_SESSION['mensaje']['tipo']; ?>" id="notification">
+            <?php 
+                echo $_SESSION['mensaje']['texto']; 
+                unset($_SESSION['mensaje']); // Limpiar el mensaje después de mostrarlo
+            ?>
         </div>
     <?php endif; ?>
 
