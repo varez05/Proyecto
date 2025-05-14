@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($resultado->num_rows == 1) {
         $_SESSION['usuario'] = $usuario;
-        header("Location: ../vista/Sidebar.html");
+        header("Location: ../vista/Sidebar_Administrador.html");
         exit;
     } else {
         header("Location: ../vista/Paginaprincipal.php?error=1"); 
