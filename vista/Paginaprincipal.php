@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Principal</title>
     <link rel="stylesheet" href="../Css/Paginaprincipal.css">
+    <link rel="stylesheet" href="../Css/Contactanos.css">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 </head>
 <body>
@@ -13,9 +14,9 @@
             <a href="Paginaprincipal.php" class="nav_logo">Koutuushi Wapushua</a>
             <div class="nav_menu">
                 <ul class="menuitem">
-                    <li class="menuitem"><a href="#" class="nav_link">Inicio</a></li>                    
-                    <li class="menuitem"><a href="#" class="nav_link">Sobre Nosotros</a></li>
-                    <li class="menuitem">< <a href="" onclick="showModal()">Contáctanos</a></li>
+                    <li class="menuitem"><a class="nav_link">Inicio</a></li>                    
+                    <li class="menuitem"><a class="nav_link">Sobre Nosotros</a></li>
+                    <li class="menuitem"><a class="nav_link" onclick="showModal()">Contáctanos</a></li>
                 
                 </ul>
             </div>
@@ -25,6 +26,58 @@
             </div>
         </nav>
     </header>
+
+    <!-- ------------------------------------------------------------------------ -->
+     <style>
+       /* Estilos para la ventana modal */
+        .modal {
+            display: none; /* Oculto por defecto */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+        }
+    </style>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="btnclose">&times;</span>
+            <div id="modal-body">
+                <!-- Aquí se cargará dinámicamente el contenido de contactanos.html -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- ------------------------------------------------------------------------ -->
+
     <section class="home">
         <div class="Container">
             <i class="uil uil-times form_close"></i>
@@ -86,14 +139,7 @@
         </div>
     </section>
 
-    <div id="modalContactanos" class="modal" style="display: none;">
-        <div class="modal-content">
-            <span id="closeModalContactanos" class="close">&times;</span>
-            <?php include 'Contactanos.php'; ?>
-        </div>
-    </div>
-
-<script src="../Script/script.js"> </script> 
-<script src="../Script/abrir_modal.js"> </script> 
+    <script src="../Script/script.js"> </script> 
+    <script src="../Script/abrir_modal.js"> </script> 
 </body>
 </html>
