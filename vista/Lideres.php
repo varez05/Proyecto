@@ -21,7 +21,7 @@ $result = listarLideres($conn);
 
              <div class="header-container">
              <h1>Gestión de Líderes</h1>
-             <button id="btn-agregar" class="btn-modificar">Agregar Líder</button>
+             <button id="btn-agregar" class="btn-modificar" onclick="btnAbrirModal('agregar-lider-container')">Agregar Líder</button>
              </div>
     <!-- Contenido principal -->
     <div class="container">
