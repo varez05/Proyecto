@@ -229,4 +229,4 @@ foreach ($queries as $key => $query) {
     </div>
 </div>
 
-<script src="../Script/familias.js"></script>
+

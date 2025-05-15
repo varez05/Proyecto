@@ -9,6 +9,13 @@ if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
 
+// Consultar datos de la tabla Unidad
+function obtenerUnidades($conn) {
+    $sql = "SELECT * FROM Unidad";
+    return $conn->query($sql);
+}
+
+
 header('Content-Type: application/json'); // Establecer el encabezado para JSON
 
 // Eliminar unidad
@@ -20,6 +27,17 @@ if (isset($_GET['eliminar'])) {
     } else {
         echo json_encode(["success" => false, "message" => "Error al eliminar la unidad, debe eliminar todas las comunidades asociadas"]);
     }
+    exit();
+}
+
+// Obtener todas las unidades en formato JSON
+if (isset($_GET['obtener_unidades'])) {
+    $resultado = obtenerUnidades($conn);
+    $unidades = [];
+    while ($row = $resultado->fetch_assoc()) {
+        $unidades[] = $row;
+    }
+    echo json_encode($unidades);
     exit();
 }
 
@@ -48,9 +66,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nombre']) && !isset($
     exit();
 }
 
-// Consultar datos de la tabla Unidad
-function obtenerUnidades($conn) {
-    $sql = "SELECT * FROM Unidad";
-    return $conn->query($sql);
-}
 ?>
