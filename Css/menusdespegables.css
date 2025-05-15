@@ -1,0 +1,88 @@
+/* Contenedor del dropdown */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+/* Ícono del dropdown */
+.dropdown-icon {
+    font-size: 24px;
+    color: var(--color-texto-menu);
+    padding: 5px;
+}
+
+/* Menú desplegable */
+.dropdown-menu,
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: var(--color-barra-lateral);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    z-index: 1000;
+    min-width: 120px;
+    padding: 5px 0;
+}
+
+/* Elementos del menú desplegable */
+.dropdown-item,
+.dropdown-content a {
+    display: block;
+    padding: 6px 8px;
+    text-decoration: none;
+    color: var(--color-texto);
+    font-size: 12px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-item:hover,
+.dropdown-content a:hover {
+    background-color: var(--color-switch-base);
+    color: var(--color-linea);
+}
+
+/* Mostrar dropdown al hacer hover */
+.dropdown:hover .dropdown-menu,
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Estilos específicos para dropdown-content */
+.dropdown-content {
+    background-color: #fff;
+    min-width: 120px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.dropdown-content a {
+    text-align: center;
+    padding: 8px 12px;
+    border-radius: 4px;
+}
+
+/* Estilos para opciones específicas */
+.dropdown-content a:first-child {
+    background-color: var(--color-barra-lateral);
+    color: var(--color-boton-texto);
+    font-weight: bold;
+}
+
+.dropdown-content a:first-child:hover {
+    background-color: var(--color-menu);
+}
+
+.dropdown-content a:last-child {
+    background-color: var(--color-boton);
+    color: var(--color-boton-texto);
+    font-weight: normal;
+}
+
+.dropdown-content a:last-child:hover {
+    background-color: var(--color-menu-texto);
+    color: #000;
+}

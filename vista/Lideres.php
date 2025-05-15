@@ -197,17 +197,6 @@ $sql = "SELECT * FROM Lider";
 $result = $conn->query($sql);
 ?>
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Líderes</title>
-    <link rel="stylesheet" href="../Css/Lider.css">
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-</head>
-<body>
     <?php if (isset($_SESSION['mensaje'])): ?>
         <div class="notification <?php echo $_SESSION['mensaje']['tipo']; ?>" id="notification">
             <?php 
@@ -217,7 +206,8 @@ $result = $conn->query($sql);
         </div>
     <?php endif; ?>
 
-    <!-- Modal para agregar líder -->
+    <div class="container">
+        <!-- Modal para agregar líder -->
     <div id="modal-agregar" class="modal" style="display: none;">
         <div class="modal-content">
             <span id="btn-cerrar-modal" class="close">&times;</span>
@@ -433,6 +423,7 @@ $result = $conn->query($sql);
             </tbody>
         </table>
     </div>
+    </div>
     <script>
     document.addEventListener('DOMContentLoaded', function () {
         const modalAgregar = document.getElementById('modal-agregar');
@@ -487,5 +478,3 @@ $result = $conn->query($sql);
         }
     });
     </script>
-</body>
-</html>

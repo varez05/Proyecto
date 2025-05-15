@@ -1,0 +1,26 @@
+<!-- Formulario para agregar una nueva unidad -->
+<div class="modal" id="agregar-container">
+    <div class="modal-content">
+        <h2>Agregar Unidad</h2>
+        <form action="../Controladores/UnidadesController.php" method="POST" class="form-modificar">
+            <label for="nombre">Nombre de la Unidad:</label>
+            <input type="text" id="nombre" name="nombre" required>
+            <button type="submit">Guardar</button>
+            <a href="#" id="btn-cancelar-agregar" class="btn-cancelar" onclick="cerrarModal('agregar-container')">Cancelar</a>
+        </form>
+    </div>
+</div>
+
+<!-- Formulario para editar una unidad existente -->
+<div class="modal" id="editar-container">
+    <div class="modal-content">
+        <h2>Editar Unidad</h2>
+        <form id="form-editar" action="../Controladores/UnidadesController.php" method="POST" class="form-modificar">
+            <input type="hidden" id="id_unidad" name="id_unidad">
+            <label for="nombre">Nuevo Nombre de la Unidad:</label>
+            <input type="text" id="nombre-editar" name="nombre" required>
+            <button type="submit">Guardar Cambios</button>
+            <a href="#" id="btn-cancelar-editar" class="btn-cancelar" onclick="cerrarModal('editar-container')">Cancelar</a>
+        </form>
+    </div>
+</div>

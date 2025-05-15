@@ -1,0 +1,71 @@
+/* Variables globales */
+:root {
+    --color-barra-lateral: #f5f5f5; /* Fondo gris claro */
+    --color-texto: #2c2c2c;                   
+    --color-texto-menu: #333333;               
+    --color-boton: #F4C542;                   
+    --color-boton-texto: #000000;               
+    --color-menu: #eaeaea; /* Fondo general más suave */
+    --color-menu-texto: #1eafad;        
+    --color-linea: #14b8a6;                     
+    --color-switch-base: #A4E4EA;              
+    --color-switch-circulo: #74D0DB;           
+    --color-scroll: rgb(192, 192, 192);        
+    --color-scroll-hover: rgb(134,134,134);    
+}
+
+/* Importar fuente */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* Estilos base */
+body {
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--color-texto);
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-barra-lateral);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+    width: 95%;
+    max-width: 1250px;
+    margin: 20px auto;
+    background: var(--color-menu);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+h1, h2 {
+    text-align: center;
+    color: var(--color-menu-texto);
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+/* Scrollbar personalizado */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-scroll);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-scroll-hover);
+    border-radius: 10px;
+    border: 2px solid var(--color-menu);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-menu-texto);
+}

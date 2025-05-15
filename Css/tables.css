@@ -1,0 +1,77 @@
+/* Estilos generales de tabla */
+.tabla-lideres,
+.tabla-familias,
+.tabla-unidades,
+.tabla-section table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 14px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Estilos para las celdas */
+.tabla-lideres th, .tabla-lideres td,
+.tabla-familias th, .tabla-familias td,
+.tabla-unidades th, .tabla-unidades td,
+.tabla-section table th, .tabla-section table td {
+    border: 1px solid var(--color-linea);
+    padding: 12px;
+    text-align: center;
+}
+
+/* Estilos para los encabezados */
+.tabla-lideres th,
+.tabla-familias th,
+.tabla-unidades th,
+.tabla-section table th {
+    background-color: var(--color-linea);
+    color: var(--color-barra-lateral);
+    font-weight: 600;
+}
+
+/* Filas alternadas */
+.tabla-lideres tr:nth-child(even),
+.tabla-familias tr:nth-child(even),
+.tabla-unidades tr:nth-child(even),
+.tabla-section table tbody tr:nth-child(even) {
+    background-color: var(--color-switch-base);
+}
+
+/* Hover en filas */
+.tabla-lideres tr:hover,
+.tabla-familias tr:hover,
+.tabla-unidades tr:hover,
+.tabla-section table tbody tr:hover {
+    background-color: var(--color-switch-circulo);
+    transition: background-color 0.3s ease;
+}
+
+/* Contenedor de tablas */
+.table-section,
+.tabla {
+    margin: 20px auto;
+    width: 80%;
+    background-color: var(--color-menu);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Mensaje de no registros */
+.no-records {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    font-style: italic;
+}
+
+/* Imágenes de perfil en tablas */
+.profile-img, .current-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--color-linea);
+}

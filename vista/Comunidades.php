@@ -106,16 +106,6 @@ $sql_comunidades = "SELECT c.Id_comunidad, c.Nombre_comunidad, c.Autoridad, c.Id
 $resultado_comunidades = $conn->query($sql_comunidades);
 ?>
 
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Comunidades</title>
-    <link rel="stylesheet" href="../Css/Comunidades.css">
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
     <script>
         function toggleForm(esEditar = false) {
@@ -165,106 +155,104 @@ $resultado_comunidades = $conn->query($sql_comunidades);
             }
         }, 5000);
     </script>
-</head>
 
-<body>
+<div class="container">
     <div class="header-section">
-        <h1>Gestión de Comunidades</h1>
-        <button onclick="toggleForm()">Nueva Comunidad</button>
-    </div>
+    <h1>Gestión de Comunidades</h1>
+    <button onclick="toggleForm()">Nueva Comunidad</button>
+</div>
 
-    <?php if (isset($mensaje)): ?>
-        <div class="mensaje" id="mensaje"><?php echo $mensaje; ?></div>
-    <?php endif; ?>
+<?php if (isset($mensaje)): ?>
+    <div class="mensaje" id="mensaje"><?php echo $mensaje; ?></div>
+<?php endif; ?>
 
-    <div class="form-section" id="formModal" style="<?php echo (isset($comunidad_editar)) ? 'display:flex' : 'display:none'; ?>">
-        <div class="form-container">
-            <span class="close-icon" onclick="toggleForm()">×</span>
-            <h2 id="tituloFormulario"><?php echo (isset($comunidad_editar)) ? 'Editar Comunidad' : 'Registrar Nueva Comunidad'; ?></h2>
-            <form id="formularioComunidad" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                <input type="hidden" id="accion" name="accion" value="<?php echo (isset($comunidad_editar)) ? 'actualizar' : 'agregar'; ?>">
-                <input type="hidden" id="id_comunidad" name="id_comunidad" value="<?php echo (isset($comunidad_editar)) ? $comunidad_editar['Id_comunidad'] : ''; ?>">
+<div class="form-section" id="formModal" style="<?php echo (isset($comunidad_editar)) ? 'display:flex' : 'display:none'; ?>">
+    <div class="form-container">
+        <span class="close-icon" onclick="toggleForm()">×</span>
+        <h2 id="tituloFormulario"><?php echo (isset($comunidad_editar)) ? 'Editar Comunidad' : 'Registrar Nueva Comunidad'; ?></h2>
+        <form id="formularioComunidad" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+            <input type="hidden" id="accion" name="accion" value="<?php echo (isset($comunidad_editar)) ? 'actualizar' : 'agregar'; ?>">
+            <input type="hidden" id="id_comunidad" name="id_comunidad" value="<?php echo (isset($comunidad_editar)) ? $comunidad_editar['Id_comunidad'] : ''; ?>">
 
-                <div class="form-group">
-                    <label for="nombre_comunidad">Nombre de la Comunidad:</label>
-                    <input type="text" id="nombre_comunidad" name="nombre_comunidad"
-                        value="<?php echo (isset($comunidad_editar)) ? $comunidad_editar['Nombre_comunidad'] : ''; ?>" required>
-                </div>
+            <div class="form-group">
+                <label for="nombre_comunidad">Nombre de la Comunidad:</label>
+                <input type="text" id="nombre_comunidad" name="nombre_comunidad"
+                    value="<?php echo (isset($comunidad_editar)) ? $comunidad_editar['Nombre_comunidad'] : ''; ?>" required>
+            </div>
 
-                <div class="form-group">
-                    <label for="autoridad">Autoridad:</label>
-                    <input type="text" id="autoridad" name="autoridad"
-                        value="<?php echo (isset($comunidad_editar)) ? $comunidad_editar['Autoridad'] : ''; ?>" required>
-                </div>
+            <div class="form-group">
+                <label for="autoridad">Autoridad:</label>
+                <input type="text" id="autoridad" name="autoridad"
+                    value="<?php echo (isset($comunidad_editar)) ? $comunidad_editar['Autoridad'] : ''; ?>" required>
+            </div>
 
-                <div class="form-group">
-                    <label for="id_unidad">Unidad:</label>
-                    <select id="id_unidad" name="id_unidad" required>
-                        <option value="">Seleccione una unidad</option>
-                        <?php
-                        // Reiniciamos el puntero del resultado
-                        $resultado_unidades->data_seek(0);
-                        if ($resultado_unidades->num_rows > 0) {
-                            while ($row = $resultado_unidades->fetch_assoc()) {
-                                $selected = (isset($comunidad_editar) && $comunidad_editar['Id_unidad'] == $row["Id_unidad"]) ? 'selected' : '';
-                                echo "<option value='" . $row["Id_unidad"] . "' $selected>" . $row["Nombre"] . "</option>";
-                            }
-                        }
-                        ?>
-                    </select>
-                </div>
-
-                <button type="submit"><?php echo (isset($comunidad_editar)) ? 'Actualizar' : 'Guardar'; ?></button>
-            </form>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="table-section">
-            <h2>Comunidades Registradas</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre de Comunidad</th>
-                        <th>Autoridad</th>
-                        <th>Unidad</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
+            <div class="form-group">
+                <label for="id_unidad">Unidad:</label>
+                <select id="id_unidad" name="id_unidad" required>
+                    <option value="">Seleccione una unidad</option>
                     <?php
-                    if ($resultado_comunidades->num_rows > 0) {
-                        while ($row = $resultado_comunidades->fetch_assoc()) {
-                            echo "<tr>";
-                            echo "<td>" . $row["Id_comunidad"] . "</td>";
-                            echo "<td>" . $row["Nombre_comunidad"] . "</td>";
-                            echo "<td>" . $row["Autoridad"] . "</td>";
-                            echo "<td>" . $row["Nombre_unidad"] . "</td>";
-                            echo "<td class='dropdown'>
-                                    <div class='menu-icon' onclick='toggleDropdown(" . $row["Id_comunidad"] . ")'>
-                                        <ion-icon name='ellipsis-vertical-outline'></ion-icon>
-                                    </div>
-                                    <div id='menu-" . $row["Id_comunidad"] . "' class='dropdown-content'>
-                                        <a href='?editar=" . $row["Id_comunidad"] . "'>Modificar</a>
-                                        <a href='?eliminar=" . $row["Id_comunidad"] . "' onclick='return confirm(\"¿Está seguro de eliminar esta comunidad?\")'>Eliminar</a>
-                                    </div>
-                                </td>";
-                            echo "</tr>";
+                    // Reiniciamos el puntero del resultado
+                    $resultado_unidades->data_seek(0);
+                    if ($resultado_unidades->num_rows > 0) {
+                        while ($row = $resultado_unidades->fetch_assoc()) {
+                            $selected = (isset($comunidad_editar) && $comunidad_editar['Id_unidad'] == $row["Id_unidad"]) ? 'selected' : '';
+                            echo "<option value='" . $row["Id_unidad"] . "' $selected>" . $row["Nombre"] . "</option>";
                         }
-                    } else {
-                        echo "<tr><td colspan='5'>No hay comunidades registradas</td></tr>";
                     }
                     ?>
-                </tbody>
-            </table>
-        </div>
+                </select>
+            </div>
+
+            <button type="submit"><?php echo (isset($comunidad_editar)) ? 'Actualizar' : 'Guardar'; ?></button>
+        </form>
     </div>
+</div>
 
-    <?php
-    // Cerrar la conexión
-    $conn->close();
-    ?>
-</body>
+    <!-- Contenedor para mensajes -->
+    <div id="mensaje" class="mensaje" style="display: none;"></div>
 
-</html>
+    <!-- Tabla de Comunidades -->
+    <h2>Lista de Comunidades</h2>
+    <table class="tabla-lideres">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre de Comunidad</th>
+                <th>Autoridad</th>
+                <th>Unidad</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if ($resultado_comunidades->num_rows > 0): ?>
+                <?php while ($row = $resultado_comunidades->fetch_assoc()): ?>
+                    <tr>
+                        <td class="center"><?php echo $row['Id_comunidad']; ?></td>
+                        <td><?php echo htmlspecialchars($row['Nombre_comunidad']); ?></td>
+                        <td><?php echo htmlspecialchars($row['Autoridad']); ?></td>
+                        <td><?php echo htmlspecialchars($row['Nombre_unidad']); ?></td>
+                        <td class="center">
+                            <div class="dropdown">
+                                <ion-icon name="ellipsis-vertical-outline" class="dropdown-icon"></ion-icon>
+                                <div class="dropdown-menu">
+                                    <a href="?editar=<?php echo $row['Id_comunidad']; ?>" class="dropdown-item">Modificar</a>
+                                    <a href="?eliminar=<?php echo $row['Id_comunidad']; ?>" class="dropdown-item btn-eliminar" 
+                                       onclick="return confirm('¿Está seguro de eliminar esta comunidad?');">Eliminar</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="5" class="center">No hay comunidades registradas</td>
+                </tr>
+            <?php endif; ?>
+        </tbody>
+    </table>
+</div>
+
+<?php
+// Cerrar la conexión
+$conn->close();
+?>

@@ -1,0 +1,69 @@
+/* Estilos de botones estándar */
+button,
+.btn-modificar,
+.btn-eliminar,
+.btn-cancelar {
+    background-color: var(--color-boton);
+    color: var(--color-boton-texto);
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-decoration: none;
+}
+
+button:hover,
+.btn-modificar:hover,
+.btn-eliminar:hover,
+.btn-cancelar:hover {
+    background-color: var(--color-linea);
+    color: var(--color-barra-lateral);
+    transform: scale(1.05);
+}
+
+/* Botones específicos de header */
+.header-container button,
+.header-section button,
+.gestion-contenedor button,
+.header button {
+    background-color: var(--color-boton);
+    color: var(--color-boton-texto);
+}
+
+/* Variante para botón más pequeño */
+.gestion-contenedor button {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+.gestion-contenedor button:hover {
+    transform: translateY(-2px);
+}
+
+/* Botones de formulario */
+.form-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.form-buttons button {
+    padding: 8px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: var(--color-linea);
+    color: white;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.form-buttons button:hover {
+    background-color: var(--color-switch-circulo);
+}
