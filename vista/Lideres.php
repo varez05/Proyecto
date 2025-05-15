@@ -311,6 +311,3 @@ $result = listarLideres($conn);
         }
     });
     </script>
-    <script src="../Script/lideres.js"></script>
-</body>
-</html>
