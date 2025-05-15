@@ -101,10 +101,7 @@
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: new URLSearchParams({
-                    tipoDocumento: 'CC', // Cambiar por el tipo de documento deseado
-                    numeroDocumento: '12345678' // Cambiar por el número de documento deseado
-                })
+                
             })
             .then(response => response.json())
             .then(data => {
