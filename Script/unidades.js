@@ -93,9 +93,7 @@ function editarUnidad(event, idUnidad, nombreUnidad) {
     // Cargar los datos en el modal
     document.getElementById('id_unidad').value = idUnidad;
     document.getElementById('nombre-editar').value = nombreUnidad;
-
-    // Mostrar el modal de edición
-    document.getElementById('editar-container').style.display = 'block';
+    btnAbrirModal('editar-container')
 
     // Manejar el envío del formulario de edición
     const formularioEditar = document.getElementById('form-editar');
@@ -115,6 +113,7 @@ function editarUnidad(event, idUnidad, nombreUnidad) {
 
             if (data.success) {
                 location.reload(); // Recargar la página para reflejar los cambios
+                cerrarModal('editar-container')
             }
         })
         .catch(error => {
