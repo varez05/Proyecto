@@ -1,5 +1,6 @@
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
         
+       
         body {
             background-color: #f8f9fa;
             font-family: 'Arial', sans-serif;
@@ -26,5 +27,16 @@
         .btn-primary:hover {
             background-color: #2e59d9;
             border-color: #2e59d9;
+        }
+        table th {
+            width: 30%;
+            background-color: #f4f6ff;
+        }
+        .table-responsive {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .table {
+            font-size: 0.9rem;
         }
     
