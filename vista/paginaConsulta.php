@@ -6,6 +6,6 @@
     <title>Consultar</title>
 </head>
 <body>
-    
+    <h1>Si eres beneficiario</h1>
 </body>
 </html>

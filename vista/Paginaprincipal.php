@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="../Css/Paginaprincipal.css">
     <link rel="stylesheet" href="../Css/Contactanos.css">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-    <link rel="stylesheet" href="../Css/consultaForms.css">
 </head>
 <body>
     <header class="header">
