@@ -15,7 +15,7 @@
             <div class="nav_menu">
                 <ul class="menuitem">
                     <li class="menuitem"><a class="nav_link">Inicio</a></li>                    
-                    <li class="menuitem"><a class="nav_link">Sobre Nosotros</a></li>
+                    <li class="menuitem"><a class="nav_link" href="sobrenosotros.php">Sobre Nosotros</a></li>
                     <li class="menuitem"><a class="nav_link" onclick="showModal()">Contáctanos</a></li>
                 
                 </ul>

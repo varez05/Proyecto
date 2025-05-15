@@ -71,9 +71,19 @@ $result = listarLideres($conn);
                                 <div class="dropdown">
                                     <ion-icon name="ellipsis-vertical-outline" class="dropdown-icon"></ion-icon>
                                     <div class="dropdown-menu">
-                                        <a href="Lideres.php?modificar=<?php echo $row['Id_lider']; ?>" class="dropdown-item">Modificar</a>
-                                        <a href="Lideres.php?eliminar=<?php echo $row['Id_lider']; ?>" class="dropdown-item btn-eliminar" 
-                                           onclick="return confirm('¿Está seguro de eliminar este líder?');">Eliminar</a>
+                                        <a class="dropdown-item" onclick="editarLider({
+                                            Id_lider: <?php echo $row['Id_lider']; ?>,
+                                            Tipo_documento: '<?php echo htmlspecialchars($row['Tipo_documento']); ?>',
+                                            Numero_documento: '<?php echo htmlspecialchars($row['Numero_documento']); ?>',
+                                            Nombres: '<?php echo htmlspecialchars($row['Nombres']); ?>',
+                                            Apellidos: '<?php echo htmlspecialchars($row['Apellidos']); ?>',
+                                            Fecha_nacimiento: '<?php echo htmlspecialchars($row['Fecha_nacimiento']); ?>',
+                                            Sexo: '<?php echo htmlspecialchars($row['Sexo']); ?>',
+                                            Correo: '<?php echo htmlspecialchars($row['Correo']); ?>',
+                                            Telefono: '<?php echo htmlspecialchars($row['Telefono']); ?>',
+                                            Rol: '<?php echo htmlspecialchars($row['Rol']); ?>'
+                                        })">Modificar</a>
+                                        <a class="dropdown-item" onclick="eliminarLiderHandler(event, <?php echo $row['Id_lider']; ?>)">Eliminar</a>
                                     </div>
                                 </div>
                             </td>

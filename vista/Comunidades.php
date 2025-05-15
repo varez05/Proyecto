@@ -47,14 +47,13 @@ $resultado_comunidades = $conn->query($sql_comunidades);
                             <div class="dropdown">
                                 <ion-icon name="ellipsis-vertical-outline" class="dropdown-icon"></ion-icon>
                                 <div class="dropdown-menu">
-                                    <a href="#" class="dropdown-item" onclick="editarComunidad({
+                                    <a class="dropdown-item" onclick="editarComunidad({
                                         Id_comunidad: <?php echo $row['Id_comunidad']; ?>,
                                         Nombre_comunidad: '<?php echo htmlspecialchars($row['Nombre_comunidad']); ?>',
                                         Autoridad: '<?php echo htmlspecialchars($row['Autoridad']); ?>',
                                         Id_unidad: <?php echo $row['Id_unidad']; ?>
                                     })">Modificar</a>
-                                    <a href="?eliminar=<?php echo $row['Id_comunidad']; ?>" class="dropdown-item btn-eliminar"
-                                        onclick="return confirm('¿Está seguro de eliminar esta comunidad?');">Eliminar</a>
+                                    <a class="dropdown-item" onclick="eliminarComunidadHandler(event, <?php echo $row['Id_comunidad']; ?>)">Eliminar</a>
                                 </div>
                             </div>
                         </td>

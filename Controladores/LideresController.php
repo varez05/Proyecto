@@ -57,7 +57,7 @@ $conn = conectarBaseDatos();
 
 header('Content-Type: application/json'); // Establecer el encabezado para JSON
 
-// Eliminar líder
+// Manejo de eliminación de líder
 if (isset($_GET['eliminar'])) {
     $id = intval($_GET['eliminar']);
     $sql = "DELETE FROM Lider WHERE Id_lider = $id";
@@ -69,7 +69,7 @@ if (isset($_GET['eliminar'])) {
     exit();
 }
 
-// Modificar líder
+// Manejo de edición de líder
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_lider'])) {
     $id = intval($_POST['id_lider']);
     $tipo_documento = $conn->real_escape_string($_POST['tipo_documento']);
@@ -105,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_lider'])) {
     exit();
 }
 
-// Agregar líder
+// Manejo de agregar líder
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['id_lider'])) {
     $tipo_documento = $conn->real_escape_string($_POST['tipo_documento']);
     $numero_documento = $conn->real_escape_string($_POST['numero_documento']);
@@ -116,36 +116,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['id_lider'])) {
     $correo = $conn->real_escape_string($_POST['correo']);
     $telefono = $conn->real_escape_string($_POST['telefono']);
     $rol = $conn->real_escape_string($_POST['rol']);
-    $check_documento_query = "SELECT * FROM Lider WHERE Numero_documento = '$numero_documento'";
-    $check_documento_result = $conn->query($check_documento_query);
-    $check_correo_query = "SELECT * FROM Lider WHERE Correo = '$correo'";
-    $check_correo_result = $conn->query($check_correo_query);
-    $check_telefono_query = "SELECT * FROM Lider WHERE Telefono = '$telefono'";
-    $check_telefono_result = $conn->query($check_telefono_query);
-    if ($check_documento_result->num_rows > 0) {
-        echo json_encode(["success" => false, "message" => "Error: Ya existe un líder con ese número de documento"]);
-        exit();
-    } elseif ($check_correo_result->num_rows > 0) {
-        echo json_encode(["success" => false, "message" => "Error: Ya existe un líder con ese correo electrónico"]);
-        exit();
-    } elseif ($check_telefono_result->num_rows > 0) {
-        echo json_encode(["success" => false, "message" => "Error: Ya existe un líder con ese número de teléfono"]);
-        exit();
+    $img = procesarImagen($_FILES, "lider");
+    $sql = "INSERT INTO Lider (Tipo_documento, Numero_documento, Nombres, Apellidos, Fecha_nacimiento, Sexo, Correo, Telefono, Rol, Img) VALUES ('$tipo_documento', '$numero_documento', '$nombres', '$apellidos', '$fecha_nacimiento', '$sexo', '$correo', '$telefono', '$rol', '$img')";
+    if ($conn->query($sql)) {
+        echo json_encode(["success" => true, "message" => "Líder agregado correctamente"]);
     } else {
-        $fecha_actual = date('Y-m-d');
-        if ($fecha_nacimiento > $fecha_actual) {
-            echo json_encode(["success" => false, "message" => "Error: La fecha de nacimiento no puede ser mayor a la fecha actual"]);
-            exit();
-        } else {
-            $img = procesarImagen($_FILES, "lider");
-            $sql = "INSERT INTO Lider (Tipo_documento, Numero_documento, Nombres, Apellidos, Fecha_nacimiento, Sexo, Correo, Telefono, Rol, Img) VALUES ('$tipo_documento', '$numero_documento', '$nombres', '$apellidos', '$fecha_nacimiento', '$sexo', '$correo', '$telefono', '$rol', '$img')";
-            if ($conn->query($sql)) {
-                echo json_encode(["success" => true, "message" => "Líder agregado correctamente"]);
-            } else {
-                echo json_encode(["success" => false, "message" => "Error al agregar el líder: " . $conn->error]);
-            }
-            exit();
-        }
+        echo json_encode(["success" => false, "message" => "Error al agregar el líder: " . $conn->error]);
     }
+    exit();
 }
 ?>

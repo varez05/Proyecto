@@ -2,7 +2,7 @@
 <div class="modal" id="agregar-comunidad-container">
     <div class="modal-content">
         <h2>Agregar Comunidad</h2>
-        <form id="form-agregar-comunidad" method="post" action="" class="form-modificar">
+        <form id="form-agregar-comunidad" method="post" action="../Controladores/ComunidadesController.php" class="form-modificar">
             <input type="hidden" id="accion" name="accion" value="agregar">
             <input type="hidden" id="id_comunidad" name="id_comunidad" value="">
             <div class="form-group">
