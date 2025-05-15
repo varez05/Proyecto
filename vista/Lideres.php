@@ -88,3 +88,5 @@ $result = listarLideres($conn);
         </table>
     </div>
     </div>
+
+<script src="../Script/lideres.js"></script>

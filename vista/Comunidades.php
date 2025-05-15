@@ -61,6 +61,7 @@ $resultado_comunidades = $conn->query($sql_comunidades);
         }
     }, 5000);
 </script>
+<script src="../Script/comunidades.js"></script>
 
 <div class="container">
     <div class="header-section">
