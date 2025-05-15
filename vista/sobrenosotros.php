@@ -7,11 +7,14 @@
     <link rel="stylesheet" href="../Css/sobrenosotros.css">
 </head>
 <body>
-    <a href="Paginaprincipal.php" class="btn" style="margin: 20px; display: inline-block;">Regresar a la página principal</a>
     <header>
         <div class="container header-container">
             <div class="logo">Fundación Koutuushi Wapushua</div>
-            
+            <nav>
+                <ul>
+                    <li style="margin-left:auto;"><a href="Paginaprincipal.php" class="btn">Volver a la página principal</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
