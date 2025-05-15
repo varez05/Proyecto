@@ -1,200 +1,33 @@
 <?php
-/**
- * Lideres.php - Sistema de gestión de líderes
- * 
- * Este archivo maneja las operaciones CRUD para la entidad Lider
- * en la base de datos corporacion.
- */
+require_once '../Controladores/LideresController.php';
 
-// Inicializar sesión y conectar a la base de datos
-session_start();
-
-// Configuración de la base de datos
-define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASS', '');
-define('DB_NAME', 'corporacion');
-define('UPLOAD_DIR', '../uploads/');
-
-// Funciones de utilidad
-function conectarBaseDatos() {
-    $conn = new mysqli("b8b6wjxwwgatbkzi3sc7-mysql.services.clever-cloud.com", "uvzy20bldxipuq8x", "cTXQO8Rz00laC0L5lFP8", "b8b6wjxwwgatbkzi3sc7");
-    if ($conn->connect_error) {
-        die("Conexión fallida: " . $conn->connect_error);
-    }
-    return $conn;
-}
-
-    function guardarMensaje($mensaje, $tipo = 'success') {
-    $_SESSION['mensaje'] = [
-        'texto' => $mensaje,
-        'tipo' => $tipo
-    ];
-}
-
-function redirigir($ubicacion) {
-    header("Location: $ubicacion");
-    exit();
-}
-
-function procesarImagen($archivos, $prefijo, $id = null) {
-    if (!isset($archivos['img']) || $archivos['img']['error'] != 0) {
-        return "";
-    }
-    
-    // Crear directorio si no existe
-    if (!file_exists(UPLOAD_DIR)) {
-        mkdir(UPLOAD_DIR, 0777, true);
-    }
-    
-    $extension = pathinfo($archivos['img']['name'], PATHINFO_EXTENSION);
-    $nombreArchivo = $prefijo . ($id ? "_" . $id : "") . "_" . time() . "." . $extension;
-    $rutaDestino = UPLOAD_DIR . $nombreArchivo;
-    
-    if (move_uploaded_file($archivos['img']['tmp_name'], $rutaDestino)) {
-        return $nombreArchivo;
-    } else {
-        guardarMensaje("Error al subir la imagen.", 'error');
-        return "";
-    }
-}
-
-function obtenerImagenActual($conn, $id) {
-    $consulta = "SELECT Img FROM Lider WHERE Id_lider = $id";
-    $resultado = $conn->query($consulta);
-    if ($resultado->num_rows > 0) {
-        $fila = $resultado->fetch_assoc();
-        return $fila['Img'];
-    }
-    return "";
-}
-
-// Conexión a la base de datos
 $conn = conectarBaseDatos();
-
-// GESTIÓN DE OPERACIONES CRUD
 
 // 1. Eliminar líder
 if (isset($_GET['eliminar'])) {
     $id = intval($_GET['eliminar']);
-    $sql = "DELETE FROM Lider WHERE Id_lider = $id";
-    
-    if ($conn->query($sql)) {
-        guardarMensaje("Líder eliminado correctamente", "success");
-    } else {
-        guardarMensaje("Error al eliminar el líder", "error");
-    }
-    redirigir("Lideres.php");
+    eliminarLider($conn, $id);
 }
 
 // 2. Modificar líder existente
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_lider'])) {
-    $id = intval($_POST['id_lider']);
-    $tipo_documento = $conn->real_escape_string($_POST['tipo_documento']);
-    $numero_documento = $conn->real_escape_string($_POST['numero_documento']);
-    $nombres = $conn->real_escape_string($_POST['nombres']);
-    $apellidos = $conn->real_escape_string($_POST['apellidos']);
-    $fecha_nacimiento = $conn->real_escape_string($_POST['fecha_nacimiento']);
-    $sexo = $conn->real_escape_string($_POST['sexo']);
-    $correo = $conn->real_escape_string($_POST['correo']);
-    $telefono = $conn->real_escape_string($_POST['telefono']);
-    $rol = $conn->real_escape_string($_POST['rol']);
-    
-    // Procesar imagen o mantener la existente
-    $img = procesarImagen($_FILES, "lider", $id);
-    if (empty($img)) {
-        $img = obtenerImagenActual($conn, $id);
-    }
-    
-    $sql = "UPDATE Lider SET 
-                Tipo_documento = '$tipo_documento', 
-                Numero_documento = '$numero_documento', 
-                Nombres = '$nombres', 
-                Apellidos = '$apellidos', 
-                Fecha_nacimiento = '$fecha_nacimiento', 
-                Sexo = '$sexo', 
-                Correo = '$correo', 
-                Telefono = '$telefono', 
-                Rol = '$rol',
-                Img = '$img'  
-            WHERE Id_lider = $id";
-    
-    if ($conn->query($sql)) {
-        guardarMensaje("Líder modificado correctamente", "success");
-    } else {
-        guardarMensaje("Error al modificar el líder: " . $conn->error, "error");
-    }
-    redirigir("Lideres.php");
+    modificarLider($conn, $_POST, $_FILES);
 }
 
 // 3. Agregar nuevo líder
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['id_lider'])) {
-    $tipo_documento = $conn->real_escape_string($_POST['tipo_documento']);
-    $numero_documento = $conn->real_escape_string($_POST['numero_documento']);
-    $nombres = $conn->real_escape_string($_POST['nombres']);
-    $apellidos = $conn->real_escape_string($_POST['apellidos']);
-    $fecha_nacimiento = $conn->real_escape_string($_POST['fecha_nacimiento']);
-    $sexo = $conn->real_escape_string($_POST['sexo']);
-    $correo = $conn->real_escape_string($_POST['correo']);
-    $telefono = $conn->real_escape_string($_POST['telefono']);
-    $rol = $conn->real_escape_string($_POST['rol']);
-    
-    // Verificar si ya existe el número de documento
-    $check_documento_query = "SELECT * FROM Lider WHERE Numero_documento = '$numero_documento'";
-    $check_documento_result = $conn->query($check_documento_query);
-    
-    // Verificar si ya existe el correo
-    $check_correo_query = "SELECT * FROM Lider WHERE Correo = '$correo'";
-    $check_correo_result = $conn->query($check_correo_query);
-    
-    // Verificar si ya existe el teléfono
-    $check_telefono_query = "SELECT * FROM Lider WHERE Telefono = '$telefono'";
-    $check_telefono_result = $conn->query($check_telefono_query);
-    
-    if ($check_documento_result->num_rows > 0) {
-        echo "<script>alert('Error: Ya existe un líder con ese número de documento');</script>";
-    } elseif ($check_correo_result->num_rows > 0) {
-        guardarMensaje("Error: Ya existe un líder con ese correo electrónico", "error");
-    } elseif ($check_telefono_result->num_rows > 0) {
-        guardarMensaje("Error: Ya existe un líder con ese número de teléfono", "error");
-    } else {
-        // Validar que la fecha de nacimiento no sea mayor a la fecha actual
-        $fecha_actual = date('Y-m-d');
-        if ($fecha_nacimiento > $fecha_actual) {
-            guardarMensaje("Error: La fecha de nacimiento no puede ser mayor a la fecha actual", "error");
-        } else {
-            // Procesar imagen
-            $img = procesarImagen($_FILES, "lider");
-            
-            $sql = "INSERT INTO Lider (Tipo_documento, Numero_documento, Nombres, Apellidos, Fecha_nacimiento, 
-                                      Sexo, Correo, Telefono, Rol, Img) 
-                    VALUES ('$tipo_documento', '$numero_documento', '$nombres', '$apellidos', '$fecha_nacimiento', 
-                           '$sexo', '$correo', '$telefono', '$rol', '$img')";
-            
-            if ($conn->query($sql)) {
-                guardarMensaje("Líder agregado correctamente", "success");
-            } else {
-                guardarMensaje("Error al agregar el líder: " . $conn->error, "error");
-            }
-            redirigir("Lideres.php");
-        }
-    }
+    agregarLider($conn, $_POST, $_FILES);
 }
 
 // 4. Consultar líder para modificar
 $lider = null;
 if (isset($_GET['modificar'])) {
     $id = intval($_GET['modificar']);
-    $sql = "SELECT * FROM Lider WHERE Id_lider = $id";
-    $result = $conn->query($sql);
-    if ($result->num_rows > 0) {
-        $lider = $result->fetch_assoc();
-    }
+    $lider = consultarLider($conn, $id);
 }
 
 // 5. Listar todos los líderes
-$sql = "SELECT * FROM Lider";
-$result = $conn->query($sql);
+$result = listarLideres($conn);
 ?>
 
     <?php if (isset($_SESSION['mensaje'])): ?>
@@ -478,3 +311,6 @@ $result = $conn->query($sql);
         }
     });
     </script>
+    <script src="../Script/lideres.js"></script>
+</body>
+</html>
