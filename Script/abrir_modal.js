@@ -26,3 +26,13 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 };
+
+// Cerrar el modal de Contactanos si se da click en la barra de navegación
+const navBar = document.querySelector('nav.nav');
+if (navBar) {
+    navBar.addEventListener('click', function(event) {
+        if (modal.style.display === "block") {
+            modal.style.display = "none";
+        }
+    });
+}
