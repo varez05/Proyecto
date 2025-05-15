@@ -99,4 +99,16 @@ document.addEventListener('DOMContentLoaded', function() {
             alerta.remove();
         }, 3000);
     }
+
+    /**
+     * Abre el modal de edición de comunidad y carga los datos en el formulario.
+     * @param {Object} comunidad Objeto con los datos de la comunidad a editar
+     */
+    function editarComunidad(comunidad) {
+        document.getElementById('id_comunidad').value = comunidad.Id_comunidad;
+        document.getElementById('nombre_comunidad_editar').value = comunidad.Nombre_comunidad;
+        document.getElementById('autoridad_comunidad_editar').value = comunidad.Autoridad;
+        document.getElementById('unidad_comunidad_editar').value = comunidad.Id_unidad;
+        btnAbrirModal('editar-comunidad-container');
+    }
 });

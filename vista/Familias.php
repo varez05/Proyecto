@@ -228,3 +228,5 @@ foreach ($queries as $key => $query) {
         </table>
     </div>
 </div>
+
+<script src="../Script/familias.js"></script>
