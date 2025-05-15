@@ -2,39 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="../Css/paginaconsulta.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consultar</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #f8f9fa;
-            font-family: 'Arial', sans-serif;
-        }
-        .main-container {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-content {
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        .modal-header {
-            background-color: #4e73df;
-            color: white;
-            border-radius: 15px 15px 0 0;
-        }
-        .btn-primary {
-            background-color: #4e73df;
-            border-color: #4e73df;
-        }
-        .btn-primary:hover {
-            background-color: #2e59d9;
-            border-color: #2e59d9;
-        }
-    </style>
+   
 </head>
 <body>
     <div class="main-container">
