@@ -1,9 +1,9 @@
 /* styles.css */
 :root {
     --color-primary: #14b8a6;
-    --color-secondary: #0da08f;
+    --color-secondary: #14b8a6;
     --color-accent: #f1c40f;
-    --color-dark: #382c26;
+    --color-dark: #263238;
     --color-light: #f9f9f9;
     --color-text: #333333;
 }
