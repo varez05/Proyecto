@@ -28,7 +28,7 @@
                 </select>
             </div>
             <button type="submit">Guardar</button>
-            <a href="#" id="btn-cancelar-agregar-comunidad" class="btn-cancelar" onclick="cerrarModal('agregar-comunidad-container')">Cancelar</a>
+            <a class="btn-cancelar" onclick="cerrarModal('agregar-comunidad-container')">Cancelar</a>
         </form>
     </div>
 </div>
@@ -62,7 +62,7 @@
                 </select>
             </div>
             <button type="submit">Guardar Cambios</button>
-            <a href="#" id="btn-cancelar-editar-comunidad" class="btn-cancelar" onclick="cerrarModal('editar-comunidad-container')">Cancelar</a>
+            <a class="btn-cancelar" onclick="cerrarModal('editar-comunidad-container')">Cancelar</a>
         </form>
     </div>
 </div>
