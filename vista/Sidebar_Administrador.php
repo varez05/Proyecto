@@ -123,11 +123,17 @@
         <?php
             include '../modales/ModalUnidades.html';  // crear y editar
             include '../modales/ModalLider.html';  // crear y editar
+            include '../modales/ModalComunidades.php';
+            // include '../modales/ModalFamilias.php';
         ?>
    <!--  -->
 
    <script src="../Script/unidades.js"></script>
    <script src="../Script/modal.js"></script>
+   <script src="../Script/comunidades.js"></script>
+   <script src="../Script/familias.js"></script>
+   
+   
    <script>
       async function mostrarSeccion(event, id, url) {
         event.preventDefault(); // Evita la redirección

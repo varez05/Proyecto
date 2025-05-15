@@ -14,17 +14,9 @@
                 <input type="text" id="autoridad" name="autoridad" required>
             </div>
             <div class="form-group">
-                <label for="id_unidad">Unidad:</label>
-                <select id="id_unidad" name="id_unidad" required>
+                <label for="id_unidad_comunidades">Unidad:</label>
+                <select id="id_unidad_comunidades" name="id_unidad" required>
                     <option value="">Seleccione una unidad</option>
-                    <?php
-                    $resultado_unidades->data_seek(0);
-                    if ($resultado_unidades->num_rows > 0) {
-                        while ($row = $resultado_unidades->fetch_assoc()) {
-                            echo "<option value='" . $row["Id_unidad"] . "'>" . $row["Nombre"] . "</option>";
-                        }
-                    }
-                    ?>
                 </select>
             </div>
             <button type="submit">Guardar</button>
@@ -51,14 +43,6 @@
                 <label for="id_unidad_editar">Unidad:</label>
                 <select id="id_unidad_editar" name="id_unidad" required>
                     <option value="">Seleccione una unidad</option>
-                    <?php
-                    $resultado_unidades->data_seek(0);
-                    if ($resultado_unidades->num_rows > 0) {
-                        while ($row = $resultado_unidades->fetch_assoc()) {
-                            echo "<option value='" . $row["Id_unidad"] . "'>" . $row["Nombre"] . "</option>";
-                        }
-                    }
-                    ?>
                 </select>
             </div>
             <button type="submit">Guardar Cambios</button>

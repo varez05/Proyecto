@@ -119,3 +119,22 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 5000);
     });
 });
+
+/**
+ * Abre el modal de edición de familia y carga los datos en el formulario.
+ * @param {Object} familia Objeto con los datos de la familia a editar
+ */
+function editarFamilia(familia) {
+    document.getElementById('id_familia_editar').value = familia.Id_familia;
+    document.getElementById('tipo_documento_familia_editar').value = familia.Tipo_documento;
+    document.getElementById('numero_documento_familia_editar').value = familia.Numero_documento;
+    document.getElementById('nombres_familia_editar').value = familia.Nombres;
+    document.getElementById('apellidos_familia_editar').value = familia.Apellidos;
+    document.getElementById('fecha_inscripcion_familia_editar').value = familia.Fecha_inscripcion;
+    document.getElementById('tipo_usuario_familia_editar').value = familia.Tipo_usuario;
+    document.getElementById('direccion_familia_editar').value = familia.Direccion;
+    document.getElementById('madre_familia_editar').value = familia.Id_madre;
+    document.getElementById('padre_familia_editar').value = familia.Id_padre;
+    document.getElementById('cuidador_familia_editar').value = familia.Id_cuidador;
+    btnAbrirModal('editar-familia-container');
+}
