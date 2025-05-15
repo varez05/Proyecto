@@ -122,10 +122,12 @@
    <!-- MODALES -->
         <?php
             include '../modales/ModalUnidades.html';  // crear y editar
+            include '../modales/ModalLider.html';  // crear y editar
         ?>
    <!--  -->
 
    <script src="../Script/unidades.js"></script>
+   <script src="../Script/modal.js"></script>
    <script>
       async function mostrarSeccion(event, id, url) {
         event.preventDefault(); // Evita la redirección
