@@ -12,6 +12,8 @@ if ($conn->connect_error) {
 
 header('Content-Type: application/json');
 
+
+// actualizar / insertar
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $accion = $_POST['accion'] ?? '';
     if ($accion == 'actualizar') {
@@ -46,6 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
+// aliminar
 if (isset($_GET['eliminar'])) {
     $id_eliminar = $_GET['eliminar'];
     $sql_eliminar = "DELETE FROM Comunidad WHERE Id_comunidad = ?";

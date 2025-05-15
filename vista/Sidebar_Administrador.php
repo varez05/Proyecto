@@ -132,6 +132,7 @@
    <script src="../Script/modal.js"></script>
    <script src="../Script/comunidades.js"></script>
    <script src="../Script/familias.js"></script>
+   <script src="../Script/lideres.js"></script>
    
    
    <script>
