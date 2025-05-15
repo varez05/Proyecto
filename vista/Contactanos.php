@@ -1,6 +1,6 @@
+<h1>Contáctenos</h1>
+<br>
 <div class="container">
-  <h1>Contáctenos</h1>
-
   <div class="section">
     <h2>Coordinadora general</h2>
     <div class="contact-card">
@@ -52,4 +52,6 @@
       </div>
     </div>
   </div>
+
+  
 </div>
