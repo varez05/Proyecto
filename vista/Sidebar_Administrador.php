@@ -124,7 +124,7 @@
             include '../modales/ModalUnidades.html';  // crear y editar
             include '../modales/ModalLider.html';  // crear y editar
             include '../modales/ModalComunidades.php';
-            // include '../modales/ModalFamilias.php';
+            include '../modales/ModalFamilias.php';
         ?>
    <!--  -->
 

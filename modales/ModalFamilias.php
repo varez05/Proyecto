@@ -1,7 +1,7 @@
 <!-- Modal para agregar familia -->
-<div id="modal-agregar-familia" class="modal" style="display: none;">
+<div id="modal-agregar-familia" class="modal" >
     <div class="modal-content">
-        <span id="btn-cerrar-modal-familia" class="close">&times;</span>
+        <span id="btn-cerrar-modal-familia" class="close" onclick="cerrarModal('modal-agregar-familia')">&times;</span>
         <h2>Agregar Familia</h2>
         <form action="Familias.php" method="POST" class="form-modificar">
             <div class="form-group">
@@ -63,61 +63,31 @@
                 <label for="id_cuidador">ID Cuidador:</label>
                 <select id="id_cuidador" name="id_cuidador">
                     <option value="">Seleccione un cuidador</option>
-                    <?php
-                    if (isset($resultado_cuidadores)) {
-                        $resultado_cuidadores->data_seek(0);
-                        if ($resultado_cuidadores->num_rows > 0) {
-                            while ($row = $resultado_cuidadores->fetch_assoc()) {
-                                echo "<option value='" . $row["Id_cuidador"] . "'>" . $row["Nombres"] . " " . $row["Apellidos"] . "</option>";
-                            }
-                        }
-                    }
-                    ?>
                 </select>
             </div>
             <div class="form-group">
                 <label for="id_padre">ID Padre:</label>
                 <select id="id_padre" name="id_padre">
                     <option value="">Seleccione un padre</option>
-                    <?php
-                    if (isset($resultado_padres)) {
-                        $resultado_padres->data_seek(0);
-                        if ($resultado_padres->num_rows > 0) {
-                            while ($row = $resultado_padres->fetch_assoc()) {
-                                echo "<option value='" . $row["Id_padre"] . "'>" . $row["Nombres"] . " " . $row["Apellidos"] . "</option>";
-                            }
-                        }
-                    }
-                    ?>
                 </select>
             </div>
             <div class="form-group">
                 <label for="id_madre">ID Madre:</label>
                 <select id="id_madre" name="id_madre">
                     <option value="">Seleccione una madre</option>
-                    <?php
-                    if (isset($resultado_madres)) {
-                        $resultado_madres->data_seek(0);
-                        if ($resultado_madres->num_rows > 0) {
-                            while ($row = $resultado_madres->fetch_assoc()) {
-                                echo "<option value='" . $row["Id_madre"] . "'>" . $row["Nombres"] . " " . $row["Apellidos"] . "</option>";
-                            }
-                        }
-                    }
-                    ?>
                 </select>
             </div>
             <div class="form-buttons">
                 <button type="submit">Guardar</button>
-                <button type="button" id="btn-cancelar-modal-familia" class="btn-cancelar">Cancelar</button>
+                <button type="button" id="btn-cancelar-modal-familia" class="btn-cancelar" onclick="cerrarModal('modal-agregar-familia')">Cancelar</button>
             </div>
         </form>
     </div>
 </div>
 <!-- Modal para modificar familia -->
-<div id="modal-modificar-familia" class="modal" style="display: none;">
+<div id="modal-modificar-familia" class="modal" >
     <div class="modal-content">
-        <span id="btn-cerrar-modal-familia" class="close">&times;</span>
+        <span id="btn-cerrar-modal-familia" class="close" onclick="cerrarModal('modal-modificar-familia')">&times;</span>
         <h2>Agregar Familia</h2>
         <form action="Familias.php" method="POST" class="form-modificar">
             <div class="form-group">
@@ -179,63 +149,32 @@
                 <label for="id_cuidador">ID Cuidador:</label>
                 <select id="id_cuidador" name="id_cuidador">
                     <option value="">Seleccione un cuidador</option>
-                    <?php
-                    if (isset($resultado_cuidadores)) {
-                        $resultado_cuidadores->data_seek(0);
-                        if ($resultado_cuidadores->num_rows > 0) {
-                            while ($row = $resultado_cuidadores->fetch_assoc()) {
-                                echo "<option value='" . $row["Id_cuidador"] . "'>" . $row["Nombres"] . " " . $row["Apellidos"] . "</option>";
-                            }
-                        }
-                    }
-                    ?>
                 </select>
             </div>
             <div class="form-group">
                 <label for="id_padre">ID Padre:</label>
                 <select id="id_padre" name="id_padre">
                     <option value="">Seleccione un padre</option>
-                    <?php
-                    if (isset($resultado_padres)) {
-                        $resultado_padres->data_seek(0);
-                        if ($resultado_padres->num_rows > 0) {
-                            while ($row = $resultado_padres->fetch_assoc()) {
-                                echo "<option value='" . $row["Id_padre"] . "'>" . $row["Nombres"] . " " . $row["Apellidos"] . "</option>";
-                            }
-                        }
-                    }
-                    ?>
                 </select>
             </div>
             <div class="form-group">
                 <label for="id_madre">ID Madre:</label>
                 <select id="id_madre" name="id_madre">
                     <option value="">Seleccione una madre</option>
-                    <?php
-                    if (isset($resultado_madres)) {
-                        $resultado_madres->data_seek(0);
-                        if ($resultado_madres->num_rows > 0) {
-                            while ($row = $resultado_madres->fetch_assoc()) {
-                                echo "<option value='" . $row["Id_madre"] . "'>" . $row["Nombres"] . " " . $row["Apellidos"] . "</option>";
-                            }
-                        }
-                    }
-                    ?>
                 </select>
             </div>
             <div class="form-buttons">
                 <button type="submit">Guardar</button>
-                <button type="button" id="btn-cancelar-modal-familia" class="btn-cancelar">Cancelar</button>
+                <button type="button" id="btn-cancelar-modal-familia" class="btn-cancelar" onclick="cerrarModal('modal-modificar-familia')">Cancelar</button>
             </div>
         </form>
     </div>
 </div>
 
-
 <!-- Modal para agregar madre -->
-<div id="modal-agregar-madre" class="modal" style="display: none;">
+<div id="modal-agregar-madre" class="modal" >
     <div class="modal-content">
-        <span id="btn-cerrar-modal-madre" class="close">&times;</span>
+        <span id="btn-cerrar-modal-madre" class="close" onclick="cerrarModal('modal-agregar-madre')">&times;</span>
         <h2>Agregar Madre</h2>
         <form action="Madre.php" method="POST" class="form-modificar">
             <div class="form-group">
@@ -272,16 +211,16 @@
             </div>
             <div class="form-buttons">
                 <button type="submit">Guardar</button>
-                <button type="button" id="btn-cancelar-modal-madre" class="btn-cancelar">Cancelar</button>
+                <button type="button" id="btn-cancelar-modal-madre" class="btn-cancelar" onclick="cerrarModal('modal-agregar-madre')">Cancelar</button>
             </div>
         </form>
     </div>
 </div>
 
 <!-- Modal para modificar madre -->
-<div id="modal-modificar-madre" class="modal" style="display: none;">
+<div id="modal-modificar-madre" class="modal" >
     <div class="modal-content">
-        <span id="btn-cerrar-modal-madre" class="close">&times;</span>
+        <span id="btn-cerrar-modal-madre" class="close" onclick="cerrarModal('modal-modificar-madre')">&times;</span>
         <h2>Agregar Madre</h2>
         <form action="Madre.php" method="POST" class="form-modificar">
             <div class="form-group">
@@ -318,16 +257,15 @@
             </div>
             <div class="form-buttons">
                 <button type="submit">Guardar</button>
-                <button type="button" id="btn-cancelar-modal-madre" class="btn-cancelar">Cancelar</button>
+                <button type="button" id="btn-cancelar-modal-madre" class="btn-cancelar" onclick="cerrarModal('modal-modificar-madre')">Cancelar</button>
             </div>
         </form>
     </div>
 </div>
-
 <!-- Modal para agregar padre -->
-<div id="modal-agregar-padre" class="modal" style="display: none;">
+<div id="modal-agregar-padre" class="modal" >
     <div class="modal-content">
-        <span id="btn-cerrar-modal-padre" class="close">&times;</span>
+        <span id="btn-cerrar-modal-padre" class="close" onclick="cerrarModal('modal-agregar-padre')">&times;</span>
         <h2>Agregar Padre</h2>
         <form action="Padre.php" method="POST" class="form-modificar">
             <div class="form-group">
@@ -364,16 +302,16 @@
             </div>
             <div class="form-buttons">
                 <button type="submit">Guardar</button>
-                <button type="button" id="btn-cancelar-modal-padre" class="btn-cancelar">Cancelar</button>
+                <button type="button" id="btn-cancelar-modal-padre" class="btn-cancelar" onclick="cerrarModal('modal-agregar-padre')">Cancelar</button>
             </div>
         </form>
     </div>
 </div>
 
 <!-- Modal para modificar padre -->
-<div id="modal-modificar-padre" class="modal" style="display: none;">
+<div id="modal-modificar-padre" class="modal" >
     <div class="modal-content">
-        <span id="btn-cerrar-modal-padre" class="close">&times;</span>
+        <span id="btn-cerrar-modal-padre" class="close" onclick="cerrarModal('modal-modificar-padre')">&times;</span>
         <h2>Agregar Padre</h2>
         <form action="Padre.php" method="POST" class="form-modificar">
             <div class="form-group">
@@ -410,16 +348,16 @@
             </div>
             <div class="form-buttons">
                 <button type="submit">Guardar</button>
-                <button type="button" id="btn-cancelar-modal-padre" class="btn-cancelar">Cancelar</button>
+                <button type="button" id="btn-cancelar-modal-padre" class="btn-cancelar" onclick="cerrarModal('modal-modificar-padre')">Cancelar</button>
             </div>
         </form>
     </div>
 </div>
 
 <!-- Modal para agregar cuidador -->
-<div id="modal-agregar-cuidador" class="modal" style="display: none;">
+<div id="modal-agregar-cuidador" class="modal" >
     <div class="modal-content">
-        <span id="btn-cerrar-modal-cuidador" class="close">&times;</span>
+        <span id="btn-cerrar-modal-cuidador" class="close" onclick="cerrarModal('modal-agregar-cuidador')">&times;</span>
         <h2>Agregar Cuidador</h2>
         <form action="Cuidador.php" method="POST" class="form-modificar">
             <div class="form-group">
@@ -475,16 +413,16 @@
             </div>
             <div class="form-buttons">
                 <button type="submit">Guardar</button>
-                <button type="button" id="btn-cancelar-modal-cuidador" class="btn-cancelar">Cancelar</button>
+                <button type="button" class="btn-cancelar" onclick="cerrarModal('modal-agregar-cuidador')">Cancelar</button>
             </div>
         </form>
     </div>
 </div>
 
 <!-- Modal para modificar cuidador -->
-<div id="modal-modificar-cuidador" class="modal" style="display: none;">
+<div id="modal-modificar-cuidador" class="modal" >
     <div class="modal-content">
-        <span id="btn-cerrar-modal-cuidador" class="close">&times;</span>
+        <span id="btn-cerrar-modal-cuidador" class="close"  onclick="cerrarModal('modal-modificar-cuidador')">&times;</span>
         <h2>Agregar Cuidador</h2>
         <form action="Cuidador.php" method="POST" class="form-modificar">
             <div class="form-group">
@@ -540,7 +478,7 @@
             </div>
             <div class="form-buttons">
                 <button type="submit">Guardar</button>
-                <button type="button" id="btn-cancelar-modal-cuidador" class="btn-cancelar">Cancelar</button>
+                <button type="button" id="btn-cancelar-modal-cuidador" class="btn-cancelar" onclick="cerrarModal('modal-modificar-cuidador')">Cancelar</button>
             </div>
         </form>
     </div>

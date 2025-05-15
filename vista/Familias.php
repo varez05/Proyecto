@@ -24,10 +24,10 @@ foreach ($queries as $key => $query) {
 <div class="container">
     <div class="gestion-contenedor">
         <h1>Gestión de Familias</h1>
-        <button id="btn-agregar-madre" class="btn-modificar">Agregar Madre</button>
-        <button id="btn-agregar-padre" class="btn-modificar">Agregar Padre</button>
-        <button id="btn-agregar-cuidador" class="btn-modificar">Agregar Cuidador</button>
-        <button id="btn-agregar-familia" class="btn-modificar">Agregar Familia</button>
+        <button id="btn-agregar-madre" class="btn-modificar" onclick="btnAbrirModal('modal-agregar-madre')">Agregar Madre</button>
+        <button id="btn-agregar-padre" class="btn-modificar" onclick="btnAbrirModal('modal-agregar-padre')">Agregar Padre</button>
+        <button id="btn-agregar-cuidador" class="btn-modificar" onclick="btnAbrirModal('modal-agregar-cuidador')">Agregar Cuidador</button>
+        <button id="btn-agregar-familia" class="btn-modificar" onclick="btnAbrirModal('modal-agregar-familia')">Agregar Familia</button>
     </div>
     <!-- Tabla Familias -->
     <div class="table-container">
