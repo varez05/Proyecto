@@ -1,0 +1,24 @@
+/* Estilos para el formulario de consulta de beneficiario */
+.input_box.Consultar select,
+.input_box.Consultar input {
+    border: 1px solid #49c10c;
+    border-radius: 5px;
+    padding: 8px;
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+.buto {
+    background: #F4C542;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s, color 0.2s;
+}
+.buto:hover {
+    background: #F5F5F5;
+    color: #2E5F31;
+}

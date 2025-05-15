@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../Css/Paginaprincipal.css">
     <link rel="stylesheet" href="../Css/Contactanos.css">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="stylesheet" href="../Css/consultaForms.css">
 </head>
 <body>
     <header class="header">
@@ -113,13 +114,13 @@
             </div>
         </div>
 
-        <div class="ContainerConsulta">
+       <div class="ContainerConsulta">
             <i class="uil uil-times Consultar_close"></i>
             <div class="Forma">
-                <form action="http://localhost/proyecto/vista/paginaConsultaNoBeneficiario.php">
+                <form action="../Controladores/ConsultarBeneficiario.php" method="post">
                     <h2>Consultar</h2>
                     <div class="input_box Consultar">
-                        <select id="tipoDocumento" required>
+                        <select id="tipoDocumento" name="tipoDocumento" required>
                             <option value="" disabled selected>Seleccione tipo de documento</option>
                             <option value="CC">Cédula de Ciudadanía</option>
                             <option value="RC">Registro Civil</option>
@@ -130,16 +131,17 @@
                         <i class="uil uil-document-info document-type"></i>
                     </div>
                     <div class="input_box Consultar">
-                        <input type="text" placeholder="Ingrese número de documento" required id="numeroDocumento">
+                        <input type="text" placeholder="Ingrese número de documento" required id="numeroDocumento" name="numeroDocumento">
                         <i class="uil uil-document document-number"></i>
                     </div>
-                    <button class="buto" id="Realizar_consulta">Consultar</button>
+                    <button class="buto" id="Realizar_consulta" type="submit">Consultar</button>
                 </form>
             </div>
-        </div>
+        </div> 
     </section>
 
     <script src="../Script/script.js"> </script> 
     <script src="../Script/abrir_modal.js"> </script> 
+    <script src="../Script/validarConsulta.js"></script>
 </body>
 </html>
