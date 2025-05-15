@@ -134,21 +134,6 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'administrador') {
         <div id="contenido-reportes" style="display: none; margin-top: 20px;"></div>
     </main>
 
-<<<<<<< HEAD
-    <!-- MODALES -->
-    <?php
-    include '../modales/ModalUnidades.html';  // crear y editar
-    include '../modales/ModalLider.html';  // crear y editar
-    include '../modales/ModalComunidades.php';
-    // include '../modales/ModalFamilias.php';
-    ?>
-    <!--  -->
-
-    <script src="../Script/unidades.js"></script>
-    <script src="../Script/modal.js"></script>
-    <script src="../Script/comunidades.js"></script>
-    <script src="../Script/familias.js"></script>
-=======
    <!-- MODALES -->
         <?php
             include '../modales/ModalUnidades.html';  // crear y editar
@@ -166,12 +151,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'administrador') {
    
    
    <script>
-      async function mostrarSeccion(event, id, url) {
-        event.preventDefault(); // Evita la redirección
->>>>>>> cbc0b0f97948c75f4ee4a1353dc6f1935ceb33c9
 
-
-    <script>
         async function mostrarSeccion(event, id, url) {
             event.preventDefault(); // Evita la redirección
 
