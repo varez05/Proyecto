@@ -1,98 +1,5 @@
 <?php
-// Configuración de conexión a la base de datos
-$servername = "b8b6wjxwwgatbkzi3sc7-mysql.services.clever-cloud.com";
-$username = "uvzy20bldxipuq8x";
-$password = "cTXQO8Rz00laC0L5lFP8";
-$dbname = "b8b6wjxwwgatbkzi3sc7";
-
-// Crear conexión
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Verificar conexión
-if ($conn->connect_error) {
-    die("Error de conexión: " . $conn->connect_error);
-}
-
-// Procesar el formulario cuando se envía para agregar o actualizar
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['accion']) && $_POST['accion'] == 'actualizar') {
-        // Actualizar comunidad existente
-        $id_comunidad = $_POST['id_comunidad'];
-        $nombre_comunidad = $_POST['nombre_comunidad'];
-        $autoridad = $_POST['autoridad'];
-        $id_unidad = $_POST['id_unidad'];
-
-        $sql = "UPDATE Comunidad SET Nombre_comunidad = ?, Autoridad = ?, Id_unidad = ? WHERE Id_comunidad = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssii", $nombre_comunidad, $autoridad, $id_unidad, $id_comunidad);
-
-        if ($stmt->execute()) {
-            $mensaje = "Comunidad actualizada correctamente";
-        } else {
-            $mensaje = "Error al actualizar: " . $stmt->error;
-        }
-
-        $stmt->close();
-    } else {
-        // Agregar nueva comunidad
-        $nombre_comunidad = $_POST['nombre_comunidad'];
-        $autoridad = $_POST['autoridad'];
-        $id_unidad = $_POST['id_unidad'];
-
-        // Preparar la consulta SQL
-        $sql = "INSERT INTO Comunidad (Nombre_comunidad, Autoridad, Id_unidad) 
-                VALUES (?, ?, ?)";
-
-        // Preparar la sentencia
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssi", $nombre_comunidad, $autoridad, $id_unidad);
-
-        // Ejecutar la sentencia
-        if ($stmt->execute()) {
-            $mensaje = "Comunidad registrada correctamente";
-        } else {
-            $mensaje = "Error: " . $stmt->error;
-        }
-
-        // Cerrar la sentencia
-        $stmt->close();
-    }
-}
-
-// Procesar la eliminación
-if (isset($_GET['eliminar'])) {
-    $id_eliminar = $_GET['eliminar'];
-
-    $sql_eliminar = "DELETE FROM Comunidad WHERE Id_comunidad = ?";
-    $stmt = $conn->prepare($sql_eliminar);
-    $stmt->bind_param("i", $id_eliminar);
-
-    if ($stmt->execute()) {
-        $mensaje = "Comunidad eliminada correctamente";
-    } else {
-        $mensaje = "Error al eliminar: " . $stmt->error;
-    }
-
-    $stmt->close();
-}
-
-// Obtener datos para editar
-$comunidad_editar = null;
-if (isset($_GET['editar'])) {
-    $id_editar = $_GET['editar'];
-
-    $sql_editar = "SELECT * FROM Comunidad WHERE Id_comunidad = ?";
-    $stmt = $conn->prepare($sql_editar);
-    $stmt->bind_param("i", $id_editar);
-    $stmt->execute();
-    $resultado_editar = $stmt->get_result();
-
-    if ($resultado_editar->num_rows > 0) {
-        $comunidad_editar = $resultado_editar->fetch_assoc();
-    }
-
-    $stmt->close();
-}
+require_once '../Controladores/ComunidadesController.php';
 
 // Obtener datos de unidades para el select
 $sql_unidades = "SELECT Id_unidad, Nombre FROM Unidad ORDER BY Nombre";
@@ -105,7 +12,6 @@ $sql_comunidades = "SELECT c.Id_comunidad, c.Nombre_comunidad, c.Autoridad, c.Id
                     ORDER BY c.Nombre_comunidad";
 $resultado_comunidades = $conn->query($sql_comunidades);
 ?>
-
 
 <script>
     function toggleForm(esEditar = false) {
@@ -162,28 +68,22 @@ $resultado_comunidades = $conn->query($sql_comunidades);
         <button onclick="toggleForm()">Nueva Comunidad</button>
     </div>
 
-    <?php if (isset($mensaje)): ?>
-        <div class="mensaje" id="mensaje"><?php echo $mensaje; ?></div>
-    <?php endif; ?>
-
-    <div class="form-section" id="formModal" style="<?php echo (isset($comunidad_editar)) ? 'display:flex' : 'display:none'; ?>">
+    <div class="form-section" id="formModal" style="display:none;">
         <div class="form-container">
             <span class="close-icon" onclick="toggleForm()">×</span>
-            <h2 id="tituloFormulario"><?php echo (isset($comunidad_editar)) ? 'Editar Comunidad' : 'Registrar Nueva Comunidad'; ?></h2>
-            <form id="formularioComunidad" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                <input type="hidden" id="accion" name="accion" value="<?php echo (isset($comunidad_editar)) ? 'actualizar' : 'agregar'; ?>">
-                <input type="hidden" id="id_comunidad" name="id_comunidad" value="<?php echo (isset($comunidad_editar)) ? $comunidad_editar['Id_comunidad'] : ''; ?>">
+            <h2 id="tituloFormulario">Registrar Nueva Comunidad</h2>
+            <form id="formularioComunidad" method="post" action="">
+                <input type="hidden" id="accion" name="accion" value="agregar">
+                <input type="hidden" id="id_comunidad" name="id_comunidad" value="">
 
                 <div class="form-group">
                     <label for="nombre_comunidad">Nombre de la Comunidad:</label>
-                    <input type="text" id="nombre_comunidad" name="nombre_comunidad"
-                        value="<?php echo (isset($comunidad_editar)) ? $comunidad_editar['Nombre_comunidad'] : ''; ?>" required>
+                    <input type="text" id="nombre_comunidad" name="nombre_comunidad" value="" required>
                 </div>
 
                 <div class="form-group">
                     <label for="autoridad">Autoridad:</label>
-                    <input type="text" id="autoridad" name="autoridad"
-                        value="<?php echo (isset($comunidad_editar)) ? $comunidad_editar['Autoridad'] : ''; ?>" required>
+                    <input type="text" id="autoridad" name="autoridad" value="" required>
                 </div>
 
                 <div class="form-group">
@@ -195,14 +95,13 @@ $resultado_comunidades = $conn->query($sql_comunidades);
                         $resultado_unidades->data_seek(0);
                         if ($resultado_unidades->num_rows > 0) {
                             while ($row = $resultado_unidades->fetch_assoc()) {
-                                $selected = (isset($comunidad_editar) && $comunidad_editar['Id_unidad'] == $row["Id_unidad"]) ? 'selected' : '';
-                                echo "<option value='" . $row["Id_unidad"] . "' $selected>" . $row["Nombre"] . "</option>";
+                                echo "<option value='" . $row["Id_unidad"] . "'>" . $row["Nombre"] . "</option>";
                             }
                         }
                         ?>
                     </select>
                 </div>
-                <button type="submit"><?php echo (isset($comunidad_editar)) ? 'Actualizar' : 'Guardar'; ?></button>
+                <button type="submit">Guardar</button>
             </form>
         </div>
     </div>
@@ -250,8 +149,3 @@ $resultado_comunidades = $conn->query($sql_comunidades);
         </tbody>
     </table>
 </div>
-
-<?php
-// Cerrar la conexión
-$conn->close();
-?>
