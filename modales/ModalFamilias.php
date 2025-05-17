@@ -1,13 +1,13 @@
 <!-- Modal para agregar familia -->
+ <?php
+// Configurar la zona horaria de Colombia
+date_default_timezone_set('America/Bogota');
+?>
 <div id="modal-agregar-familia" class="modal" >
     <div class="modal-content">
         <span id="btn-cerrar-modal-familia" class="close" onclick="cerrarModal('modal-agregar-familia')">&times;</span>
         <h2>Agregar Familia</h2>
         <form action="Familias.php" method="POST" class="form-modificar">
-            <div class="form-group">
-                <label for="fecha_inscripcion">Fecha de Inscripción:</label>
-                <input type="date" id="fecha_inscripcion" name="fecha_inscripcion" required>
-            </div>
             <div class="form-group">
                 <label for="tipo_usuario">Tipo de Usuario:</label>
                 <input type="text" id="tipo_usuario" name="tipo_usuario" required>
@@ -34,7 +34,8 @@
             </div>
             <div class="form-group">
                 <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
-                <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
+                <input max="<?php echo date('Y-m-d'); ?>" type="date"
+                 id="fecha_nacimiento" name="fecha_nacimiento" required>
             </div>
             <div class="form-group">
                 <label for="lugar_nacimiento">Lugar de Nacimiento:</label>
