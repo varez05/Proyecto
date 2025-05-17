@@ -13,7 +13,7 @@
 }
 
 /* Clase para mostrar el modal */
-.modal.show {
+.show {
     display: flex; /* Cambiar a flex para que sea visible */
 }
 

@@ -24,7 +24,7 @@ $result = listarLideres($conn);
              <button id="btn-agregar" class="btn-modificar" onclick="btnAbrirModal('agregar-lider-container')">Agregar Líder</button>
              </div>
     <!-- Contenido principal -->
-    <div class="container">
+    <div class="container scroll-horizontal">
         
         <!-- Contenedor para mensajes -->
         <div id="mensaje" class="mensaje" style="display: none;"></div>
