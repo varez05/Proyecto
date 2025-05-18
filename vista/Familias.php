@@ -10,7 +10,15 @@ $padres_result = $conn->query($padres_query);
 $cuidadores_query = "SELECT Id_cuidador, CONCAT(Nombres, ' ', Apellidos, ' - ', Numero_documento, ' (', Parentesco, ')') as nombre_completo FROM Cuidador ORDER BY Apellidos";
 $cuidadores_result = $conn->query($cuidadores_query);
 $queries = [
-    'familias' => "SELECT f.*, m.Nombres as Madre_Nombres, m.Apellidos as Madre_Apellidos, p.Nombres as Padre_Nombres, p.Apellidos as Padre_Apellidos, c.Nombres as Cuidador_Nombres, c.Apellidos as Cuidador_Apellidos FROM Familias f LEFT JOIN Madre m ON f.Id_madre = m.Id_madre LEFT JOIN Padre p ON f.Id_padre = p.Id_padre LEFT JOIN Cuidador c ON f.Id_cuidador = c.Id_cuidador",
+    'familias' => "SELECT f.*, m.Nombres as Madre_Nombres, 
+                            m.Apellidos as Madre_Apellidos, 
+                            p.Nombres as Padre_Nombres, 
+                            p.Apellidos as Padre_Apellidos, 
+                            c.Nombres as Cuidador_Nombres, 
+                            c.Apellidos as Cuidador_Apellidos 
+                            FROM Familias f LEFT JOIN Madre m ON f.Id_madre = m.Id_madre 
+                                            LEFT JOIN Padre p ON f.Id_padre = p.Id_padre 
+                                            LEFT JOIN Cuidador c ON f.Id_cuidador = c.Id_cuidador",
     'cuidadores' => "SELECT * FROM Cuidador",
     'madres' => "SELECT * FROM Madre",
     'padres' => "SELECT * FROM Padre"
@@ -19,6 +27,11 @@ $results = [];
 foreach ($queries as $key => $query) {
     $results[$key] = $conn->query($query)->fetchAll(PDO::FETCH_ASSOC);
 }
+
+// Debug output for families
+// echo '<pre>';
+// print_r($results['familias']);
+// echo '</pre>';
 ?>
 
 <div class="container">
@@ -66,7 +79,19 @@ foreach ($queries as $key => $query) {
                                 <div class="dropdown">
                                     <ion-icon name="ellipsis-vertical-outline" class="dropdown-icon"></ion-icon>
                                     <div class="dropdown-menu">
-                                        <a href="?modificar_familia=<?php echo $familia['Id_familia']; ?>" class="dropdown-item">Modificar</a>
+                                        <a class="dropdown-item" onclick="editarFamilia({
+                                                                Id_familia: '<?php echo $familia['Id_familia']; ?>',
+                                                                Tipo_documento: '<?php echo $familia['Tipo_documento']; ?>',
+                                                                Numero_documento: '<?php echo $familia['Numero_documento']; ?>',
+                                                                Nombres: '<?php echo $familia['Nombres']; ?>',
+                                                                Apellidos: '<?php echo $familia['Apellidos']; ?>',
+                                                                Fecha_inscripcion: '<?php echo $familia['Fecha_inscripcion']; ?>',
+                                                                Tipo_usuario: '<?php echo $familia['Tipo_usuario']; ?>',
+                                                                Direccion: '<?php echo $familia['Direccion']; ?>',
+                                                                Id_madre: '<?php echo $familia['Id_madre']; ?>',
+                                                                Id_padre: '<?php echo $familia['Id_padre']; ?>',
+                                                                Id_cuidador: '<?php echo $familia['Id_cuidador']; ?>'
+                                                            })">Modificar</a>
                                         <a href="?eliminar_familia=<?php echo $familia['Id_familia']; ?>" class="dropdown-item btn-eliminar"
                                             onclick="return confirm('¿Está seguro de eliminar esta familia?');">Eliminar</a>
                                     </div>
