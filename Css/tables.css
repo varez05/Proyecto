@@ -75,3 +75,7 @@
     object-fit: cover;
     border: 2px solid var(--color-linea);
 }
+.scroll-horizontal {
+  overflow-x: auto;
+  white-space: nowrap;
+}
