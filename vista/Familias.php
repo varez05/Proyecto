@@ -43,7 +43,7 @@ foreach ($queries as $key => $query) {
         <button id="btn-agregar-familia" class="btn-modificar" onclick="btnAbrirModal('modal-agregar-familia')">Agregar Familia</button>
     </div>
     <!-- Tabla Familias -->
-    <div class="table-container">
+    <div class="table-container scroll-horizontal">
         <h2>Familias Registradas</h2>
         <table class="tabla-familias">
             <thead>
@@ -109,7 +109,7 @@ foreach ($queries as $key => $query) {
     </div>
 
     <!-- Tabla Madres -->
-    <div class="table-container">
+    <div class="table-container scroll-horizontal">
         <h2>Madres Registradas</h2>
         <table class="tabla-familias">
             <thead>
@@ -164,7 +164,7 @@ foreach ($queries as $key => $query) {
         </table>
     </div>
     <!-- Tabla Padres -->
-    <div class="table-container">
+    <div class="table-container scroll-horizontal">
         <h2>Padres Registrados</h2>
         <table class="tabla-familias">
             <thead>
@@ -212,7 +212,7 @@ foreach ($queries as $key => $query) {
     </div>
 
     <!-- Tabla Cuidadores -->
-    <div class="table-container">
+    <div class="table-container scroll-horizontal">
         <h2>Cuidadores Registrados</h2>
         <table class="tabla-familias">
             <thead>
