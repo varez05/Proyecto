@@ -18,13 +18,59 @@ function editarLider(lider) {
     btnAbrirModal('editar-lider-container');
 }
 
-// Manejar el envío del formulario de edición
-const formularioEditarLider = document.getElementById('form-editar-lider');
-if (formularioEditarLider) {
-    formularioEditarLider.addEventListener('submit', function(event) {
-        // El formulario ya tiene action y method, se envía normalmente
-        // Si quieres hacerlo por AJAX, aquí puedes implementarlo
-        // event.preventDefault();
-        // ...
+// Envío AJAX del formulario de agregar líder
+const formAgregarLider = document.getElementById('form-agregar-lider');
+if (formAgregarLider) {
+    formAgregarLider.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const formData = new FormData(formAgregarLider);
+
+        const response = await fetch('../Controladores/LideresController.php', {
+            method: 'POST',
+            body: formData
+        });
+        const data = await response.json();
+        mostrarMensaje(data);
+        if (data.success) {
+            cerrarModal('agregar-lider-container');
+            setTimeout(() => location.reload(), 1500);
+        }
+
     });
+}
+
+// Envío AJAX del formulario de editar líder
+const formEditarLider = document.getElementById('form-editar-lider');
+if (formEditarLider) {
+    formEditarLider.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const formData = new FormData(formEditarLider);
+
+        const response = await fetch('../Controladores/LideresController.php', {
+            method: 'POST',
+            body: formData
+        });
+        const data = await response.json();
+        mostrarMensaje(data);
+        if (data.success) {
+            cerrarModal('editar-lider-container');
+            setTimeout(() => location.reload(), 1500);
+        }
+
+    });
+}
+
+// Manejo de eliminación de líder
+function eliminarLiderHandler(event, idEliminar) {
+    event.preventDefault();
+    if (!confirm('¿Está seguro de eliminar este líder?')) return;
+    fetch(`../Controladores/LideresController.php?eliminar=${idEliminar}`, {
+        method: 'GET'
+    })
+    .then(response => response.json())
+    .then(data => {
+        mostrarMensaje(data);
+        if (data.success) setTimeout(() => location.reload(), 1500);
+    })
+    .catch(() => mostrarAlerta('Error al eliminar', 'error'));
 }

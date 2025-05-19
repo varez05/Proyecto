@@ -16,7 +16,7 @@
                 <ul class="menuitem">
                     <li class="menuitem"><a class="nav_link">Inicio</a></li>                    
                     <li class="menuitem"><a class="nav_link" href="sobrenosotros.php">Sobre Nosotros</a></li>
-                    <li class="menuitem"><a class="nav_link" onclick="showModal()">Contáctanos</a></li>
+                    <li class="menuitem"><a class="nav_link open-modal" value="myModal">Contáctanos</a></li>
                 
                 </ul>
             </div>
@@ -27,51 +27,11 @@
         </nav>
     </header>
 
-    <!-- ------------------------------------------------------------------------ -->
-     <style>
-       /* Estilos para la ventana modal */
-        .modal {
-            display: none; /* Oculto por defecto */
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4);
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 700px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-        }
-    </style>
     <div id="myModal" class="modal">
         <div class="modal-content">
-            <span class="btnclose">&times;</span>
+            <span class="close">&times;</span>
             <div id="modal-body">
-                <!-- Aquí se cargará dinámicamente el contenido de contactanos.html -->
+                <?php include "Contactanos.php"; ?>
             </div>
         </div>
     </div>

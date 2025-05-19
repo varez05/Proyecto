@@ -35,7 +35,7 @@
       </div>
       <div class="info">
         <div class="label">CORREO</div>
-        <div class="number">gmail.com</div>
+        <div class="number">CoordinadorageneraKoutuushiWapushua1726@gmail.com</div>
       </div>
     </div>
   </div>
@@ -48,7 +48,7 @@
       </div>
       <div class="info">
         <div class="label">CORREO</div>
-        <div class="number">@gmail.com</div>
+        <div class="number">GerentedeprogramaKoutuushiWapushua76@gmail.com</div>
       </div>
     </div>
   </div>

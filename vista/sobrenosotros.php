@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="../Css/sobrenosotros.css">
 </head>
 <body>
-    <a href="Paginaprincipal.php" class="btn" style="margin: 20px; display: inline-block;">Regresar a la página principal</a>
     <header>
         <div class="container header-container">
             <div class="logo">Unión Temporal Koutuushi Wapushua</div>

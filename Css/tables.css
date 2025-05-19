@@ -1,3 +1,8 @@
+.scroll-horizontal {
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
 /* Estilos generales de tabla */
 .tabla-lideres,
 .tabla-familias,
@@ -74,4 +79,8 @@
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid var(--color-linea);
+}
+.scroll-horizontal {
+  overflow-x: auto;
+  white-space: nowrap;
 }

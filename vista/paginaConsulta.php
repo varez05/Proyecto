@@ -96,26 +96,31 @@
             myModal.show();
 
             // Realizar solicitud AJAX para obtener los datos del beneficiario
+            // Obtener los parámetros de la URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const tipoDocumento = urlParams.get('tipo');
+            const numeroDocumento = urlParams.get('numero');
+
             fetch('../Controladores/ctlbeneficiario.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                
+                body: `tipoDocumento=${encodeURIComponent(tipoDocumento)}&numeroDocumento=${encodeURIComponent(numeroDocumento)}`
             })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
                     // Actualizar los campos de la tabla con los datos obtenidos
-                    document.getElementById('documento').textContent = data.data.numeroDocumento;
-                    document.getElementById('nombre').textContent = data.data.nombre;
-                    document.getElementById('apellido').textContent = data.data.apellido;
-                    document.getElementById('fecha_inscri').textContent = data.data.fechaInscripcion;
-                    document.getElementById('tipo_usuar').textContent = data.data.tipoUsuario;
-                    document.getElementById('direcc').textContent = data.data.direccion;
-                    document.getElementById('madre').textContent = data.data.madre;
-                    document.getElementById('padre').textContent = data.data.padre;
-                    document.getElementById('cuidador').textContent = data.data.cuidador;
+                    document.getElementById('documento').textContent = data.data.Numero_documento;
+                    document.getElementById('nombre').textContent = data.data.Nombres;
+                    document.getElementById('apellido').textContent = data.data.Apellidos;
+                    document.getElementById('fecha_inscri').textContent = data.data.Fecha_inscripcion;
+                    document.getElementById('tipo_usuar').textContent = data.data.Tipo_usuario;
+                    document.getElementById('direcc').textContent = data.data.Direccion;
+                    document.getElementById('madre').textContent = (data.data.Madre_Nombres || '') + ' ' + (data.data.Madre_Apellidos || '');
+                    document.getElementById('padre').textContent = (data.data.Padre_Nombres || '') + ' ' + (data.data.Padre_Apellidos || '');
+                    document.getElementById('cuidador').textContent = (data.data.Cuidador_Nombres || '') + ' ' + (data.data.Cuidador_Apellidos || '');
                 } else {
                     alert(data.message);
                 }
@@ -123,6 +128,13 @@
             .catch(error => {
                 console.error('Error:', error);
                 alert('Hubo un error al obtener los datos del beneficiario.');
+            });
+
+            // Redirigir a la página principal al cerrar o continuar
+            document.querySelectorAll('.modal-footer .btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    window.location.href = 'Paginaprincipal.php';
+                });
             });
         });
     </script>

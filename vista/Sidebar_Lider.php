@@ -1,9 +1,16 @@
+<?php
+session_start();
+if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'lider') {
+    header("Location: Paginaprincipal.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administrador</title>
+    <title>Lider</title>
 
     <!--
     <link rel="stylesheet" href="../Css/Comunidades.css">
@@ -26,8 +33,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script src=" ../Script/Script1.js " defer></script>
 </head>
 <body>
@@ -92,14 +97,20 @@
             </div>
     
             <div class="usuario">
-                <img src="../imagen/Fondo1.jpg" alt="">
-                <div class="info-usuario">
-                    <div class="nombre-email">
-                        <span class="nombre"> Carlos </span>
-                        <span class="email"> Carlos@gmail.com </span>
+                <img src="<?php echo isset($_SESSION['img']) ? '../imagen/' . $_SESSION['img'] : '../imagen/Fondo1.jpg'; ?>" alt="">
+                    <div class="info-usuario">
+                        <div class="nombre-email">
+                            <span class="nombre">
+                                <?php echo isset($_SESSION['nombre']) ? $_SESSION['nombre'] : 'Usuario'; ?>
+                            </span>
+                            <span class="email">
+                                <?php echo isset($_SESSION['correo']) ? $_SESSION['correo'] : 'correo@ejemplo.com'; ?>
+                            </span>
+                        </div>
+                        <a href="../Controladores/Cerrarsesion.php" title="Cerrar sesión">
+                            <ion-icon name="log-out-outline" style="font-size: 22px; color: red;"></ion-icon>
+                        </a>
                     </div>
-                    <ion-icon name="ellipsis-vertical-outline"></ion-icon>
-                </div>
             </div>
         </div>
      </Div>
@@ -129,7 +140,6 @@
         // Oculta todas las secciones
         const secciones = [
             'contenido-unidades',
-            'contenido-lideres',
             'contenido-comunidades',
             'contenido-familias',
             'contenido-reportes'

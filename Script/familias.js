@@ -1,41 +1,8 @@
 // Familias.js - Lógica de la vista Familias
-
 document.addEventListener('DOMContentLoaded', function() {
-    // Referencias a los botones
-    const btnMadre = document.getElementById('btn-agregar-madre');
-    const btnPadre = document.getElementById('btn-agregar-padre');
-    const btnCuidador = document.getElementById('btn-agregar-cuidador');
-    const btnFamilia = document.getElementById('btn-agregar-familia');
-
-    // Referencias a los formularios
-    const formularios = {
-        madre: document.getElementById('madre'),
-        padre: document.getElementById('padre'),
-        cuidador: document.getElementById('cuidador'),
-        familia: document.getElementById('familia')
-    };
-
-    // Ocultar todos los formularios inicialmente
-    Object.values(formularios).forEach(form => {
-        if (form) form.style.display = 'none';
-    });
-
-    // Función para mostrar un formulario
-    function mostrarFormulario(tipo) {
-        Object.values(formularios).forEach(form => {
-            if (form) form.style.display = 'none';
-        });
-        if (formularios[tipo]) formularios[tipo].style.display = 'flex';
-    }
-
-    // Event listeners para cada botón
-    if (btnMadre) btnMadre.addEventListener('click', () => mostrarFormulario('madre'));
-    if (btnPadre) btnPadre.addEventListener('click', () => mostrarFormulario('padre'));
-    if (btnCuidador) btnCuidador.addEventListener('click', () => mostrarFormulario('cuidador'));
-    if (btnFamilia) btnFamilia.addEventListener('click', () => mostrarFormulario('familia'));
 
     // Función para validar documento único
-    window.validarDocumentoUnico = async function(tipo, tipoDoc, numDoc) {
+    async function validarDocumentoUnico(tipo, tipoDoc, numDoc) {
         try {
             const formData = new FormData();
             formData.append('validar_documento', '1');
@@ -55,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Función para validar formularios
-    window.validarFormulario = function(formulario) {
+    function validarFormulario(formulario) {
         const inputs = formulario.querySelectorAll('[required]');
         let isValid = true;
         inputs.forEach(input => {
@@ -73,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Función para guardar registros
-    window.guardarRegistro = async function(formData, tipo) {
+    async function guardarRegistro(formData, tipo) {
         const botonSubmit = document.querySelector(`#form-${tipo} button[type="submit"]`);
         if (botonSubmit) botonSubmit.disabled = true;
         try {
@@ -97,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Función para mostrar alertas
-    window.mostrarAlerta = function(mensaje, tipo) {
+    function mostrarAlerta(mensaje, tipo) {
         const alerta = document.createElement('div');
         alerta.className = `alert alert-${tipo}`;
         alerta.textContent = mensaje;
@@ -136,5 +103,5 @@ function editarFamilia(familia) {
     document.getElementById('madre_familia_editar').value = familia.Id_madre;
     document.getElementById('padre_familia_editar').value = familia.Id_padre;
     document.getElementById('cuidador_familia_editar').value = familia.Id_cuidador;
-    btnAbrirModal('editar-familia-container');
+    btnAbrirModal('modal-modificar-familia');
 }

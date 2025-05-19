@@ -1,38 +1,46 @@
-// Obtener elementos
-const modal = document.getElementById("myModal");
-const closeModal = document.querySelector(".btnclose");
-const modalBody = document.getElementById("modal-body");
+const botones = document.querySelectorAll(".open-modal")
+const modales = document.querySelectorAll(".modal");
 
-// Mostrar la ventana modal y cargar contenido
-function showModal() {
-    fetch('../vista/Contactanos.php')
-        .then(response => response.text())
-        .then(data => {
-            // Agregar el enlace al CSS dentro del contenido cargado
-            modalBody.innerHTML = data;
-            modal.style.display = "block";
-        })
-        .catch(error => console.error('Error al cargar el contenido:', error));
-}
+console.log("Botones encontrados:", botones.length);
+console.log("Modales encontrados:", modales.length);
 
-// Cerrar la ventana modal
-closeModal.onclick = function() {
-    modal.style.display = "none";
-};
+botones.forEach((btn) => {
+    btn.addEventListener("click", function(event) {
+        event.stopPropagation();
+        console.log("Botón clickeado:", btn.getAttribute("value"));
 
-// Cerrar la ventana modal al hacer clic fuera de ella
-window.onclick = function(event) {
-    if (event.target === modal) {
-        modal.style.display = "none";
-    }
-};
+        modales.forEach((modal) => modal.classList.remove("show"));
 
-// Cerrar el modal de Contactanos si se da click en la barra de navegación
-const navBar = document.querySelector('nav.nav');
-if (navBar) {
-    navBar.addEventListener('click', function(event) {
-        if (modal.style.display === "block") {
-            modal.style.display = "none";
+        const idModal = btn.getAttribute("value");
+        console.log("Intentando abrir modal con ID:", idModal);
+        const modal = document.getElementById(`${idModal}`)
+        
+        if (modal) {
+            modal.classList.add("show");
+            console.log("Modal mostrado exitosamente");
+        } else {
+            console.error("No se encontró el modal con ID:", idModal);
         }
     });
-}
+});
+
+document.querySelectorAll(".modal").forEach((modal) => {
+    const btnClose = modal.querySelector(".close")
+    if (btnClose) {
+        btnClose.addEventListener("click", function(event) {
+            event.stopPropagation();
+            console.log("Cerrando modal por botón close");
+            modal.classList.remove("show")
+        });
+    } else {
+        console.warn("No se encontró botón close en modal");
+    }
+});
+
+window.addEventListener("click", (event) => {
+    const modalVisible = document.querySelector(".modal.show")
+    if (modalVisible && !modalVisible.contains(event.target)) {
+        console.log("Cerrando modal por click fuera");
+        modalVisible.classList.remove("show");
+    }
+});

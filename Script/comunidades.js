@@ -1,84 +1,3 @@
-// Script para Comunidades
-
-function inicializarComunidades() {
-    // Mostrar/ocultar formulario
-    function toggleForm(esEditar = false) {
-        const formModal = document.getElementById('formModal');
-        formModal.style.display = formModal.style.display === 'flex' ? 'none' : 'flex';
-        if (!esEditar) {
-            document.getElementById('formularioComunidad').reset();
-            document.getElementById('tituloFormulario').textContent = 'Registrar Nueva Comunidad';
-            document.getElementById('accion').value = 'agregar';
-            document.getElementById('id_comunidad').value = '';
-        }
-    }
-
-    // Mostrar/ocultar menú desplegable
-    function toggleDropdown(id) {
-        document.querySelectorAll('.dropdown-content').forEach(function(menu) {
-            if (menu.id !== 'menu-' + id) {
-                menu.classList.remove('show');
-            }
-        });
-        document.getElementById('menu-' + id).classList.toggle('show');
-    }
-
-    // Cerrar los menús al hacer clic fuera de ellos
-    function cerrarMenus(event) {
-        if (!event.target.matches('.menu-icon')) {
-            var dropdowns = document.getElementsByClassName("dropdown-content");
-            for (var i = 0; i < dropdowns.length; i++) {
-                var openDropdown = dropdowns[i];
-                if (openDropdown.classList.contains('show')) {
-                    openDropdown.classList.remove('show');
-                }
-            }
-        }
-    }
-
-    // Asignar el evento de clic global
-    window.onclick = cerrarMenus;
-
-    // Envío AJAX del formulario de comunidad
-    const form = document.getElementById('formularioComunidad');
-    if (form) {
-        form.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const formData = new FormData(form);
-            try {
-                const response = await fetch('../Controladores/ComunidadesController.php', {
-                    method: 'POST',
-                    body: formData
-                });
-                const data = await response.json();
-                mostrarAlerta(data.message, data.success ? 'success' : 'error');
-                if (data.success) setTimeout(() => location.reload(), 1500);
-            } catch (error) {
-                mostrarAlerta('Error al procesar la solicitud', 'error');
-            }
-        });
-    }
-
-    // Envío AJAX para eliminar comunidad
-    document.querySelectorAll('.btn-eliminar').forEach(btn => {
-        btn.addEventListener('click', async function(e) {
-            e.preventDefault();
-            if (!confirm('¿Está seguro de eliminar esta comunidad?')) return;
-            const url = this.getAttribute('href');
-            try {
-                const response = await fetch(url.replace('?', '../Controladores/ComunidadesController.php?'), {
-                    method: 'GET'
-                });
-                const data = await response.json();
-                mostrarAlerta(data.message, data.success ? 'success' : 'error');
-                if (data.success) setTimeout(() => location.reload(), 1500);
-            } catch (error) {
-                mostrarAlerta('Error al eliminar', 'error');
-            }
-        });
-    });
-}
-
 /**
  * Abre el modal de edición de comunidad y carga los datos en el formulario.
  * @param {Object} comunidad Objeto con los datos de la comunidad a editar
@@ -95,32 +14,45 @@ function editarComunidad(comunidad) {
     // Abrir el modal de edición
     btnAbrirModal('editar-comunidad-container');
 
-    // Manejar el envío del formulario de edición
+    // Ajustar el envío AJAX para editar comunidad
     const formularioEditar = document.getElementById('form-editar-comunidad');
-    formularioEditar.addEventListener('submit', async function(event) {
-        event.preventDefault(); // Evitar el envío tradicional del formulario
-
-        const formData = new FormData(formularioEditar);
-
-        try {
-            const response = await fetch('../Controladores/ComunidadesController.php', {
-                method: 'POST',
-                body: formData
-            });
-            const data = await response.json();
-
-            mostrarAlerta(data.message, data.success ? 'success' : 'error');
-
-            if (data.success) {
-                cerrarModal('editar-comunidad-container');
-                setTimeout(() => location.reload(), 1500); // Recargar la página para reflejar los cambios
+    if (formularioEditar) {
+        formularioEditar.addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const formData = new FormData(formularioEditar);
+            formData.append('accion', 'actualizar');
+            try {
+                const response = await fetch('../Controladores/ComunidadesController.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+                mostrarAlerta(data.message, data.success ? 'success' : 'error');
+                if (data.success) {
+                    cerrarModal('editar-comunidad-container');
+                    setTimeout(() => location.reload(), 1500);
+                }
+            } catch (error) {
+                mostrarAlerta('Error al procesar la solicitud', 'error');
             }
-        } catch (error) {
-            console.error('Error al editar la comunidad:', error);
-            mostrarAlerta('Error al procesar la solicitud', 'error');
-        }
-    });
+        });
+    }
 }
+
+function eliminarComunidadHandler(event, idEliminar) {
+    event.preventDefault();
+    if (!confirm('¿Está seguro de eliminar esta comunidad?')) return;
+    fetch(`../Controladores/ComunidadesController.php?eliminar=${idEliminar}`, {
+        method: 'GET'
+    })
+    .then(response => response.json())
+    .then(data => {
+        mostrarAlerta(data.message, data.success ? 'success' : 'error');
+        if (data.success) setTimeout(() => location.reload(), 1500);
+    })
+    .catch(() => mostrarAlerta('Error al eliminar', 'error'));
+}
+
 
 // Función para inicializar las opciones del formulario de agregar comunidad
 function inicializarFormularioAgregar(unidades) {
@@ -190,4 +122,27 @@ async function abrirModalCrearComunidad() {
     } catch (error) {
         console.error('Error al cargar las unidades:', error);
     }
+}
+
+// Envío AJAX del formulario de agregar comunidad
+const formAgregar = document.getElementById('form-agregar-comunidad');
+if (formAgregar) {
+    formAgregar.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const formData = new FormData(formAgregar);
+        try {
+            const response = await fetch('../Controladores/ComunidadesController.php', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await response.json();
+            mostrarAlerta(data.message, data.success ? 'success' : 'error');
+            if (data.success) {
+                cerrarModal('agregar-comunidad-container');
+                setTimeout(() => location.reload(), 1500);
+            }
+        } catch (error) {
+            mostrarAlerta('Error al procesar la solicitud', 'error');
+        }
+    });
 }
