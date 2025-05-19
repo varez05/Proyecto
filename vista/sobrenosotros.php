@@ -102,10 +102,6 @@
                     <p>Comunidades beneficiadas</p>
                 </div>
                 <div class="stat-item">
-                    <h3></h3>
-                    <p>Pozos de agua construidos</p>
-                </div>
-                <div class="stat-item">
                     <h3>200+</h3>
                     <p>Personas atendidas</p>
                 </div>
