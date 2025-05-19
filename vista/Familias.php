@@ -138,8 +138,16 @@ foreach ($queries as $key => $query) {
                             <td class="center">
                                 <div class="dropdown">
                                     <ion-icon name="ellipsis-vertical-outline" class="dropdown-icon"></ion-icon>
-                                    <div class="dropdown-menu">
-                                        <a href="?modificar_madre=<?php echo $madre['Id_madre']; ?>" class="dropdown-item">Modificar</a>
+                                        <div class="dropdown-menu">
+                                        <a class="dropdown-item" onclick="editarMadres({
+                                                                Id_madre: '<?php echo $madre['Id_madre']; ?>',
+                                                                Tipo_documento: '<?php echo $madre['Tipo_documento']; ?>',
+                                                                Numero_documento: '<?php echo $madre['Numero_documento']; ?>',
+                                                                Nombres: '<?php echo $madre['Nombres']; ?>',
+                                                                Apellidos: '<?php echo $madre['Apellidos']; ?>',
+                                                                Fecha_nacimiento: '<?php echo $madre['Fecha_nacimiento']; ?>',
+                                                                Lugar_nacimiento: '<?php echo $madre['Lugar_nacimiento']; ?>'
+                                                            })">Modificar</a>
                                         <a href="?eliminar_madre=<?php echo $madre['Id_madre']; ?>" class="dropdown-item btn-eliminar"
                                             onclick="return confirm('¿Está seguro de eliminar este registro?');">Eliminar</a>
                                     </div>
