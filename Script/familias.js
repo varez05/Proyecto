@@ -105,3 +105,15 @@ function editarFamilia(familia) {
     document.getElementById('cuidador_familia_editar').value = familia.Id_cuidador;
     btnAbrirModal('modal-modificar-familia');
 }
+function editarMadres(madre) {
+    console.log(madre);
+    document.getElementById('id_madre_editar').value = madre.Id_madre;
+    document.getElementById('madre_tipo_documento_editar').value = madre.Tipo_documento;
+    document.getElementById('madre_numero_documento_editar').value = madre.Numero_documento;
+    document.getElementById('madre_nombres_editar').value = madre.Nombres;
+    document.getElementById('madre_apellidos_editar').value = madre.Apellidos;
+    document.getElementById('madre_fecha_nacimiento_editar').value = madre.Fecha_nacimiento;
+    document.getElementById('madre_lugar_nacimiento_editar').value = madre.Lugar_nacimiento;
+    // El campo sexo es readonly y siempre es "Femenino", no es necesario modificarlo
+    btnAbrirModal('modal-modificar-madre');
+}

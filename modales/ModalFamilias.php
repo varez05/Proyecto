@@ -204,33 +204,35 @@ date_default_timezone_set('America/Bogota');
         <span id="btn-cerrar-modal-madre" class="close" onclick="cerrarModal('modal-modificar-madre')">&times;</span>
         <h2>Agregar Madre</h2>
         <form action="Madre.php" method="POST" class="form-modificar">
+            <input type="hidden" id="id_madre_editar" name="Id_madre" required>
+            
             <div class="form-group">
-                <label for="madre_tipo_documento">Tipo de Documento:</label>
-                <select id="madre_tipo_documento" name="tipo_documento" required>
+                <label for="madre_tipo_documento_editar">Tipo de Documento:</label>
+                <select id="madre_tipo_documento_editar" name="tipo_documento" required>
                     <option value="Cédula">Cédula</option>
                     <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
                     <option value="Cédula Extranjería">Cédula Extranjería</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="madre_numero_documento">Número de Documento:</label>
-                <input type="text" id="madre_numero_documento" name="numero_documento" required>
+                <label for="madre_numero_documento_editar">Número de Documento:</label>
+                <input type="text" id="madre_numero_documento_editar" name="numero_documento" required>
             </div>
             <div class="form-group">
-                <label for="madre_nombres">Nombres:</label>
-                <input type="text" id="madre_nombres" name="nombres" required>
+                <label for="madre_nombres_editar">Nombres:</label>
+                <input type="text" id="madre_nombres_editar" name="nombres" required>
             </div>
             <div class="form-group">
-                <label for="madre_apellidos">Apellidos:</label>
-                <input type="text" id="madre_apellidos" name="apellidos" required>
+                <label for="madre_apellidos_editar">Apellidos:</label>
+                <input type="text" id="madre_apellidos_editar" name="apellidos" required>
             </div>
             <div class="form-group">
-                <label for="madre_fecha_nacimiento">Fecha de Nacimiento:</label>
-                <input type="date" id="madre_fecha_nacimiento" name="fecha_nacimiento" required>
+                <label for="madre_fecha_nacimiento_editar">Fecha de Nacimiento:</label>
+                <input type="date" id="madre_fecha_nacimiento_editar" name="fecha_nacimiento" required>
             </div>
             <div class="form-group">
-                <label for="madre_lugar_nacimiento">Lugar de Nacimiento:</label>
-                <input type="text" id="madre_lugar_nacimiento" name="lugar_nacimiento" required>
+                <label for="madre_lugar_nacimiento_editar">Lugar de Nacimiento:</label>
+                <input type="text" id="madre_lugar_nacimiento_editar" name="lugar_nacimiento" required>
             </div>
             <div class="form-group">
                 <label for="madre_sexo">Sexo:</label>
