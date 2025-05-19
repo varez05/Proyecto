@@ -3,20 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fundación Koutuushi Wapushua - Ayuda Humanitaria para el Pueblo Wayúu</title>
+    <title>UT Wapushua - Ayuda Humanitaria para el Pueblo Wayúu</title>
     <link rel="stylesheet" href="../Css/sobrenosotros.css">
 </head>
 <body>
     <a href="Paginaprincipal.php" class="btn" style="margin: 20px; display: inline-block;">Regresar a la página principal</a>
     <header>
         <div class="container header-container">
-            <div class="logo">Fundación Koutuushi Wapushua</div>
-            
+            <div class="logo">Unión Temporal Koutuushi Wapushua</div>
         </div>
     </header>
 
     <section class="hero" id="inicio">
-        <h1>Apoyo Humanitario para el Pueblo Wayúu</h1>
+        <h1>Atención Integral para el Pueblo Wayúu</h1>
         <p>Trabajamos incansablemente para mejorar las condiciones de vida del pueblo Wayúu, preservando su cultura y tradiciones mientras atendemos sus necesidades básicas.</p>
     </section>
 
@@ -25,8 +24,8 @@
             <div class="about-content">
                 <div class="about-text">
                     <h2>Quiénes Somos</h2>
-                    <p>Fundación Koutuushi Wapushua es una organización sin fines de lucro dedicada a brindar ayuda humanitaria al pueblo Wayúu, una de las comunidades indígenas más numerosas de Colombia y Venezuela, ubicada principalmente en La Guajira.</p>
-                    <p>Desde nuestra fundación en 2010, hemos trabajado en estrecha colaboración con las comunidades Wayúu para identificar sus necesidades más urgentes y desarrollar programas sostenibles que respeten su cultura y tradiciones.</p>
+                    <p>La Union Temporal Koutuushi Wapushua es una organización sin fines de lucro dedicada a brindar ayuda humanitaria al pueblo Wayúu, una de las comunidades indígenas más numerosas de Colombia y Venezuela, ubicada principalmente en La Guajira.</p>
+                    <p>Desde nuestra fundación en 2023, hemos trabajado en estrecha colaboración con las comunidades Wayúu para identificar sus necesidades más urgentes y desarrollar programas sostenibles que respeten su cultura y tradiciones.</p>
                     <h3>Nuestra Misión</h3>
                     <p>Mejorar la calidad de vida del pueblo Wayúu mediante programas de ayuda humanitaria y desarrollo sostenible que respeten y preserven su identidad cultural.</p>
                     <h3>Nuestra Visión</h3>
@@ -50,7 +49,7 @@
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjckm_5BUB9rkmqG3am-xAU1M-e5NSpwqW6Q&s" alt="Acceso al agua">
                     <div class="service-content">
                         <h3>Acceso al Agua</h3>
-                        <p>Desarrollamos sistemas de recolección de agua de lluvia, construimos pozos y llevamos agua potable a las comunidades más afectadas por la sequía.</p>
+                        <p>Realizamos entregas periódicas de agua a diferentes comunidades y, además, implementamos la construcción de pozos para enfrentar la escasez hídrica.</p>
                     </div>
                 </div>
                 <div class="service-card">
@@ -100,23 +99,23 @@
             </div>
             <div class="stats-grid">
                 <div class="stat-item">
-                    <h3>75+</h3>
+                    <h3>16</h3>
                     <p>Comunidades beneficiadas</p>
                 </div>
                 <div class="stat-item">
-                    <h3>35</h3>
+                    <h3></h3>
                     <p>Pozos de agua construidos</p>
                 </div>
                 <div class="stat-item">
-                    <h3>12,500+</h3>
+                    <h3>200+</h3>
                     <p>Personas atendidas</p>
                 </div>
                 <div class="stat-item">
-                    <h3>120</h3>
+                    <h3>15</h3>
                     <p>Promotores de salud capacitados</p>
                 </div>
                 <div class="stat-item">
-                    <h3>15</h3>
+                    <h3>5</h3>
                     <p>Escuelas interculturales apoyadas</p>
                 </div>
             </div>
@@ -166,7 +165,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>Fundación Koutuushi Wapushua</h3>
+                    <h3>Union Temporal Koutuushi Wapushua</h3>
                     <p>Organización sin fines de lucro dedicada a brindar ayuda humanitaria al pueblo Wayúu respetando su cultura y tradiciones.</p>
                     <div class="social-links">
                         <a href="#"><span>FB</span></a>
@@ -174,7 +173,7 @@
                         <a href="#"><span>TW</span></a>
                         <a href="#"><span>YT</span></a>
             <div class="footer-bottom">
-                <p>&copy; 2025 Fundación Koutuushi Wapushua. Todos los derechos reservados.</p>
+                <p>&copy; 2025 UT Koutuushi Wapushua. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
