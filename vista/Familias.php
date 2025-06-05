@@ -2,42 +2,9 @@
 // Incluir el controlador
 require_once '../Controladores/FamiliasController.php';
 
-<<<<<<< HEAD
 // Consultar solo familias para la tabla
 $familias_query = "SELECT * FROM Familias";
 $familias_result = $conn->query($familias_query)->fetchAll(PDO::FETCH_ASSOC);
-=======
-// Consultar madres, padres, cuidadores y familias para los selects y tablas
-$madres_query = "SELECT Id_madre, CONCAT(Nombres, ' ', Apellidos, ' - ', Numero_documento) as nombre_completo FROM Madre ORDER BY Apellidos";
-$madres_result = $conn->query($madres_query);
-$padres_query = "SELECT Id_padre, CONCAT(Nombres, ' ', Apellidos, ' - ', Numero_documento) as nombre_completo FROM Padre ORDER BY Apellidos";
-$padres_result = $conn->query($padres_query);
-$cuidadores_query = "SELECT Id_cuidador, CONCAT(Nombres, ' ', Apellidos, ' - ', Numero_documento, ' (', Parentesco, ')') as nombre_completo FROM Cuidador ORDER BY Apellidos";
-$cuidadores_result = $conn->query($cuidadores_query);
-$queries = [
-    'familias' => "SELECT f.*, m.Nombres as Madre_Nombres, 
-                            m.Apellidos as Madre_Apellidos, 
-                            p.Nombres as Padre_Nombres, 
-                            p.Apellidos as Padre_Apellidos, 
-                            c.Nombres as Cuidador_Nombres, 
-                            c.Apellidos as Cuidador_Apellidos 
-                            FROM Familias f LEFT JOIN Madre m ON f.Id_madre = m.Id_madre 
-                                            LEFT JOIN Padre p ON f.Id_padre = p.Id_padre 
-                                            LEFT JOIN Cuidador c ON f.Id_cuidador = c.Id_cuidador",
-    'cuidadores' => "SELECT * FROM Cuidador",
-    'madres' => "SELECT * FROM Madre",
-    'padres' => "SELECT * FROM Padre"
-];
-$results = [];
-foreach ($queries as $key => $query) {
-    $results[$key] = $conn->query($query)->fetchAll(PDO::FETCH_ASSOC);
-}
-
-// Debug output for families
-// echo '<pre>';
-// print_r($results['familias']);
-// echo '</pre>';
->>>>>>> 51b7525a433554c68e573fa17b1f5524cd745a5c
 ?>
 
 <div class="container">
@@ -97,25 +64,8 @@ foreach ($queries as $key => $query) {
                             <td class="center">
                                 <div class="dropdown">
                                     <ion-icon name="ellipsis-vertical-outline" class="dropdown-icon"></ion-icon>
-<<<<<<< HEAD
                                     <div class="dropdown-menu arriba">
                                         <a href="?modificar_familia=<?php echo $familia['Id_familia']; ?>" class="dropdown-item">Modificar</a>
-=======
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" onclick="editarFamilia({
-                                                                Id_familia: '<?php echo $familia['Id_familia']; ?>',
-                                                                Tipo_documento: '<?php echo $familia['Tipo_documento']; ?>',
-                                                                Numero_documento: '<?php echo $familia['Numero_documento']; ?>',
-                                                                Nombres: '<?php echo $familia['Nombres']; ?>',
-                                                                Apellidos: '<?php echo $familia['Apellidos']; ?>',
-                                                                Fecha_inscripcion: '<?php echo $familia['Fecha_inscripcion']; ?>',
-                                                                Tipo_usuario: '<?php echo $familia['Tipo_usuario']; ?>',
-                                                                Direccion: '<?php echo $familia['Direccion']; ?>',
-                                                                Id_madre: '<?php echo $familia['Id_madre']; ?>',
-                                                                Id_padre: '<?php echo $familia['Id_padre']; ?>',
-                                                                Id_cuidador: '<?php echo $familia['Id_cuidador']; ?>'
-                                                            })">Modificar</a>
->>>>>>> 51b7525a433554c68e573fa17b1f5524cd745a5c
                                         <a href="?eliminar_familia=<?php echo $familia['Id_familia']; ?>" class="dropdown-item btn-eliminar"
                                             onclick="return confirm('¿Está seguro de eliminar esta familia?');">Eliminar</a>
                                     </div>
@@ -125,164 +75,7 @@ foreach ($queries as $key => $query) {
                     <?php endforeach; ?>
                 <?php else: ?>
                     <tr>
-<<<<<<< HEAD
                         <td colspan="19" class="center">No hay familias registradas</td>
-=======
-                        <td colspan="11" class="center">No hay familias registradas</td>
-                    </tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
-    </div>
-
-    <!-- Tabla Madres -->
-    <div class="table-container scroll-horizontal">
-        <h2>Madres Registradas</h2>
-        <table class="tabla-familias">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Documento</th>
-                    <th>Nombres</th>
-                    <th>Apellidos</th>
-                    <th>Fecha Nacimiento</th>
-                    <th>Lugar Nacimiento</th>
-                    <th>Sexo</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if (!empty($results['madres'])): ?>
-                    <?php foreach ($results['madres'] as $madre): ?>
-                        <tr>
-                            <td class="center"><?php echo $madre['Id_madre']; ?></td>
-                            <td><?php echo $madre['Tipo_documento'] . ': ' . htmlspecialchars($madre['Numero_documento']); ?></td>
-                            <td><?php echo htmlspecialchars($madre['Nombres']); ?></td>
-                            <td><?php echo htmlspecialchars($madre['Apellidos']); ?></td>
-                            <td><?php echo date('d/m/Y', strtotime($madre['Fecha_nacimiento'])); ?></td>
-                            <td><?php echo htmlspecialchars($madre['Lugar_nacimiento']); ?></td>
-                            <td><?php echo $madre['Sexo']; ?></td>
-                            <td class="center">
-                                <div class="dropdown">
-                                    <ion-icon name="ellipsis-vertical-outline" class="dropdown-icon"></ion-icon>
-                                        <div class="dropdown-menu">
-                                        <a class="dropdown-item" onclick="editarMadres({
-                                                                Id_madre: '<?php echo $madre['Id_madre']; ?>',
-                                                                Tipo_documento: '<?php echo $madre['Tipo_documento']; ?>',
-                                                                Numero_documento: '<?php echo $madre['Numero_documento']; ?>',
-                                                                Nombres: '<?php echo $madre['Nombres']; ?>',
-                                                                Apellidos: '<?php echo $madre['Apellidos']; ?>',
-                                                                Fecha_nacimiento: '<?php echo $madre['Fecha_nacimiento']; ?>',
-                                                                Lugar_nacimiento: '<?php echo $madre['Lugar_nacimiento']; ?>'
-                                                            })">Modificar</a>
-                                        <a href="?eliminar_madre=<?php echo $madre['Id_madre']; ?>" class="dropdown-item btn-eliminar"
-                                            onclick="return confirm('¿Está seguro de eliminar este registro?');">Eliminar</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <tr>
-                        <td colspan="8" class="center">No hay madres registradas</td>
-                    </tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
-    </div>
-    <!-- Tabla Padres -->
-    <div class="table-container scroll-horizontal">
-        <h2>Padres Registrados</h2>
-        <table class="tabla-familias">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Documento</th>
-                    <th>Nombres</th>
-                    <th>Apellidos</th>
-                    <th>Fecha Nacimiento</th>
-                    <th>Lugar Nacimiento</th>
-                    <th>Sexo</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if (!empty($results['padres'])): ?>
-                    <?php foreach ($results['padres'] as $padre): ?>
-                        <tr>
-                            <td class="center"><?php echo $padre['Id_padre']; ?></td>
-                            <td><?php echo $padre['Tipo_documento'] . ': ' . htmlspecialchars($padre['Numero_documento']); ?></td>
-                            <td><?php echo htmlspecialchars($padre['Nombres']); ?></td>
-                            <td><?php echo htmlspecialchars($padre['Apellidos']); ?></td>
-                            <td><?php echo date('d/m/Y', strtotime($padre['Fecha_nacimiento'])); ?></td>
-                            <td><?php echo htmlspecialchars($padre['Lugar_nacimiento']); ?></td>
-                            <td><?php echo $padre['Sexo']; ?></td>
-                            <td class="center">
-                                <div class="dropdown">
-                                    <ion-icon name="ellipsis-vertical-outline" class="dropdown-icon"></ion-icon>
-                                    <div class="dropdown-menu">
-                                        <a href="?modificar_padre=<?php echo $padre['Id_padre']; ?>" class="dropdown-item">Modificar</a>
-                                        <a href="?eliminar_padre=<?php echo $padre['Id_padre']; ?>" class="dropdown-item btn-eliminar"
-                                            onclick="return confirm('¿Está seguro de eliminar este registro?');">Eliminar</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <tr>
-                        <td colspan="8" class="center">No hay padres registrados</td>
-                    </tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
-    </div>
-
-    <!-- Tabla Cuidadores -->
-    <div class="table-container scroll-horizontal">
-        <h2>Cuidadores Registrados</h2>
-        <table class="tabla-familias">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Documento</th>
-                    <th>Nombres</th>
-                    <th>Apellidos</th>
-                    <th>Parentesco</th>
-                    <th>Fecha Nacimiento</th>
-                    <th>Teléfono</th>
-                    <th>Correo</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if (!empty($results['cuidadores'])): ?>
-                    <?php foreach ($results['cuidadores'] as $cuidador): ?>
-                        <tr>
-                            <td class="center"><?php echo $cuidador['Id_cuidador']; ?></td>
-                            <td><?php echo $cuidador['Tipo_documento'] . ': ' . htmlspecialchars($cuidador['Numero_documento']); ?></td>
-                            <td><?php echo htmlspecialchars($cuidador['Nombres']); ?></td>
-                            <td><?php echo htmlspecialchars($cuidador['Apellidos']); ?></td>
-                            <td><?php echo htmlspecialchars($cuidador['Parentesco']); ?></td>
-                            <td><?php echo date('d/m/Y', strtotime($cuidador['Fecha_nacimiento'])); ?></td>
-                            <td><?php echo htmlspecialchars($cuidador['Telefono']); ?></td>
-                            <td><?php echo htmlspecialchars($cuidador['Correo']); ?></td>
-                            <td class="center">
-                                <div class="dropdown">
-                                    <ion-icon name="ellipsis-vertical-outline" class="dropdown-icon"></ion-icon>
-                                    <div class="dropdown-menu">
-                                        <a href="?modificar_cuidador=<?php echo $cuidador['Id_cuidador']; ?>" class="dropdown-item">Modificar</a>
-                                        <a href="?eliminar_cuidador=<?php echo $cuidador['Id_cuidador']; ?>" class="dropdown-item btn-eliminar"
-                                            onclick="return confirm('¿Está seguro de eliminar este registro?');">Eliminar</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <tr>
-                        <td colspan="9" class="center">No hay cuidadores registrados</td>
->>>>>>> 51b7525a433554c68e573fa17b1f5524cd745a5c
                     </tr>
                 <?php endif; ?>
             </tbody>
