@@ -49,6 +49,11 @@
             var myModal = new bootstrap.Modal(document.getElementById('beneficiarioModal'));
             myModal.show();
         });
+        document.querySelectorAll('.modal-footer .btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    window.location.href = 'Paginaprincipal.php';
+                });
+            });
     </script>
 </body>
 </html>

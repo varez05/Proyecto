@@ -14,7 +14,7 @@ $resultado_comunidades = $conn->query($sql_comunidades);
 
 ?>
 
-<div class="container">
+<div class="container scroll-horizontal">
     <div class="header-section">
         <h1>Gestión de Comunidades</h1>
         <button onclick="abrirModalCrearComunidad()">Nueva Comunidad</button>

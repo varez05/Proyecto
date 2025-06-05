@@ -1,3 +1,8 @@
+.scroll-horizontal {
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
 /* Estilos generales de tabla */
 .tabla-lideres,
 .tabla-unidades,
@@ -70,6 +75,7 @@
     object-fit: cover;
     border: 2px solid var(--color-linea);
 }
+<<<<<<< HEAD
 
 /* Organización y estilo para la tabla de Familias */
 .table-container {
@@ -142,3 +148,9 @@
     }
 }
 
+=======
+.scroll-horizontal {
+  overflow-x: auto;
+  white-space: nowrap;
+}
+>>>>>>> 51b7525a433554c68e573fa17b1f5524cd745a5c

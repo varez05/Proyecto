@@ -1,6 +1,6 @@
 // Familias.js - Lógica de la vista Familias
-
 document.addEventListener('DOMContentLoaded', function() {
+<<<<<<< HEAD
     // Referencia al botón de familia
     const btnFamilia = document.getElementById('btn-agregar-familia');
 
@@ -17,9 +17,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Event listener para el botón de familia
     if (btnFamilia) btnFamilia.addEventListener('click', mostrarFormularioFamilia);
+=======
+>>>>>>> 51b7525a433554c68e573fa17b1f5524cd745a5c
 
     // Función para validar documento único
-    window.validarDocumentoUnico = async function(tipo, tipoDoc, numDoc) {
+    async function validarDocumentoUnico(tipo, tipoDoc, numDoc) {
         try {
             const formData = new FormData();
             formData.append('validar_documento', '1');
@@ -39,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Función para validar formularios
-    window.validarFormulario = function(formulario) {
+    function validarFormulario(formulario) {
         const inputs = formulario.querySelectorAll('[required]');
         let isValid = true;
         inputs.forEach(input => {
@@ -57,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Función para guardar registros
-    window.guardarRegistro = async function(formData, tipo) {
+    async function guardarRegistro(formData, tipo) {
         const botonSubmit = document.querySelector(`#form-${tipo} button[type="submit"]`);
         if (botonSubmit) botonSubmit.disabled = true;
         try {
@@ -81,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Función para mostrar alertas
-    window.mostrarAlerta = function(mensaje, tipo) {
+    function mostrarAlerta(mensaje, tipo) {
         const alerta = document.createElement('div');
         alerta.className = `alert alert-${tipo}`;
         alerta.textContent = mensaje;
@@ -117,6 +119,7 @@ function editarFamilia(familia) {
     document.getElementById('numero_documento_familia_editar').value = familia.Numero_documento;
     document.getElementById('nombres_familia_editar').value = familia.Nombres;
     document.getElementById('apellidos_familia_editar').value = familia.Apellidos;
+<<<<<<< HEAD
     document.getElementById('fecha_nacimiento_familia_editar').value = familia.Fecha_nacimiento;
     document.getElementById('lugar_nacimiento_familia_editar').value = familia.Lugar_nacimiento;
     document.getElementById('sexo_familia_editar').value = familia.Sexo;
@@ -128,4 +131,25 @@ function editarFamilia(familia) {
     document.getElementById('padre_familia_editar').value = familia.Padre;
     document.getElementById('madre_familia_editar').value = familia.Madre;
     btnAbrirModal('editar-familia-container');
+=======
+    document.getElementById('fecha_inscripcion_familia_editar').value = familia.Fecha_inscripcion;
+    document.getElementById('tipo_usuario_familia_editar').value = familia.Tipo_usuario;
+    document.getElementById('direccion_familia_editar').value = familia.Direccion;
+    document.getElementById('madre_familia_editar').value = familia.Id_madre;
+    document.getElementById('padre_familia_editar').value = familia.Id_padre;
+    document.getElementById('cuidador_familia_editar').value = familia.Id_cuidador;
+    btnAbrirModal('modal-modificar-familia');
+>>>>>>> 51b7525a433554c68e573fa17b1f5524cd745a5c
+}
+function editarMadres(madre) {
+    console.log(madre);
+    document.getElementById('id_madre_editar').value = madre.Id_madre;
+    document.getElementById('madre_tipo_documento_editar').value = madre.Tipo_documento;
+    document.getElementById('madre_numero_documento_editar').value = madre.Numero_documento;
+    document.getElementById('madre_nombres_editar').value = madre.Nombres;
+    document.getElementById('madre_apellidos_editar').value = madre.Apellidos;
+    document.getElementById('madre_fecha_nacimiento_editar').value = madre.Fecha_nacimiento;
+    document.getElementById('madre_lugar_nacimiento_editar').value = madre.Lugar_nacimiento;
+    // El campo sexo es readonly y siempre es "Femenino", no es necesario modificarlo
+    btnAbrirModal('modal-modificar-madre');
 }

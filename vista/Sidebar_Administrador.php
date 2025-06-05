@@ -14,11 +14,6 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'administrador') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrador</title>
 
-    <!--
-    <link rel="stylesheet" href="../Css/Comunidades.css">
-    <link rel="stylesheet" href="../Css/Familias.css">
-    <link rel="stylesheet" href="../Css/Lider.css">
-    <link rel="stylesheet" href="../Css/Unidades.css"> -->
     <link rel="stylesheet" href="../Css/Sidebar.css">
     <link rel="stylesheet" href="../Css/alerta.css">
     <link rel="stylesheet" href="../Css/buttons.css">
