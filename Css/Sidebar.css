@@ -22,23 +22,24 @@
   
 
   .modo-black {
-    --color-barra-lateral: #2C2D31;              /* Fondo lateral oscuro */
-    --color-texto: #FFFFFF;                      /* Texto blanco */
-    --color-texto-menu: #A4E4EA;                 /* Azul claro de triángulos para texto sutil */
-  
-    --color-boton: #F4C542;                      /* Amarillo del sol para resaltar */
-    --color-boton-texto: #000000;                /* Negro para contraste en botón claro */
-  
-    --color-menu-hover: #000000;                 /* Fondo negro al hacer hover */
-    --color-menu-hover-texto: #F9DA7B;           /* Amarillo claro para resaltar texto hover */
-  
-    --color-linea: #4BA4AD;                      /* Azul oscuro del triángulo como divisor */
-    --color-switch-base: #4B944E;                /* Verde cactus principal */
-    --color-switch-circulo: #FFFFFF;             /* Círculo blanco */
+  --color-barra-lateral: #1E1E1E;             /* Gris muy oscuro */
+  --color-texto: #FFFFFF;                     /* Blanco */
+  --color-texto-menu: #DDDDDD;                /* Gris claro */
 
-    --color-scroll: rgb(68,69,74);         /* Gris claro */
-    --color-scroll-hover: rgb(85,85,85);
-  }
+  --color-boton: #F4C542;                     /* Amarillo vibrante */
+  --color-boton-texto: #000000;               /* Negro para contraste */
+
+  --color-menu-hover: #2A2A2A;                /* Gris oscuro */
+  --color-menu-hover-texto: #A4E4EA;          /* Azul claro */
+
+  --color-linea: #74D0DB;                     /* Azul claro */
+  --color-switch-base: #2E5F31;               /* Verde oscuro */
+  --color-switch-circulo: #49c10c;            /* Verde vibrante */
+
+  --color-scroll: #555555;                    /* Gris medio */
+  --color-scroll-hover: #AAAAAA;              /* Gris claro */
+
+}
   
 *   {
     margin: 0;

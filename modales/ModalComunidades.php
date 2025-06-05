@@ -14,6 +14,10 @@
                 <input type="text" id="autoridad" name="autoridad" required>
             </div>
             <div class="form-group">
+                <label for="direccion_comunidad">Dirección:</label>
+                <input type="text" id="direccion_comunidad" name="direccion" required>
+            </div>
+            <div class="form-group">
                 <label for="id_unidad_comunidades">Unidad:</label>
                 <select id="id_unidad_comunidades" name="id_unidad" required>
                     <option value="">Seleccione una unidad</option>
@@ -38,6 +42,10 @@
             <div class="form-group">
                 <label for="autoridad_editar">Autoridad:</label>
                 <input type="text" id="autoridad_editar" name="autoridad" required>
+            </div>
+            <div class="form-group">
+                <label for="direccion_comunidad_editar">Dirección:</label>
+                <input type="text" id="direccion_comunidad_editar" name="direccion" required>
             </div>
             <div class="form-group">
                 <label for="id_unidad_editar">Unidad:</label>

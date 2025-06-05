@@ -12,8 +12,9 @@ try {
     die(json_encode(["success" => false, "message" => "Error de conexión: " . $e->getMessage()]));
 }
 
-function validarDocumento($tipo_documento, $numero_documento, $conn, $tabla, $campo) {
-    $stmt = $conn->prepare("SELECT COUNT(*) FROM $tabla WHERE Tipo_documento = ? AND Numero_documento = ?");
+// Validar documento único en Familias
+function validarDocumentoFamilia($tipo_documento, $numero_documento, $conn) {
+    $stmt = $conn->prepare("SELECT COUNT(*) FROM Familias WHERE Tipo_documento = ? AND Numero_documento = ?");
     $stmt->execute([$tipo_documento, $numero_documento]);
     $count = $stmt->fetchColumn();
     return $count === 0;
@@ -21,11 +22,9 @@ function validarDocumento($tipo_documento, $numero_documento, $conn, $tabla, $ca
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['validar_documento'])) {
     try {
-        $tipo = $_POST['tipo'];
         $tipoDoc = $_POST['tipo_documento'];
         $numDoc = $_POST['numero_documento'];
-        $tabla = ucfirst($tipo);
-        $esUnico = validarDocumento($tipoDoc, $numDoc, $conn, $tabla, 'Numero_documento');
+        $esUnico = validarDocumentoFamilia($tipoDoc, $numDoc, $conn);
         header('Content-Type: application/json');
         echo json_encode(['esUnico' => $esUnico]);
         exit;
@@ -36,64 +35,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['validar_documento']))
     }
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && !isset($_POST['validar_documento'])) {
     try {
         $conn->beginTransaction();
-        if (isset($_POST['madre_tipo_documento'])) {
-            if (!validarDocumento($_POST['madre_tipo_documento'], $_POST['madre_numero_documento'], $conn, 'Madre', 'Numero_documento')) {
-                throw new Exception("El número de documento ya existe para la madre");
+        // Insertar nueva familia
+        if (isset($_POST['tipo_documento']) && isset($_POST['numero_documento'])) {
+            $tipo_documento = $_POST['tipo_documento'];
+            $numero_documento = $_POST['numero_documento'];
+            if (!validarDocumentoFamilia($tipo_documento, $numero_documento, $conn)) {
+                throw new Exception("El número de documento ya existe para una familia");
             }
-            $stmt = $conn->prepare("INSERT INTO Madre (Tipo_documento, Numero_documento, Nombres, Apellidos, Fecha_nacimiento, Lugar_nacimiento, Sexo) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            $stmt = $conn->prepare("INSERT INTO Familias (
+                Fecha_inscripcion, Id_comunidad, Tipo_usuario, Tipo_documento, Numero_documento, Nombres, Apellidos, Fecha_nacimiento, Lugar_nacimiento, Sexo, Telefono, Correo, Autoreconicido, Etnia, Cuidador, Padre, Madre
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             $stmt->execute([
-                $_POST['madre_tipo_documento'],
-                $_POST['madre_numero_documento'],
-                $_POST['madre_nombres'],
-                $_POST['madre_apellidos'],
-                $_POST['madre_fecha_nacimiento'],
-                $_POST['madre_lugar_nacimiento'],
-                'Femenino'
+                $_POST['fecha_inscripcion'],
+                $_POST['id_comunidad'],
+                $_POST['tipo_usuario'],
+                $_POST['tipo_documento'],
+                $_POST['numero_documento'],
+                $_POST['nombres'],
+                $_POST['apellidos'],
+                $_POST['fecha_nacimiento'],
+                $_POST['lugar_nacimiento'],
+                $_POST['sexo'],
+                $_POST['telefono'],
+                $_POST['correo'],
+                $_POST['autoreconicido'],
+                $_POST['etnia'],
+                $_POST['cuidador'],
+                $_POST['padre'],
+                $_POST['madre']
             ]);
             $conn->commit();
-            echo json_encode(["success" => true, "message" => "Madre registrada correctamente"]);
-            exit;
-        }
-        if (isset($_POST['padre_tipo_documento']) && !empty($_POST['padre_numero_documento'])) {
-            if (!validarDocumento($_POST['padre_tipo_documento'], $_POST['padre_numero_documento'], $conn, 'Padre', 'Numero_documento')) {
-                throw new Exception("El número de documento ya existe para el padre");
-            }
-            $stmt = $conn->prepare("INSERT INTO Padre (Tipo_documento, Numero_documento, Nombres, Apellidos, Fecha_nacimiento, Lugar_nacimiento, Sexo) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            $stmt->execute([
-                $_POST['padre_tipo_documento'],
-                $_POST['padre_numero_documento'],
-                $_POST['padre_nombres'],
-                $_POST['padre_apellidos'],
-                $_POST['padre_fecha_nacimiento'],
-                $_POST['padre_lugar_nacimiento'],
-                'Masculino'
-            ]);
-            $conn->commit();
-            echo json_encode(["success" => true, "message" => "Padre registrado correctamente"]);
-            exit;
-        }
-        if (isset($_POST['cuidador_tipo_documento'])) {
-            if (!validarDocumento($_POST['cuidador_tipo_documento'], $_POST['cuidador_numero_documento'], $conn, 'Cuidador', 'Numero_documento')) {
-                throw new Exception("El número de documento ya existe para el cuidador");
-            }
-            $stmt = $conn->prepare("INSERT INTO Cuidador (Parentesco, Tipo_documento, Numero_documento, Nombres, Apellidos, Fecha_nacimiento, Lugar_nacimiento, Sexo, Telefono, Correo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            $stmt->execute([
-                $_POST['cuidador_parentesco'],
-                $_POST['cuidador_tipo_documento'],
-                $_POST['cuidador_numero_documento'],
-                $_POST['cuidador_nombres'],
-                $_POST['cuidador_apellidos'],
-                $_POST['cuidador_fecha_nacimiento'],
-                $_POST['cuidador_lugar_nacimiento'],
-                $_POST['cuidador_sexo'],
-                $_POST['cuidador_telefono'],
-                $_POST['cuidador_correo']
-            ]);
-            $conn->commit();
-            echo json_encode(["success" => true, "message" => "Cuidador registrado correctamente"]);
+            echo json_encode(["success" => true, "message" => "Familia registrada correctamente"]);
             exit;
         }
     } catch (Exception $e) {

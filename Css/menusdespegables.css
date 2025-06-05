@@ -12,43 +12,57 @@
     padding: 5px;
 }
 
-/* Menú desplegable */
+/* Menú desplegable discreto hacia arriba */
 .dropdown-menu,
 .dropdown-content {
     display: none;
     position: absolute;
-    top: 100%;
+    bottom: 100%;
+    top: auto;
     right: 0;
+    left: auto;
     background-color: var(--color-barra-lateral);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
     border-radius: 8px;
     z-index: 1000;
-    min-width: 120px;
-    padding: 5px 0;
+    min-width: 90px;
+    max-width: 140px;
+    padding: 4px 0;
+    font-size: 13px;
+    margin-bottom: 4px;
+    margin-top: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s cubic-bezier(.4,0,.2,1);
 }
 
 /* Elementos del menú desplegable */
 .dropdown-item,
 .dropdown-content a {
     display: block;
-    padding: 6px 8px;
+    padding: 6px 10px;
     text-decoration: none;
     color: var(--color-texto);
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 500;
-    transition: background-color 0.3s ease;
+    border-radius: 4px;
+    margin: 0 4px;
+    line-height: 1.2;
+    transition: background-color 0.2s, color 0.2s;
 }
 
 .dropdown-item:hover,
 .dropdown-content a:hover {
-    background-color: var(--color-switch-base);
-    color: var(--color-linea);
+    background-color: #e3eaf3;
+    color: #1976d2;
 }
 
 /* Mostrar dropdown al hacer hover */
 .dropdown:hover .dropdown-menu,
 .dropdown:hover .dropdown-content {
     display: block;
+    opacity: 1;
+    pointer-events: auto;
 }
 
 /* Estilos específicos para dropdown-content */

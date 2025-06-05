@@ -20,10 +20,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $id_comunidad = $_POST['id_comunidad'];
         $nombre_comunidad = $_POST['nombre_comunidad'];
         $autoridad = $_POST['autoridad'];
+        $direccion = $_POST['direccion'];
         $id_unidad = $_POST['id_unidad'];
-        $sql = "UPDATE Comunidad SET Nombre_comunidad = ?, Autoridad = ?, Id_unidad = ? WHERE Id_comunidad = ?";
+        $sql = "UPDATE Comunidad SET Nombre_comunidad = ?, Autoridad = ?, Direccion = ?, Id_unidad = ? WHERE Id_comunidad = ?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssii", $nombre_comunidad, $autoridad, $id_unidad, $id_comunidad);
+        $stmt->bind_param("sssii", $nombre_comunidad, $autoridad, $direccion, $id_unidad, $id_comunidad);
         if ($stmt->execute()) {
             echo json_encode(["success" => true, "message" => "Comunidad actualizada correctamente"]);
         } else {
@@ -34,10 +35,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $nombre_comunidad = $_POST['nombre_comunidad'];
         $autoridad = $_POST['autoridad'];
+        $direccion = $_POST['direccion'];
         $id_unidad = $_POST['id_unidad'];
-        $sql = "INSERT INTO Comunidad (Nombre_comunidad, Autoridad, Id_unidad) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO Comunidad (Nombre_comunidad, Autoridad, Direccion, Id_unidad) VALUES (?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssi", $nombre_comunidad, $autoridad, $id_unidad);
+        $stmt->bind_param("sssi", $nombre_comunidad, $autoridad, $direccion, $id_unidad);
         if ($stmt->execute()) {
             echo json_encode(["success" => true, "message" => "Comunidad registrada correctamente"]);
         } else {

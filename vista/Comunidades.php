@@ -6,7 +6,7 @@ $sql_unidades = "SELECT Id_unidad, Nombre FROM Unidad ORDER BY Nombre";
 $resultado_unidades = $conn->query($sql_unidades);
 
 // Obtener todas las comunidades para mostrarlas
-$sql_comunidades = "SELECT c.Id_comunidad, c.Nombre_comunidad, c.Autoridad, c.Id_unidad, u.Nombre as Nombre_unidad 
+$sql_comunidades = "SELECT c.Id_comunidad, c.Nombre_comunidad, c.Autoridad, c.Direccion, c.Id_unidad, u.Nombre as Nombre_unidad 
                     FROM Comunidad c 
                     JOIN Unidad u ON c.Id_unidad = u.Id_unidad 
                     ORDER BY c.Nombre_comunidad";
@@ -31,6 +31,7 @@ $resultado_comunidades = $conn->query($sql_comunidades);
                 <th>ID</th>
                 <th>Nombre de Comunidad</th>
                 <th>Autoridad</th>
+                <th>Dirección</th>
                 <th>Unidad</th>
                 <th>Acciones</th>
             </tr>
@@ -42,6 +43,7 @@ $resultado_comunidades = $conn->query($sql_comunidades);
                         <td class="center"><?php echo $row['Id_comunidad']; ?></td>
                         <td><?php echo htmlspecialchars($row['Nombre_comunidad']); ?></td>
                         <td><?php echo htmlspecialchars($row['Autoridad']); ?></td>
+                        <td><?php echo htmlspecialchars($row['Direccion']); ?></td>
                         <td><?php echo htmlspecialchars($row['Nombre_unidad']); ?></td>
                         <td class="center">
                             <div class="dropdown">
@@ -51,6 +53,7 @@ $resultado_comunidades = $conn->query($sql_comunidades);
                                         Id_comunidad: <?php echo $row['Id_comunidad']; ?>,
                                         Nombre_comunidad: '<?php echo htmlspecialchars($row['Nombre_comunidad']); ?>',
                                         Autoridad: '<?php echo htmlspecialchars($row['Autoridad']); ?>',
+                                        Direccion: '<?php echo htmlspecialchars($row['Direccion']); ?>',
                                         Id_unidad: <?php echo $row['Id_unidad']; ?>
                                     })">Modificar</a>
                                     <a class="dropdown-item" onclick="eliminarComunidadHandler(event, <?php echo $row['Id_comunidad']; ?>)">Eliminar</a>
@@ -61,7 +64,7 @@ $resultado_comunidades = $conn->query($sql_comunidades);
                 <?php endwhile; ?>
             <?php else: ?>
                 <tr>
-                    <td colspan="5" class="center">No hay comunidades registradas</td>
+                    <td colspan="6" class="center">No hay comunidades registradas</td>
                 </tr>
             <?php endif; ?>
         </tbody>

@@ -1,6 +1,5 @@
 /* Estilos generales de tabla */
 .tabla-lideres,
-.tabla-familias,
 .tabla-unidades,
 .tabla-section table {
     width: 100%;
@@ -13,7 +12,6 @@
 
 /* Estilos para las celdas */
 .tabla-lideres th, .tabla-lideres td,
-.tabla-familias th, .tabla-familias td,
 .tabla-unidades th, .tabla-unidades td,
 .tabla-section table th, .tabla-section table td {
     border: 1px solid var(--color-linea);
@@ -23,7 +21,6 @@
 
 /* Estilos para los encabezados */
 .tabla-lideres th,
-.tabla-familias th,
 .tabla-unidades th,
 .tabla-section table th {
     background-color: var(--color-linea);
@@ -33,7 +30,6 @@
 
 /* Filas alternadas */
 .tabla-lideres tr:nth-child(even),
-.tabla-familias tr:nth-child(even),
 .tabla-unidades tr:nth-child(even),
 .tabla-section table tbody tr:nth-child(even) {
     background-color: var(--color-switch-base);
@@ -41,7 +37,6 @@
 
 /* Hover en filas */
 .tabla-lideres tr:hover,
-.tabla-familias tr:hover,
 .tabla-unidades tr:hover,
 .tabla-section table tbody tr:hover {
     background-color: var(--color-switch-circulo);
@@ -75,3 +70,75 @@
     object-fit: cover;
     border: 2px solid var(--color-linea);
 }
+
+/* Organización y estilo para la tabla de Familias */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    background: var(--color-menu, #fff);
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.07);
+    padding: 24px 12px 32px 12px;
+    margin-bottom: 32px;
+}
+
+.tabla-familias {
+    width: 100%;
+    min-width: 1200px;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #fff;
+    font-size: 15px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.tabla-familias th, .tabla-familias td {
+    padding: 10px 8px;
+    border: 1px solid #e0e0e0;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.tabla-familias th {
+    background: var(--color-linea, #2d3e50);
+    color: var(--color-barra-lateral, #fff);
+    font-weight: 700;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.tabla-familias tbody tr:nth-child(even) {
+    background: #f7fafd;
+}
+
+.tabla-familias tbody tr:hover {
+    background: #e6f0fa;
+    transition: background 0.2s;
+}
+
+.tabla-familias td.center, .tabla-familias th.center {
+    text-align: center;
+}
+
+
+@media (max-width: 1200px) {
+    .tabla-familias {
+        min-width: 900px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 900px) {
+    .tabla-familias {
+        min-width: 700px;
+        font-size: 12px;
+    }
+    .table-container {
+        padding: 8px 2px 16px 2px;
+    }
+}
+

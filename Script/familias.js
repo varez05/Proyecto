@@ -1,38 +1,22 @@
 // Familias.js - Lógica de la vista Familias
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Referencias a los botones
-    const btnMadre = document.getElementById('btn-agregar-madre');
-    const btnPadre = document.getElementById('btn-agregar-padre');
-    const btnCuidador = document.getElementById('btn-agregar-cuidador');
+    // Referencia al botón de familia
     const btnFamilia = document.getElementById('btn-agregar-familia');
 
-    // Referencias a los formularios
-    const formularios = {
-        madre: document.getElementById('madre'),
-        padre: document.getElementById('padre'),
-        cuidador: document.getElementById('cuidador'),
-        familia: document.getElementById('familia')
-    };
+    // Referencia al formulario de familia
+    const formularioFamilia = document.getElementById('familia');
 
-    // Ocultar todos los formularios inicialmente
-    Object.values(formularios).forEach(form => {
-        if (form) form.style.display = 'none';
-    });
+    // Ocultar el formulario inicialmente
+    if (formularioFamilia) formularioFamilia.style.display = 'none';
 
-    // Función para mostrar un formulario
-    function mostrarFormulario(tipo) {
-        Object.values(formularios).forEach(form => {
-            if (form) form.style.display = 'none';
-        });
-        if (formularios[tipo]) formularios[tipo].style.display = 'flex';
+    // Función para mostrar el formulario de familia
+    function mostrarFormularioFamilia() {
+        if (formularioFamilia) formularioFamilia.style.display = 'flex';
     }
 
-    // Event listeners para cada botón
-    if (btnMadre) btnMadre.addEventListener('click', () => mostrarFormulario('madre'));
-    if (btnPadre) btnPadre.addEventListener('click', () => mostrarFormulario('padre'));
-    if (btnCuidador) btnCuidador.addEventListener('click', () => mostrarFormulario('cuidador'));
-    if (btnFamilia) btnFamilia.addEventListener('click', () => mostrarFormulario('familia'));
+    // Event listener para el botón de familia
+    if (btnFamilia) btnFamilia.addEventListener('click', mostrarFormularioFamilia);
 
     // Función para validar documento único
     window.validarDocumentoUnico = async function(tipo, tipoDoc, numDoc) {
@@ -126,15 +110,22 @@ document.addEventListener('DOMContentLoaded', function() {
  */
 function editarFamilia(familia) {
     document.getElementById('id_familia_editar').value = familia.Id_familia;
+    document.getElementById('fecha_inscripcion_familia_editar').value = familia.Fecha_inscripcion;
+    document.getElementById('id_comunidad_familia_editar').value = familia.Id_comunidad;
+    document.getElementById('tipo_usuario_familia_editar').value = familia.Tipo_usuario;
     document.getElementById('tipo_documento_familia_editar').value = familia.Tipo_documento;
     document.getElementById('numero_documento_familia_editar').value = familia.Numero_documento;
     document.getElementById('nombres_familia_editar').value = familia.Nombres;
     document.getElementById('apellidos_familia_editar').value = familia.Apellidos;
-    document.getElementById('fecha_inscripcion_familia_editar').value = familia.Fecha_inscripcion;
-    document.getElementById('tipo_usuario_familia_editar').value = familia.Tipo_usuario;
-    document.getElementById('direccion_familia_editar').value = familia.Direccion;
-    document.getElementById('madre_familia_editar').value = familia.Id_madre;
-    document.getElementById('padre_familia_editar').value = familia.Id_padre;
-    document.getElementById('cuidador_familia_editar').value = familia.Id_cuidador;
+    document.getElementById('fecha_nacimiento_familia_editar').value = familia.Fecha_nacimiento;
+    document.getElementById('lugar_nacimiento_familia_editar').value = familia.Lugar_nacimiento;
+    document.getElementById('sexo_familia_editar').value = familia.Sexo;
+    document.getElementById('telefono_familia_editar').value = familia.Telefono;
+    document.getElementById('correo_familia_editar').value = familia.Correo;
+    document.getElementById('autoreconicido_familia_editar').value = familia.Autoreconicido;
+    document.getElementById('etnia_familia_editar').value = familia.Etnia;
+    document.getElementById('cuidador_familia_editar').value = familia.Cuidador;
+    document.getElementById('padre_familia_editar').value = familia.Padre;
+    document.getElementById('madre_familia_editar').value = familia.Madre;
     btnAbrirModal('editar-familia-container');
 }
