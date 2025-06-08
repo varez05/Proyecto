@@ -26,9 +26,6 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'administrador') {
     <link rel="stylesheet" href="../Css/modal.css">
 
     <!-- <link rel="stylesheet" href="../Css/Comunidades.css"> -->
-
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
@@ -48,7 +45,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'administrador') {
             </Div>
             <button class="boton">
                 <ion-icon name="create-outline"></ion-icon>
-                <span> Administrador </span>
+                <span> Perfil Administrador </span>
             </button>
         </div>
         <nav class="navegacion">
@@ -71,6 +68,12 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'administrador') {
                         <span>Familias</span>
                     </a>
                 </li>
+                  <li>
+    <a href="#" onclick="mostrarSeccion(event, 'contenido-administradores', '../vista/Administrador.php')">
+        <ion-icon name="person-add-outline"></ion-icon>
+        <span>Administradores</span>
+    </a>
+</li>
                 <li>
                     <a href="#" onclick="mostrarSeccion(event, 'contenido-lideres', '../vista/Lideres.php')">
                         <ion-icon name="people-outline"></ion-icon>
@@ -126,6 +129,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'administrador') {
         <div id="contenido-lideres" style="display: none; margin-top: 20px;"></div>
         <div id="contenido-comunidades" style="display: none; margin-top: 20px;"></div>
         <div id="contenido-familias" style="display: none; margin-top: 20px;"></div>
+        <div id="contenido-administradores" style="display: none; margin-top: 20px;"></div>
         <div id="contenido-reportes" style="display: none; margin-top: 20px;"></div>
     </main>
 
@@ -161,6 +165,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'administrador') {
                 'contenido-lideres',
                 'contenido-comunidades',
                 'contenido-familias',
+                'contenido-administradores',
                 'contenido-reportes'
             ];
             secciones.forEach(seccion => {
