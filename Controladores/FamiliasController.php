@@ -42,21 +42,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !isset($_POST['validar_documento']))
         if (isset($_POST['tipo_documento']) && isset($_POST['numero_documento'])) {
             $tipo_documento = $_POST['tipo_documento'];
             $numero_documento = $_POST['numero_documento'];
+            $fecha_nacimiento = $_POST['fecha_nacimiento'];
+            // Validar tipo de documento permitido
+            $tiposPermitidos = ['Registro Civil', 'Tarjeta de Identidad'];
+            if (!in_array($tipo_documento, $tiposPermitidos)) {
+                throw new Exception("Solo se permiten Registro Civil o Tarjeta de Identidad");
+            }
+            // Calcular edad
+            $hoy = new DateTime();
+            $nacimiento = new DateTime($fecha_nacimiento);
+            $edad = $hoy->diff($nacimiento)->y;
+            // Validar edad
+            if ($edad < 0 || $edad > 14) {
+                throw new Exception("Solo se pueden registrar niños de 0 a 14 años");
+            }
+            // Asignar tipo de usuario
+            if ($edad <= 5) {
+                $tipo_usuario = 'A';
+            } else {
+                $tipo_usuario = 'C';
+            }
             if (!validarDocumentoFamilia($tipo_documento, $numero_documento, $conn)) {
                 throw new Exception("El número de documento ya existe para una familia");
             }
             $stmt = $conn->prepare("INSERT INTO Familias (
-                Fecha_inscripcion, Id_comunidad, Tipo_usuario, Tipo_documento, Numero_documento, Nombres, Apellidos, Fecha_nacimiento, Lugar_nacimiento, Sexo, Telefono, Correo, Autoreconicido, Etnia, Cuidador, Padre, Madre
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                Id_comunidad, Tipo_usuario, Tipo_documento, Numero_documento, Nombres, Apellidos, Fecha_nacimiento, Lugar_nacimiento, Sexo, Telefono, Correo, Autoreconicido, Etnia, Cuidador, Padre, Madre
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             $stmt->execute([
-                $_POST['fecha_inscripcion'],
                 $_POST['id_comunidad'],
-                $_POST['tipo_usuario'],
-                $_POST['tipo_documento'],
-                $_POST['numero_documento'],
+                $tipo_usuario,
+                $tipo_documento,
+                $numero_documento,
                 $_POST['nombres'],
                 $_POST['apellidos'],
-                $_POST['fecha_nacimiento'],
+                $fecha_nacimiento,
                 $_POST['lugar_nacimiento'],
                 $_POST['sexo'],
                 $_POST['telefono'],
@@ -68,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !isset($_POST['validar_documento']))
                 $_POST['madre']
             ]);
             $conn->commit();
-            echo json_encode(["success" => true, "message" => "Familia registrada correctamente"]);
+            echo json_encode(["success" => true, "message" => "Niño registrado correctamente"]);
             exit;
         }
     } catch (Exception $e) {

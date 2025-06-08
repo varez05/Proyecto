@@ -8,27 +8,20 @@ date_default_timezone_set('America/Bogota');
     <div class="modal-content">
         <span id="btn-cerrar-modal-familia" class="close" onclick="cerrarModal('modal-agregar-familia')">&times;</span>
         <h2>Agregar Familia</h2>
-        <form action="Familias.php" method="POST" class="form-modificar">
+        <form action="Familias.php" method="POST" class="form-modificar" id="form-familia">
             <div class="form-group">
                 <label for="id_familia_comunidad">Comunidad:</label>
                 <select id="id_familia_comunidad" name="id_comunidad" required>
                     <option value="">Seleccione una comunidad</option>
                 </select>
             </div>
-            <div class="form-group">
-                <label for="fecha_inscripcion">Fecha de Inscripción:</label>
-                <input type="date" id="fecha_inscripcion" name="fecha_inscripcion" required>
-            </div>
-            <div class="form-group">
-                <label for="tipo_usuario">Tipo de Usuario:</label>
-                <input type="text" id="tipo_usuario" name="tipo_usuario" required>
-            </div>
+            <!-- Eliminado campo Fecha de Inscripción -->
+            <!-- Eliminado campo Tipo de Usuario (se asigna automáticamente por JS) -->
             <div class="form-group">
                 <label for="tipo_documento">Tipo de Documento:</label>
                 <select id="tipo_documento" name="tipo_documento" required>
-                    <option value="Cédula">Cédula</option>
+                    <option value="Registro Civil">Registro Civil</option>
                     <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
-                    <option value="Cédula Extranjería">Cédula Extranjería</option>
                 </select>
             </div>
             <div class="form-group">
@@ -45,8 +38,7 @@ date_default_timezone_set('America/Bogota');
             </div>
             <div class="form-group">
                 <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
-                <input max="<?php echo date('Y-m-d'); ?>" type="date"
-                 id="fecha_nacimiento" name="fecha_nacimiento" required>
+                <input max="<?php echo date('Y-m-d'); ?>" type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
             </div>
             <div class="form-group">
                 <label for="lugar_nacimiento">Lugar de Nacimiento:</label>
@@ -99,28 +91,20 @@ date_default_timezone_set('America/Bogota');
     <div class="modal-content">
         <span id="btn-cerrar-modal-familia" class="close" onclick="cerrarModal('modal-modificar-familia')">&times;</span>
         <h2>Modificar Familia</h2>
-        <h2>Modificar Familia</h2>
-        <form action="Familias.php" method="POST" class="form-modificar">
+        <form action="Familias.php" method="POST" class="form-modificar" id="form-familia-editar">
             <div class="form-group">
                 <label for="id_familia_comunidad">Comunidad:</label>
                 <select id="id_familia_comunidad" name="id_comunidad" required>
                     <option value="">Seleccione una comunidad</option>
                 </select>
             </div>
-            <div class="form-group">
-                <label for="fecha_inscripcion_familia_editar">Fecha de Inscripción:</label>
-                <input type="date" id="fecha_inscripcion_familia_editar" name="fecha_inscripcion" required>
-            </div>
-            <div class="form-group">
-                <label for="tipo_usuario_familia_editar">Tipo de Usuario:</label>
-                <input type="text" id="tipo_usuario_familia_editar" name="tipo_usuario" required>
-            </div>
+            <!-- Eliminado campo Fecha de Inscripción -->
+            <!-- Eliminado campo Tipo de Usuario (se asigna automáticamente por JS) -->
             <div class="form-group">
                 <label for="tipo_documento_familia_editar">Tipo de Documento:</label>
                 <select id="tipo_documento_familia_editar" name="tipo_documento" required>
-                    <option value="Cédula">Cédula</option>
+                    <option value="Registro Civil">Registro Civil</option>
                     <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
-                    <option value="Cédula Extranjería">Cédula Extranjería</option>
                 </select>
             </div>
             <div class="form-group">
@@ -136,42 +120,47 @@ date_default_timezone_set('America/Bogota');
                 <input type="text" id="apellidos_familia_editar" name="apellidos" required>
             </div>
             <div class="form-group">
-                <label for="direccion_familia_editar">Dirección:</label>
-                <input type="text" id="direccion_familia_editar" name="direccion" required>
+                <label for="fecha_nacimiento_familia_editar">Fecha de Nacimiento:</label>
+                <input type="date" id="fecha_nacimiento_familia_editar" name="fecha_nacimiento" required>
             </div>
             <div class="form-group">
-                <label for="madre_familia_editar">ID Madre:</label>
-                <select id="madre_familia_editar" name="id_madre">
-                    <option value="">Seleccione una madre</option>
+                <label for="lugar_nacimiento_familia_editar">Lugar de Nacimiento:</label>
+                <input type="text" id="lugar_nacimiento_familia_editar" name="lugar_nacimiento" required>
+            </div>
+            <div class="form-group">
+                <label for="sexo_familia_editar">Sexo:</label>
+                <select id="sexo_familia_editar" name="sexo" required>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Femenino">Femenino</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="telefono">Teléfono:</label>
-                <input type="text" id="telefono" name="telefono" required>
+                <label for="telefono_familia_editar">Teléfono:</label>
+                <input type="text" id="telefono_familia_editar" name="telefono" required>
             </div>
             <div class="form-group">
-                <label for="correo">Correo:</label>
-                <input type="email" id="correo" name="correo" required>
+                <label for="correo_familia_editar">Correo:</label>
+                <input type="email" id="correo_familia_editar" name="correo" required>
             </div>
             <div class="form-group">
-                <label for="autoreconicido">Autoreconocido:</label>
-                <input type="text" id="autoreconicido" name="autoreconicido">
+                <label for="autoreconicido_familia_editar">Autoreconocido:</label>
+                <input type="text" id="autoreconicido_familia_editar" name="autoreconicido">
             </div>
             <div class="form-group">
-                <label for="etnia">Etnia:</label>
-                <input type="text" id="etnia" name="etnia">
+                <label for="etnia_familia_editar">Etnia:</label>
+                <input type="text" id="etnia_familia_editar" name="etnia">
             </div>
             <div class="form-group">
-                <label for="cuidador">Cuidador:</label>
-                <input type="text" id="cuidador" name="cuidador">
+                <label for="cuidador_familia_editar">Cuidador:</label>
+                <input type="text" id="cuidador_familia_editar" name="cuidador">
             </div>
             <div class="form-group">
-                <label for="padre">Padre:</label>
-                <input type="text" id="padre" name="padre">
+                <label for="padre_familia_editar">Padre:</label>
+                <input type="text" id="padre_familia_editar" name="padre">
             </div>
             <div class="form-group">
-                <label for="madre">Madre:</label>
-                <input type="text" id="madre" name="madre">
+                <label for="madre_familia_editar">Madre:</label>
+                <input type="text" id="madre_familia_editar" name="madre">
             </div>
             <div class="form-buttons">
                 <button type="submit">Guardar</button>

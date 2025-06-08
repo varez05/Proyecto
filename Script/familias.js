@@ -101,6 +101,45 @@ document.addEventListener('DOMContentLoaded', function() {
             notification.remove();
         }, 5000);
     });
+
+    // Interceptar el envío del formulario para validar edad y tipo de usuario
+    const formFamilia = document.getElementById('form-familia');
+    if (formFamilia) {
+        formFamilia.addEventListener('submit', function(event) {
+            event.preventDefault();
+            // Validar campos obligatorios
+            if (!validarFormulario(formFamilia)) return;
+            // Obtener fecha de nacimiento
+            const fechaNacimiento = formFamilia.querySelector('#fecha_nacimiento').value;
+            if (!fechaNacimiento) {
+                mostrarAlerta('Debe ingresar la fecha de nacimiento', 'error');
+                return;
+            }
+            // Calcular edad
+            const hoy = new Date();
+            const nacimiento = new Date(fechaNacimiento);
+            let edad = hoy.getFullYear() - nacimiento.getFullYear();
+            const m = hoy.getMonth() - nacimiento.getMonth();
+            if (m < 0 || (m === 0 && hoy.getDate() < nacimiento.getDate())) {
+                edad--;
+            }
+            // Asignar tipo de usuario según la edad
+            let tipoUsuario = '';
+            if (edad >= 0 && edad <= 5) {
+                tipoUsuario = 'A';
+            } else if (edad >= 6 && edad <= 14) {
+                tipoUsuario = 'C';
+            } else {
+                mostrarAlerta('Solo se pueden registrar niños de 0 a 14 años', 'error');
+                return;
+            }
+            // Crear FormData y agregar tipo_usuario
+            const formData = new FormData(formFamilia);
+            formData.append('tipo_usuario', tipoUsuario);
+            // Enviar datos al backend
+            guardarRegistro(formData, 'familia');
+        });
+    }
 });
 
 /**
