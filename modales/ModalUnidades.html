@@ -5,8 +5,10 @@
         <form action="../Controladores/UnidadesController.php" method="POST" class="form-modificar">
             <label for="nombre">Nombre de la Unidad:</label>
             <input type="text" id="nombre" name="nombre" required>
-            <button type="submit">Guardar</button>
-            <a href="#" id="btn-cancelar-agregar" class="btn-cancelar" onclick="cerrarModal('agregar-container')">Cancelar</a>
+            <div class="form-buttons">
+                <button type="submit">Guardar Cambios</button>
+                <a href="#" id="btn-cancelar-editar" class="btn-cancelar" onclick="cerrarModal('editar-container')">Cancelar</a>
+            </div>
         </form>
     </div>
 </div>
@@ -19,8 +21,10 @@
             <input type="hidden" id="id_unidad" name="id_unidad">
             <label for="nombre">Nuevo Nombre de la Unidad:</label>
             <input type="text" id="nombre-editar" name="nombre" required>
-            <button type="submit">Guardar Cambios</button>
-            <a href="#" id="btn-cancelar-editar" class="btn-cancelar" onclick="cerrarModal('editar-container')">Cancelar</a>
+            <div class="form-buttons">
+                <button type="submit">Guardar Cambios</button>
+                <a href="#" id="btn-cancelar-editar" class="btn-cancelar" onclick="cerrarModal('editar-container')">Cancelar</a>
+            </div>
         </form>
     </div>
 </div>

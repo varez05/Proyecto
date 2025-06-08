@@ -88,8 +88,8 @@ date_default_timezone_set('America/Bogota');
                 <input type="text" id="madre" name="madre">
             </div>
             <div class="form-buttons">
-                <button type="submit">Guardar</button>
-                <button type="button" id="btn-cancelar-modal-familia" class="btn-cancelar" onclick="cerrarModal('modal-agregar-familia')">Cancelar</button>
+                <button type="button">Guardar</button>
+                <a class="btn-cancelar" onclick="cerrarModal('modal-modificar-familia')">Cancelar</a>
             </div>
         </form>
     </div>
@@ -175,7 +175,7 @@ date_default_timezone_set('America/Bogota');
             </div>
             <div class="form-buttons">
                 <button type="submit">Guardar</button>
-                <button type="button" class="btn-cancelar" onclick="cerrarModal('modal-modificar-familia')">Cancelar</button>
+                <a class="btn-cancelar" onclick="cerrarModal('modal-modificar-familia')">Cancelar</a>
             </div>
         </form>
     </div>
