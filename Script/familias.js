@@ -1,6 +1,5 @@
 // Familias.js - Lógica de la vista Familias
 document.addEventListener('DOMContentLoaded', function() {
-<<<<<<< HEAD
     // Referencia al botón de familia
     const btnFamilia = document.getElementById('btn-agregar-familia');
 
@@ -17,8 +16,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Event listener para el botón de familia
     if (btnFamilia) btnFamilia.addEventListener('click', mostrarFormularioFamilia);
-=======
->>>>>>> 51b7525a433554c68e573fa17b1f5524cd745a5c
 
     // Función para validar documento único
     async function validarDocumentoUnico(tipo, tipoDoc, numDoc) {
@@ -119,7 +116,6 @@ function editarFamilia(familia) {
     document.getElementById('numero_documento_familia_editar').value = familia.Numero_documento;
     document.getElementById('nombres_familia_editar').value = familia.Nombres;
     document.getElementById('apellidos_familia_editar').value = familia.Apellidos;
-<<<<<<< HEAD
     document.getElementById('fecha_nacimiento_familia_editar').value = familia.Fecha_nacimiento;
     document.getElementById('lugar_nacimiento_familia_editar').value = familia.Lugar_nacimiento;
     document.getElementById('sexo_familia_editar').value = familia.Sexo;
@@ -131,15 +127,6 @@ function editarFamilia(familia) {
     document.getElementById('padre_familia_editar').value = familia.Padre;
     document.getElementById('madre_familia_editar').value = familia.Madre;
     btnAbrirModal('editar-familia-container');
-=======
-    document.getElementById('fecha_inscripcion_familia_editar').value = familia.Fecha_inscripcion;
-    document.getElementById('tipo_usuario_familia_editar').value = familia.Tipo_usuario;
-    document.getElementById('direccion_familia_editar').value = familia.Direccion;
-    document.getElementById('madre_familia_editar').value = familia.Id_madre;
-    document.getElementById('padre_familia_editar').value = familia.Id_padre;
-    document.getElementById('cuidador_familia_editar').value = familia.Id_cuidador;
-    btnAbrirModal('modal-modificar-familia');
->>>>>>> 51b7525a433554c68e573fa17b1f5524cd745a5c
 }
 function editarMadres(madre) {
     console.log(madre);

@@ -17,15 +17,33 @@ class Beneficiario {
      */
     public function obtenerBeneficiarioPorId($numeroDocumento, $tipoDocumento) {
         try {
-            $query = "SELECT f.*, 
-                        m.Nombres as Madre_Nombres, m.Apellidos as Madre_Apellidos,
-                        p.Nombres as Padre_Nombres, p.Apellidos as Padre_Apellidos,
-                        c.Nombres as Cuidador_Nombres, c.Apellidos as Cuidador_Apellidos
-                    FROM Familias f
-                    LEFT JOIN Madre m ON f.Id_madre = m.Id_madre
-                    LEFT JOIN Padre p ON f.Id_padre = p.Id_padre
-                    LEFT JOIN Cuidador c ON f.Id_cuidador = c.Id_cuidador
-                    WHERE f.Numero_documento = ? AND f.Tipo_documento = ?";
+            $query = "SELECT 
+    f.Id_familia,
+    f.Fecha_inscripcion,
+    f.Id_comunidad,
+    c.Nombre_comunidad as Direccion,
+    f.Tipo_usuario,
+    f.Tipo_documento,
+    f.Numero_documento,
+    f.Nombres,
+    f.Apellidos,
+    f.Fecha_nacimiento,
+    f.Lugar_nacimiento,
+    f.Sexo,
+    f.Telefono,
+    f.Correo,
+    f.Autoreconicido,
+    f.Etnia,
+    f.Cuidador    AS Cuidador_Nombres,
+    f.Padre       AS Padre_Nombres,
+    f.Madre       AS Madre_Nombres
+FROM 
+    Familias f
+LEFT JOIN 
+    Comunidad c ON f.Id_comunidad = c.Id_comunidad
+WHERE 
+    f.Numero_documento = ?
+    AND f.Tipo_documento = ?;";
             
             $stmt = $this->conexion->prepare($query);
             $stmt->bind_param("ss", $numeroDocumento, $tipoDocumento);

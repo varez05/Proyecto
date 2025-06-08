@@ -69,6 +69,34 @@
                                     <th scope="row">Cuidador</th>
                                     <td id="cuidador"></td>
                                 </tr>
+                                <tr>
+                                    <th scope="row">Fecha de nacimiento</th>
+                                    <td id="fecha_nacimiento"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Lugar de nacimiento</th>
+                                    <td id="lugar_nacimiento"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Sexo</th>
+                                    <td id="sexo"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Teléfono</th>
+                                    <td id="telefono"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Correo</th>
+                                    <td id="correo"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Autoreconocido</th>
+                                    <td id="autoreconocido"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Etnia</th>
+                                    <td id="etnia"></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -118,9 +146,16 @@
                     document.getElementById('fecha_inscri').textContent = data.data.Fecha_inscripcion;
                     document.getElementById('tipo_usuar').textContent = data.data.Tipo_usuario;
                     document.getElementById('direcc').textContent = data.data.Direccion;
-                    document.getElementById('madre').textContent = (data.data.Madre_Nombres || '') + ' ' + (data.data.Madre_Apellidos || '');
-                    document.getElementById('padre').textContent = (data.data.Padre_Nombres || '') + ' ' + (data.data.Padre_Apellidos || '');
-                    document.getElementById('cuidador').textContent = (data.data.Cuidador_Nombres || '') + ' ' + (data.data.Cuidador_Apellidos || '');
+                    document.getElementById('madre').textContent = data.data.Madre_Nombres || '';
+                    document.getElementById('padre').textContent = data.data.Padre_Nombres || '';
+                    document.getElementById('cuidador').textContent = data.data.Cuidador_Nombres || '';
+                    document.getElementById('fecha_nacimiento').textContent = data.data.Fecha_nacimiento || '';
+                    document.getElementById('lugar_nacimiento').textContent = data.data.Lugar_nacimiento || '';
+                    document.getElementById('sexo').textContent = data.data.Sexo || '';
+                    document.getElementById('telefono').textContent = data.data.Telefono || '';
+                    document.getElementById('correo').textContent = data.data.Correo || '';
+                    document.getElementById('autoreconocido').textContent = data.data.Autoreconicido || '';
+                    document.getElementById('etnia').textContent = data.data.Etnia || '';
                 } else {
                     alert(data.message);
                 }

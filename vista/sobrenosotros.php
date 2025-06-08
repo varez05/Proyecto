@@ -8,8 +8,9 @@
 </head>
 <body>
     <header>
-        <div class="container header-container">
+        <div class="container header-container" style="display: flex; justify-content: space-between; align-items: center;">
             <div class="logo">Unión Temporal Koutuushi Wapushua</div>
+            <a href="Paginaprincipal.php" class="btn-volver-principal" style="padding: 8px 18px; background: #14b8a6; color: #fff; border-radius: 5px; text-decoration: none; font-weight: bold; margin-left: 20px;">Volver a Principal</a>
         </div>
     </header>
 
