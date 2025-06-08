@@ -139,6 +139,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'administrador') {
             include '../modales/ModalLider.html';  // crear y editar
             include '../modales/ModalComunidades.php';
             include '../modales/ModalFamilias.php';
+            include '../modales/ModalAdministrador.html';
         ?>
    <!--  -->
 

@@ -1,0 +1,76 @@
+
+<!-- Modal para agregar administrador -->
+<div class="modal" id="agregar-administrador-container">
+    <div class="modal-content">
+        <h2>Agregar Administrador</h2>
+        <form id="form-agregar-administrador" action="../Controladores/AdministradorController.php" method="POST" class="form-modificar" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="nombre_admin">Nombre:</label>
+                <input type="text" id="nombre_admin" name="nombre" required>
+            </div>
+            <div class="form-group">
+                <label for="usuario_admin">Usuario:</label>
+                <input type="text" id="usuario_admin" name="usuario" required>
+            </div>
+            <div class="form-group">
+                <label for="contrasena_admin">Contraseña:</label>
+                <input type="password" id="contrasena_admin" name="contrasena" required>
+            </div>
+            <div class="form-group">
+                <label for="correo_admin">Correo Electrónico:</label>
+                <input type="email" id="correo_admin" name="correo" required>
+            </div>
+            <div class="form-group">
+                <label for="telefono_admin">Teléfono:</label>
+                <input type="tel" id="telefono_admin" name="telefono">
+            </div>
+            <div class="form-group">
+                <label for="img_admin">Imagen (opcional):</label>
+                <input type="file" id="img_admin" name="img" accept="image/*">
+            </div>
+            <div class="form-buttons">
+                <button type="submit">Guardar</button>
+                <a class="btn-cancelar" onclick="cerrarModal('agregar-administrador-container')">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal para editar administrador -->
+<div class="modal" id="editar-administrador-container" style="display: none;">
+    <div class="modal-content">
+        <h2>Editar Administrador</h2>
+        <form id="form-editar-administrador" action="../Controladores/AdministradorController.php" method="POST" class="form-modificar" enctype="multipart/form-data">
+            <input type="hidden" id="id_admin_editar" name="id_admin">
+            <div class="form-group">
+                <label for="nombre_admin_editar">Nombre:</label>
+                <input type="text" id="nombre_admin_editar" name="nombre" required>
+            </div>
+            <div class="form-group">
+                <label for="usuario_admin_editar">Usuario:</label>
+                <input type="text" id="usuario_admin_editar" name="usuario" required>
+            </div>
+            <div class="form-group">
+                <label for="contrasena_admin_editar">Contraseña:</label>
+                <input type="password" id="contrasena_admin_editar" name="contrasena" required>
+            </div>
+            <div class="form-group">
+                <label for="correo_admin_editar">Correo Electrónico:</label>
+                <input type="email" id="correo_admin_editar" name="correo" required>
+            </div>
+            <div class="form-group">
+                <label for="telefono_admin_editar">Teléfono:</label>
+                <input type="tel" id="telefono_admin_editar" name="telefono">
+            </div>
+            <div class="form-group">
+                <label for="img_admin_editar">Imagen (opcional):</label>
+                <input type="file" id="img_admin_editar" name="img" accept="image/*">
+                <img id="img_preview_admin_editar" src="" alt="Imagen actual" style="max-width: 120px; display: none; margin-top: 10px;">
+            </div>
+            <div class="form-buttons">
+                <button type="submit">Guardar Cambios</button>
+                <a class="btn-cancelar" onclick="cerrarModal('editar-administrador-container')">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>

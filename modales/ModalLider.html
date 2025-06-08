@@ -1,130 +1,172 @@
 <!-- Modal para agregar líder -->
 <div class="modal" id="agregar-lider-container">
-    <div class="modal-content">
-        <h2>Agregar Líder</h2>
-        <form id="form-agregar-lider" action="../Controladores/LideresController.php" method="POST" class="form-modificar" enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="tipo_documento">Tipo de Documento:</label>
-                <select id="tipo_documento" name="tipo_documento" required>
-                    <option value="Cédula">Cédula</option>
-                    <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
-                    <option value="Pasaporte">Pasaporte</option>
-                    <option value="Cédula Extranjería">Cédula Extranjería</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="numero_documento">Número de Documento:</label>
-                <input type="text" id="numero_documento" name="numero_documento" required>
-            </div>
-            <div class="form-group">
-                <label for="nombres">Nombres:</label>
-                <input type="text" id="nombres" name="nombres" required>
-            </div>
-            <div class="form-group">
-                <label for="apellidos">Apellidos:</label>
-                <input type="text" id="apellidos" name="apellidos" required>
-            </div>
-            <div class="form-group">
-                <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
-                <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
-            </div>
-            <div class="form-group">
-                <label for="sexo">Sexo:</label>
-                <select id="sexo" name="sexo" required>
-                    <option value="Masculino">Masculino</option>
-                    <option value="Femenino">Femenino</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="correo">Correo Electrónico:</label>
-                <input type="email" id="correo" name="correo">
-            </div>
-            <div class="form-group">
-                <label for="telefono">Teléfono:</label>
-                <input type="tel" id="telefono" name="telefono">
-            </div>
-            <div class="form-group">
-                <label for="rol">Rol:</label>
-                <select id="rol" name="rol" required>
-                    <option value="Pedagógico">Pedagógico</option>
-                    <option value="Comunitario">Comunitario</option>
-                    <option value="Técnico">Técnico</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="img">Imagen (opcional):</label>
-                <input type="file" id="img" name="img" accept="image/*">
-            </div>
-            <div class="form-buttons">
-                <button type="submit">Guardar</button>
-                <a class="btn-cancelar" onclick="cerrarModal('agregar-lider-container')">Cancelar</a>
-            </div>
-        </form>
-    </div>
+  <div class="modal-content">
+    <h2>Agregar Líder</h2>
+    <form
+      id="form-agregar-lider"
+      action="../Controladores/LideresController.php"
+      method="POST"
+      class="form-modificar"
+      enctype="multipart/form-data"
+    >
+      <div class="form-group">
+        <label for="tipo_documento">Tipo de Documento:</label>
+        <select id="tipo_documento" name="tipo_documento" required>
+          <option value="Cédula">Cédula</option>
+          <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
+          <option value="Pasaporte">Pasaporte</option>
+          <option value="Cédula Extranjería">Cédula Extranjería</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="numero_documento">Número de Documento:</label>
+        <input
+          type="text"
+          id="numero_documento"
+          name="numero_documento"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="nombres">Nombres:</label>
+        <input type="text" id="nombres" name="nombres" required />
+      </div>
+      <div class="form-group">
+        <label for="apellidos">Apellidos:</label>
+        <input type="text" id="apellidos" name="apellidos" required />
+      </div>
+      <div class="form-group">
+        <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
+        <input
+          type="date"
+          id="fecha_nacimiento"
+          name="fecha_nacimiento"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="sexo">Sexo:</label>
+        <select id="sexo" name="sexo" required>
+          <option value="Masculino">Masculino</option>
+          <option value="Femenino">Femenino</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="correo">Correo Electrónico:</label>
+        <input type="email" id="correo" name="correo" />
+      </div>
+      <div class="form-group">
+        <label for="telefono">Teléfono:</label>
+        <input type="tel" id="telefono" name="telefono" />
+      </div>
+      <div class="form-group">
+        <label for="rol">Rol:</label>
+        <select id="rol" name="rol" required>
+          <option value="Pedagógico">Pedagógico</option>
+          <option value="Comunitario">Comunitario</option>
+          <option value="Técnico">Técnico</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="img">Imagen (opcional):</label>
+        <input type="file" id="img" name="img" accept="image/*" />
+      </div>
+      <div class="form-buttons">
+        <button type="submit">Guardar</button>
+        <a class="btn-cancelar" onclick="cerrarModal('agregar-lider-container')"
+          >Cancelar</a
+        >
+      </div>
+    </form>
+  </div>
 </div>
 
 <!-- Modal para editar líder -->
 <div class="modal" id="editar-lider-container">
-    <div class="modal-content">
-        <h2>Editar Líder</h2>
-        <form id="form-editar-lider" action="../Controladores/LideresController.php" method="POST" class="form-modificar" enctype="multipart/form-data">
-            <input type="hidden" id="id_lider_editar" name="id_lider">
-            <div class="form-group">
-                <label for="tipo_documento_editar">Tipo de Documento:</label>
-                <select id="tipo_documento_editar" name="tipo_documento" required>
-                    <option value="Cédula">Cédula</option>
-                    <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
-                    <option value="Pasaporte">Pasaporte</option>
-                    <option value="Cédula Extranjería">Cédula Extranjería</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="numero_documento_editar">Número de Documento:</label>
-                <input type="text" id="numero_documento_editar" name="numero_documento" required>
-            </div>
-            <div class="form-group">
-                <label for="nombres_editar">Nombres:</label>
-                <input type="text" id="nombres_editar" name="nombres" required>
-            </div>
-            <div class="form-group">
-                <label for="apellidos_editar">Apellidos:</label>
-                <input type="text" id="apellidos_editar" name="apellidos" required>
-            </div>
-            <div class="form-group">
-                <label for="fecha_nacimiento_editar">Fecha de Nacimiento:</label>
-                <input type="date" id="fecha_nacimiento_editar" name="fecha_nacimiento" required>
-            </div>
-            <div class="form-group">
-                <label for="sexo_editar">Sexo:</label>
-                <select id="sexo_editar" name="sexo" required>
-                    <option value="Masculino">Masculino</option>
-                    <option value="Femenino">Femenino</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="correo_editar">Correo Electrónico:</label>
-                <input type="email" id="correo_editar" name="correo">
-            </div>
-            <div class="form-group">
-                <label for="telefono_editar">Teléfono:</label>
-                <input type="tel" id="telefono_editar" name="telefono">
-            </div>
-            <div class="form-group">
-                <label for="rol_editar">Rol:</label>
-                <select id="rol_editar" name="rol" required>
-                    <option value="Pedagógico">Pedagógico</option>
-                    <option value="Comunitario">Comunitario</option>
-                    <option value="Técnico">Técnico</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="img_editar">Imagen (opcional):</label>
-                <input type="file" id="img_editar" name="img" accept="image/*">
-            </div>
-            <div class="form-buttons">
-                <button type="submit">Guardar Cambios</button>
-                <a class="btn-cancelar" onclick="cerrarModal('editar-lider-container')">Cancelar</a>
-            </div>
-        </form>
-    </div>
+  <div class="modal-content">
+    <h2>Editar Líder</h2>
+    <form
+      id="form-editar-lider"
+      action="../Controladores/LideresController.php"
+      method="POST"
+      class="form-modificar"
+      enctype="multipart/form-data"
+    >
+      <input type="hidden" id="id_lider_editar" name="id_lider" />
+      <div class="form-group">
+        <label for="tipo_documento_editar">Tipo de Documento:</label>
+        <select id="tipo_documento_editar" name="tipo_documento" required>
+          <option value="Cédula">Cédula</option>
+          <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
+          <option value="Pasaporte">Pasaporte</option>
+          <option value="Cédula Extranjería">Cédula Extranjería</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="numero_documento_editar">Número de Documento:</label>
+        <input
+          type="text"
+          id="numero_documento_editar"
+          name="numero_documento"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="nombres_editar">Nombres:</label>
+        <input type="text" id="nombres_editar" name="nombres" required />
+      </div>
+      <div class="form-group">
+        <label for="apellidos_editar">Apellidos:</label>
+        <input type="text" id="apellidos_editar" name="apellidos" required />
+      </div>
+      <div class="form-group">
+        <label for="fecha_nacimiento_editar">Fecha de Nacimiento:</label>
+        <input
+          type="date"
+          id="fecha_nacimiento_editar"
+          name="fecha_nacimiento"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="sexo_editar">Sexo:</label>
+        <select id="sexo_editar" name="sexo" required>
+          <option value="Masculino">Masculino</option>
+          <option value="Femenino">Femenino</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="correo_editar">Correo Electrónico:</label>
+        <input type="email" id="correo_editar" name="correo" />
+      </div>
+      <div class="form-group">
+        <label for="telefono_editar">Teléfono:</label>
+        <input type="tel" id="telefono_editar" name="telefono" />
+      </div>
+      <div class="form-group">
+        <label for="rol_editar">Rol:</label>
+        <select id="rol_editar" name="rol" required>
+          <option value="Pedagógico">Pedagógico</option>
+          <option value="Comunitario">Comunitario</option>
+          <option value="Técnico">Técnico</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="img_editar">Imagen (opcional):</label>
+        <input type="file" id="img_editar" name="img" accept="image/*" />
+        <img
+          id="img_preview_editar"
+          src=""
+          alt="Imagen actual"
+          style="max-width: 120px; display: none; margin-top: 10px"
+        />
+      </div>
+      <div class="form-buttons">
+        <button type="submit">Guardar Cambios</button>
+        <a class="btn-cancelar" onclick="cerrarModal('editar-lider-container')"
+          >Cancelar</a
+        >
+      </div>
+    </form>
+  </div>
 </div>

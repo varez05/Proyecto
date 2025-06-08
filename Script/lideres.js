@@ -14,7 +14,18 @@ function editarLider(lider) {
     document.getElementById('correo_editar').value = lider.Correo;
     document.getElementById('telefono_editar').value = lider.Telefono;
     document.getElementById('rol_editar').value = lider.Rol;
-    // No se carga la imagen por seguridad
+
+    // Mostrar la imagen actual (si existe)
+    const imgPreview = document.getElementById('img_preview_editar');
+    if (imgPreview) {
+        if (lider.Img && lider.Img !== "") {
+            imgPreview.src = "../uploads/" + lider.Img;
+            imgPreview.style.display = "block";
+        } else {
+            imgPreview.style.display = "none";
+        }
+    }
+
     btnAbrirModal('editar-lider-container');
 }
 
