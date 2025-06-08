@@ -23,8 +23,6 @@ $result = listarLideres($conn);
              <h1>Gestión de Líderes</h1>
              <button id="btn-agregar" class="btn-modificar" onclick="btnAbrirModal('agregar-lider-container')">Agregar Líder</button>
              </div>
-    <!-- Contenido principal -->
-    <div class="container scroll-horizontal">
         
         <!-- Contenedor para mensajes -->
         <div id="mensaje" class="mensaje" style="display: none;"></div>
@@ -96,7 +94,6 @@ $result = listarLideres($conn);
                 <?php endif; ?>
             </tbody>
         </table>
-    </div>
     </div>
 
 <script src="../Script/lideres.js"></script>
