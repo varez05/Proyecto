@@ -7,13 +7,13 @@ $familias_query = "SELECT * FROM Familias";
 $familias_result = $conn->query($familias_query)->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-<div class="container">
-    <div class="gestion-contenedor">
+
+    <div class="Div-container">
         <h1>Gestión de Familias</h1>
         <button id="btn-agregar-familia" class="btn-modificar" onclick="btnAbrirModal('modal-agregar-familia')">Agregar Familia</button>
     </div>
     <!-- Tabla Familias -->
-    <div class="table-container scroll-horizontal">
+    <div class="table-container">
         <h2>Familias Registradas</h2>
         <table class="tabla-familias">
             <thead>
@@ -81,6 +81,4 @@ $familias_result = $conn->query($familias_query)->fetchAll(PDO::FETCH_ASSOC);
             </tbody>
         </table>
     </div>
-</div>
-
 
