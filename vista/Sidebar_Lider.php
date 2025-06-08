@@ -31,8 +31,6 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'lider') {
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src=" ../Script/Script1.js " defer></script>
 </head>
 <body>
@@ -48,7 +46,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'lider') {
         </Div>
         <button class="boton">
             <ion-icon name="add-circle-outline"></ion-icon>
-            <span> Create New </span>
+            <span> Perfil Lider </span>
         </button>
        </div>
         <nav class="navegacion">
@@ -121,13 +119,21 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'lider') {
     <div id="contenido-reportes" style="display: none; margin-top: 20px;"></div>
    </main>
 
+  
    <!-- MODALES -->
         <?php
             include '../modales/ModalUnidades.html';  // crear y editar
+            include '../modales/ModalComunidades.php';
+            include '../modales/ModalFamilias.php';
         ?>
    <!--  -->
 
    <script src="../Script/unidades.js"></script>
+   <script src="../Script/modal.js"></script>
+   <script src="../Script/comunidades.js"></script>
+   <script src="../Script/familias.js"></script>
+
+
    <script>
       async function mostrarSeccion(event, id, url) {
         event.preventDefault(); // Evita la redirección
