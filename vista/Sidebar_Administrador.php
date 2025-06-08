@@ -43,7 +43,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'administrador') {
                 <ion-icon id="cloud" name="albums-outline"></ion-icon>
                 <Span>Koutuushi Wapushua</Span>
             </Div>
-            <button class="boton">
+            <button class="boton" onclick="mostrarSeccion(event, 'contenido-perfil', '../vista/Perfil_Administrador.php')">
                 <ion-icon name="create-outline"></ion-icon>
                 <span> Perfil Administrador </span>
             </button>
@@ -131,6 +131,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'administrador') {
         <div id="contenido-familias" style="display: none; margin-top: 20px;"></div>
         <div id="contenido-administradores" style="display: none; margin-top: 20px;"></div>
         <div id="contenido-reportes" style="display: none; margin-top: 20px;"></div>
+        <div id="contenido-perfil" style="display: none; margin-top: 20px;"></div>
     </main>
 
    <!-- MODALES -->
@@ -167,7 +168,8 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'administrador') {
                 'contenido-comunidades',
                 'contenido-familias',
                 'contenido-administradores',
-                'contenido-reportes'
+                'contenido-reportes',
+                'contenido-perfil'
             ];
             secciones.forEach(seccion => {
                 document.getElementById(seccion).style.display = 'none';

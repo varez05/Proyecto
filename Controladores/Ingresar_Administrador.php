@@ -32,6 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['nombre'] = $fila['Nombre'];
         $_SESSION['correo'] = $fila['Correo'];
         $_SESSION['img'] = $fila['Img'];
+        $_SESSION['telefono'] = $fila['Telefono'];
         $_SESSION['rol'] = 'administrador';
 
         $stmt->close();
