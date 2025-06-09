@@ -68,12 +68,12 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'administrador') {
                         <span>Familias</span>
                     </a>
                 </li>
-                  <li>
-    <a href="#" onclick="mostrarSeccion(event, 'contenido-administradores', '../vista/Administrador.php')">
-        <ion-icon name="person-add-outline"></ion-icon>
-        <span>Administradores</span>
-    </a>
-</li>
+                <li>
+                    <a href="#" onclick="mostrarSeccion(event, 'contenido-administradores', '../vista/Administrador.php')">
+                        <ion-icon name="person-add-outline"></ion-icon>
+                        <span>Administradores</span>
+                    </a>
+                </li>
                 <li>
                     <a href="#" onclick="mostrarSeccion(event, 'contenido-lideres', '../vista/Lideres.php')">
                         <ion-icon name="people-outline"></ion-icon>
@@ -86,10 +86,16 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'administrador') {
                         <span>Reportes</span>
                     </a>
                 </li>
+                <li>
+                    <a href="#" onclick="mostrarSeccion(event, 'contenido-historial', '../vista/Historial.php')">
+                        <ion-icon name="reload-outline"></ion-icon>
+                        <span>Historial</span>
+                    </a>
+                </li>
             </ul>
         </nav>
         <div>
-           
+
 
             <div class="usuario">
                 <img src="<?php echo isset($_SESSION['img']) ? '../imagen/' . $_SESSION['img'] : '../imagen/Fondo1.jpg'; ?>" alt="">
@@ -118,28 +124,28 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'administrador') {
         <div id="contenido-administradores" style="display: none; margin-top: 20px;"></div>
         <div id="contenido-reportes" style="display: none; margin-top: 20px;"></div>
         <div id="contenido-perfil" style="display: none; margin-top: 20px;"></div>
+        <div id="contenido-historial" style="display: none; margin-top: 20px;"></div>
     </main>
 
-   <!-- MODALES -->
-        <?php
-            include '../modales/ModalUnidades.html';  // crear y editar
-            include '../modales/ModalLider.html';  // crear y editar
-            include '../modales/ModalComunidades.php';
-            include '../modales/ModalFamilias.php';
-            include '../modales/ModalAdministrador.html';
-            include '../modales/Modal_contraseña.php';
-        ?>
-   <!--  -->
+    <!-- MODALES -->
+    <?php
+    include '../modales/ModalUnidades.html';  // crear y editar
+    include '../modales/ModalLider.html';  // crear y editar
+    include '../modales/ModalComunidades.php';
+    include '../modales/ModalFamilias.php';
+    include '../modales/ModalAdministrador.html';
+    include '../modales/Modal_contraseña.php';
+    ?>
+    <!--  -->
 
-   <script src="../Script/unidades.js"></script>
-   <script src="../Script/modal.js"></script>
-   <script src="../Script/comunidades.js"></script>
-   <script src="../Script/familias.js"></script>
-   <script src="../Script/lideres.js"></script>
-   
-   
-   <script>
+    <script src="../Script/unidades.js"></script>
+    <script src="../Script/modal.js"></script>
+    <script src="../Script/comunidades.js"></script>
+    <script src="../Script/familias.js"></script>
+    <script src="../Script/lideres.js"></script>
 
+
+    <script>
         async function mostrarSeccion(event, id, url) {
             event.preventDefault(); // Evita la redirección
 
@@ -156,7 +162,8 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'administrador') {
                 'contenido-familias',
                 'contenido-administradores',
                 'contenido-reportes',
-                'contenido-perfil'
+                'contenido-perfil',
+                'contenido-historial' // Agregado para cerrar Historial al abrir otra sección
             ];
             secciones.forEach(seccion => {
                 document.getElementById(seccion).style.display = 'none';
