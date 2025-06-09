@@ -1,6 +1,7 @@
 function btnAbrirModal(identificador) {
     const modal = document.getElementById(identificador);
     if (modal) {
+        modal.style.display = 'flex';
         modal.classList.add('show');
     }
 }
@@ -8,6 +9,7 @@ function btnAbrirModal(identificador) {
 function cerrarModal(identificador) {
     const modal = document.getElementById(identificador);
     if (modal) {
+        modal.style.display = 'none';
         modal.classList.remove('show');
     }
 }
