@@ -47,42 +47,96 @@ $familias_6a14 = $conn->query($sql4)->fetchAll(PDO::FETCH_ASSOC);
 <div class="container">
     <h1>Reportes</h1>
     <h2>Cantidad de Comunidades por Unidad</h2>
-    <table class="tabla-familias">
-        <thead><tr><th>Unidad</th><th>Total Comunidades</th></tr></thead>
+    <table class="tabla-lideres">
+        <thead>
+            <tr>
+                <th>Unidad</th>
+                <th>Total Comunidades</th>
+            </tr>
+        </thead>
         <tbody>
-        <?php foreach ($comunidades_por_unidad as $row): ?>
-            <tr><td><?= htmlspecialchars($row['Unidad']) ?></td><td><?= $row['TotalComunidades'] ?></td></tr>
-        <?php endforeach; ?>
+            <?php foreach ($comunidades_por_unidad as $row): ?>
+                <tr>
+                    <td><?= htmlspecialchars($row['Unidad']) ?></td>
+                    <td><?= $row['TotalComunidades'] ?></td>
+                </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
+</div>
 
-    <h2>Cantidad de Familias por Comunidad</h2>
-    <table class="tabla-familias">
-        <thead><tr><th>Comunidad</th><th>Total Familias</th></tr></thead>
+<div class="container">
+    <div class="header-container">
+        <h2>Cantidad de Familias por Comunidad</h2>
+        <button class="boton">
+            <ion-icon name="download-outline"></ion-icon>
+            <span> PDF </span>
+        </button>
+    </div>
+    <table class="tabla-lideres">
+        <thead>
+            <tr>
+                <th>Comunidad</th>
+                <th>Total Familias</th>
+            </tr>
+        </thead>
         <tbody>
-        <?php foreach ($familias_por_comunidad as $row): ?>
-            <tr><td><?= htmlspecialchars($row['Nombre_comunidad']) ?></td><td><?= $row['TotalFamilias'] ?></td></tr>
-        <?php endforeach; ?>
+            <?php foreach ($familias_por_comunidad as $row): ?>
+                <tr>
+                    <td><?= htmlspecialchars($row['Nombre_comunidad']) ?></td>
+                    <td><?= $row['TotalFamilias'] ?></td>
+                </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
-
-    <h2>Familias con niños menores de 5 años</h2>
-    <table class="tabla-familias">
-        <thead><tr><th>Comunidad</th><th>Familias con niños &lt; 5 años</th></tr></thead>
+</div>
+<div class="container">
+    <div class="header-container">
+        <h2>Familias con niños menores de 5 años</h2>
+        <button class="boton">
+            <ion-icon name="download-outline"></ion-icon>
+            <span> PDF </span>
+        </button>
+    </div>
+    <table class="tabla-lideres">
+        <thead>
+            <tr>
+                <th>Comunidad</th>
+                <th>Familias con niños &lt; 5 años</th>
+            </tr>
+        </thead>
         <tbody>
-        <?php foreach ($familias_menores_5 as $row): ?>
-            <tr><td><?= htmlspecialchars($row['Nombre_comunidad']) ?></td><td><?= $row['FamiliasMenores5'] ?></td></tr>
-        <?php endforeach; ?>
+            <?php foreach ($familias_menores_5 as $row): ?>
+                <tr>
+                    <td><?= htmlspecialchars($row['Nombre_comunidad']) ?></td>
+                    <td><?= $row['FamiliasMenores5'] ?></td>
+                </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
-
-    <h2>Familias con niños de 6 a 14 años</h2>
-    <table class="tabla-familias">
-        <thead><tr><th>Comunidad</th><th>Familias con niños 6-14 años</th></tr></thead>
+</div>
+<div class="container">
+    <div class="header-container">
+        <h2>Familias con niños de 6 a 14 años</h2>
+        <button class="boton">
+            <ion-icon name="download-outline"></ion-icon>
+            <span> PDF </span>
+        </button>
+    </div>
+    <table class="tabla-lideres">
+        <thead>
+            <tr>
+                <th>Comunidad</th>
+                <th>Familias con niños 6-14 años</th>
+            </tr>
+        </thead>
         <tbody>
-        <?php foreach ($familias_6a14 as $row): ?>
-            <tr><td><?= htmlspecialchars($row['Nombre_comunidad']) ?></td><td><?= $row['Familias6a14'] ?></td></tr>
-        <?php endforeach; ?>
+            <?php foreach ($familias_6a14 as $row): ?>
+                <tr>
+                    <td><?= htmlspecialchars($row['Nombre_comunidad']) ?></td>
+                    <td><?= $row['Familias6a14'] ?></td>
+                </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
 </div>
