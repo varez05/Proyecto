@@ -34,7 +34,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['img'] = $fila['Img'];
         $_SESSION['telefono'] = $fila['Telefono'];
         $_SESSION['rol'] = 'administrador';
-
+        // Registrar acceso en la tabla Sesiones
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $user_agent = $_SERVER['HTTP_USER_AGENT'];
+        $fecha_hora = date('Y-m-d H:i:s');
+        $rol = 'administrador';
+        $stmtSesion = $conexion->prepare("INSERT INTO Sesiones (usuario, fecha_hora, rol, ip, user_agent) VALUES (?, ?, ?, ?, ?)");
+        $stmtSesion->bind_param("sssss", $usuario, $fecha_hora, $rol, $ip, $user_agent);
+        $stmtSesion->execute();
+        $stmtSesion->close();
         $stmt->close();
         $conexion->close();
 
@@ -63,7 +71,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['correo'] = $fila['Correo'];
         $_SESSION['img'] = $fila['Img'];
         $_SESSION['rol'] = 'lider';
-
+        // Registrar acceso en la tabla Sesiones
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $user_agent = $_SERVER['HTTP_USER_AGENT'];
+        $fecha_hora = date('Y-m-d H:i:s');
+        $rol = 'lider';
+        $stmtSesion = $conexion->prepare("INSERT INTO Sesiones (usuario, fecha_hora, rol, ip, user_agent) VALUES (?, ?, ?, ?, ?)");
+        $stmtSesion->bind_param("sssss", $usuario, $fecha_hora, $rol, $ip, $user_agent);
+        $stmtSesion->execute();
+        $stmtSesion->close();
         $stmt->close();
         $conexion->close();
 
