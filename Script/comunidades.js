@@ -17,9 +17,12 @@ function editarComunidad(comunidad) {
     // Ajustar el envío AJAX para editar comunidad
     const formularioEditar = document.getElementById('form-editar-comunidad');
     if (formularioEditar) {
-        formularioEditar.addEventListener('submit', async function(event) {
+        // Eliminar cualquier listener previo para evitar múltiples recargas
+        const nuevoFormulario = formularioEditar.cloneNode(true);
+        formularioEditar.parentNode.replaceChild(nuevoFormulario, formularioEditar);
+        nuevoFormulario.addEventListener('submit', async function(event) {
             event.preventDefault();
-            const formData = new FormData(formularioEditar);
+            const formData = new FormData(nuevoFormulario);
             formData.append('accion', 'actualizar');
             try {
                 const response = await fetch('../Controladores/ComunidadesController.php', {
@@ -30,7 +33,7 @@ function editarComunidad(comunidad) {
                 mostrarAlerta(data.message, data.success ? 'success' : 'error');
                 if (data.success) {
                     cerrarModal('editar-comunidad-container');
-                    setTimeout(() => location.reload(), 1500);
+                   setTimeout(() => location.reload(), 1500);
                 }
             } catch (error) {
                 mostrarAlerta('Error al procesar la solicitud', 'error');
@@ -145,4 +148,18 @@ if (formAgregar) {
             mostrarAlerta('Error al procesar la solicitud', 'error');
         }
     });
+
 }
+ function mostrarAlerta(mensaje, tipo) {
+        const alerta = document.createElement('div');
+        alerta.className = `alert alert-${tipo}`;
+        alerta.textContent = mensaje;
+        alerta.style.position = 'fixed';
+        alerta.style.top = '20px';
+        alerta.style.right = '20px';
+        alerta.style.zIndex = '9999';
+        document.body.appendChild(alerta);
+        setTimeout(() => {
+            alerta.remove();
+        }, 3000);
+    }
