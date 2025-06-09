@@ -1,53 +1,88 @@
 <?php
-// ...existing code...
+require_once '../Controladores/FamiliasController.php';
+
+// Conexión directa para reportes (PDO)
+$servername = "b8b6wjxwwgatbkzi3sc7-mysql.services.clever-cloud.com";
+$username = "uvzy20bldxipuq8x";
+$password = "cTXQO8Rz00laC0L5lFP8";
+$dbname = "b8b6wjxwwgatbkzi3sc7";
+$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+// 1. Comunidades por unidad
+$sql1 = "SELECT u.Nombre AS Unidad, COUNT(c.Id_comunidad) AS TotalComunidades
+         FROM Unidad u
+         LEFT JOIN Comunidad c ON u.Id_unidad = c.Id_unidad
+         GROUP BY u.Id_unidad, u.Nombre
+         ORDER BY u.Nombre";
+$comunidades_por_unidad = $conn->query($sql1)->fetchAll(PDO::FETCH_ASSOC);
+
+// 2. Familias por comunidad
+$sql2 = "SELECT c.Nombre_comunidad, COUNT(f.Id_familia) AS TotalFamilias
+         FROM Comunidad c
+         LEFT JOIN Familias f ON c.Id_comunidad = f.Id_comunidad
+         GROUP BY c.Id_comunidad, c.Nombre_comunidad
+         ORDER BY c.Nombre_comunidad";
+$familias_por_comunidad = $conn->query($sql2)->fetchAll(PDO::FETCH_ASSOC);
+
+// 3. Familias con niños menores de 5 años (al menos un niño <5)
+$sql3 = "SELECT c.Nombre_comunidad, COUNT(DISTINCT f.Id_familia) AS FamiliasMenores5
+FROM Comunidad c
+LEFT JOIN Familias f ON c.Id_comunidad = f.Id_comunidad
+WHERE TIMESTAMPDIFF(YEAR, f.Fecha_nacimiento, CURDATE()) < 5
+GROUP BY c.Id_comunidad, c.Nombre_comunidad
+ORDER BY c.Nombre_comunidad";
+$familias_menores_5 = $conn->query($sql3)->fetchAll(PDO::FETCH_ASSOC);
+
+// 4. Familias con niños de 6 a 14 años (al menos un niño 6-14)
+$sql4 = "SELECT c.Nombre_comunidad, COUNT(DISTINCT f.Id_familia) AS Familias6a14
+FROM Comunidad c
+LEFT JOIN Familias f ON c.Id_comunidad = f.Id_comunidad
+WHERE TIMESTAMPDIFF(YEAR, f.Fecha_nacimiento, CURDATE()) BETWEEN 6 AND 14
+GROUP BY c.Id_comunidad, c.Nombre_comunidad
+ORDER BY c.Nombre_comunidad";
+$familias_6a14 = $conn->query($sql4)->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
 <div class="container">
-    <h1>Reportes del Sistema</h1>
-    <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 30px;">
-        <button class="boton" onclick="mostrarReporte('sesiones')">Reporte de Ingresos</button>
-        <button class="boton" onclick="mostrarReporte('otro')">Otro Reporte</button>
-        <!-- Agrega más botones para otros reportes aquí -->
-    </div>
-    <div id="contenedor-reporte" style="margin-top: 20px;"></div>
+    <h1>Reportes</h1>
+    <h2>Cantidad de Comunidades por Unidad</h2>
+    <table class="tabla-familias">
+        <thead><tr><th>Unidad</th><th>Total Comunidades</th></tr></thead>
+        <tbody>
+        <?php foreach ($comunidades_por_unidad as $row): ?>
+            <tr><td><?= htmlspecialchars($row['Unidad']) ?></td><td><?= $row['TotalComunidades'] ?></td></tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+
+    <h2>Cantidad de Familias por Comunidad</h2>
+    <table class="tabla-familias">
+        <thead><tr><th>Comunidad</th><th>Total Familias</th></tr></thead>
+        <tbody>
+        <?php foreach ($familias_por_comunidad as $row): ?>
+            <tr><td><?= htmlspecialchars($row['Nombre_comunidad']) ?></td><td><?= $row['TotalFamilias'] ?></td></tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+
+    <h2>Familias con niños menores de 5 años</h2>
+    <table class="tabla-familias">
+        <thead><tr><th>Comunidad</th><th>Familias con niños &lt; 5 años</th></tr></thead>
+        <tbody>
+        <?php foreach ($familias_menores_5 as $row): ?>
+            <tr><td><?= htmlspecialchars($row['Nombre_comunidad']) ?></td><td><?= $row['FamiliasMenores5'] ?></td></tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+
+    <h2>Familias con niños de 6 a 14 años</h2>
+    <table class="tabla-familias">
+        <thead><tr><th>Comunidad</th><th>Familias con niños 6-14 años</th></tr></thead>
+        <tbody>
+        <?php foreach ($familias_6a14 as $row): ?>
+            <tr><td><?= htmlspecialchars($row['Nombre_comunidad']) ?></td><td><?= $row['Familias6a14'] ?></td></tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
 </div>
-<script>
-async function mostrarReporte(tipo) {
-    const contenedor = document.getElementById('contenedor-reporte');
-    contenedor.innerHTML = '<p>Cargando...</p>';
-    if (tipo === 'sesiones') {
-        const resp = await fetch('Reportes.php?reporte=sesiones');
-        const html = await resp.text();
-        contenedor.innerHTML = html;
-    } else if (tipo === 'otro') {
-        contenedor.innerHTML = '<p>Próximamente: otro reporte.</p>';
-    }
-}
-// Mostrar por defecto el reporte de sesiones
-mostrarReporte('sesiones');
-</script>
-<?php
-// Renderizado parcial para AJAX
-if (isset($_GET['reporte']) && $_GET['reporte'] === 'sesiones') {
-    require_once '../modelo/conexion.php';
-    $sql = "SELECT * FROM Sesiones ORDER BY fecha_hora DESC";
-    $result = $conexion->query($sql);
-    echo '<table class="tabla-lideres">';
-    echo '<thead><tr><th>ID</th><th>Usuario</th><th>Rol</th><th>Fecha y Hora</th><th>IP</th><th>Navegador/Dispositivo</th></tr></thead><tbody>';
-    if ($result && $result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            echo '<tr>';
-            echo '<td>' . $row['id'] . '</td>';
-            echo '<td>' . htmlspecialchars($row['usuario']) . '</td>';
-            echo '<td>' . htmlspecialchars($row['rol']) . '</td>';
-            echo '<td>' . htmlspecialchars($row['fecha_hora']) . '</td>';
-            echo '<td>' . htmlspecialchars($row['ip']) . '</td>';
-            echo '<td style="max-width:200px; overflow-x:auto;"><small>' . htmlspecialchars($row['user_agent']) . '</small></td>';
-            echo '</tr>';
-        }
-    } else {
-        echo '<tr><td colspan="6" class="center">No hay registros de sesiones.</td></tr>';
-    }
-    echo '</tbody></table>';
-    exit;
-}
-// ...existing code...

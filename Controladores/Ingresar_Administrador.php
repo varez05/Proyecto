@@ -69,7 +69,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $fila = $resultado->fetch_assoc();
         $_SESSION['usuario'] = $usuario;
         $_SESSION['nombre'] = $fila['Nombres'];
+        $_SESSION['apellidos'] = $fila['Apellidos'];
+        $_SESSION['tipo_documento'] = $fila['Tipo_documento'];
+        $_SESSION['numero_documento'] = $fila['Numero_documento'];
+        $_SESSION['fecha_nacimiento'] = $fila['Fecha_nacimiento'];
+        $_SESSION['sexo'] = $fila['Sexo'];
         $_SESSION['correo'] = $fila['Correo'];
+        $_SESSION['telefono'] = $fila['Telefono'];
         $_SESSION['img'] = $fila['Img'];
         $_SESSION['rol'] = 'lider';
         // Registrar acceso en la tabla Sesiones

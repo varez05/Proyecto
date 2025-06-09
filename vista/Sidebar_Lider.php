@@ -171,5 +171,29 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'lider') {
         }
     });
    </script>
+   <?php if(isset($_GET['correo'])): ?>
+    <div id="mensaje-correo-lider" style="position:fixed; top:30px; left:50%; transform:translateX(-50%); z-index:9999; min-width:280px; padding:18px 32px; border-radius:12px; box-shadow:0 4px 24px rgba(0,0,0,0.18); font-size:1.1em; font-weight:600; display:flex; align-items:center; gap:12px; background:<?php echo $_GET['correo']==='ok' ? '#e6f9ed' : '#ffeaea'; ?>; color:<?php echo $_GET['correo']==='ok' ? '#1a7f4f' : '#b30000'; ?>; border:2px solid <?php echo $_GET['correo']==='ok' ? '#1a7f4f' : '#b30000'; ?>;">
+        <?php if($_GET['correo']==='ok'): ?>
+            <svg width="28" height="28" fill="#1a7f4f" viewBox="0 0 24 24"><path d="M20.285 6.709l-11.285 11.285-5.285-5.285 1.414-1.414 3.871 3.871 9.871-9.871z"/></svg>
+            ¡Correo actualizado con éxito!
+        <?php else: ?>
+            <svg width="28" height="28" fill="#b30000" viewBox="0 0 24 24"><path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95 1.414-1.414z"/></svg>
+            Error al actualizar el correo.
+        <?php endif; ?>
+    </div>
+    <script>setTimeout(function(){var msg=document.getElementById('mensaje-correo-lider');if(msg)msg.style.display='none';},3500);</script>
+<?php endif; ?>
+<?php if(isset($_GET['telefono'])): ?>
+    <div id="mensaje-telefono-lider" style="position:fixed; top:80px; left:50%; transform:translateX(-50%); z-index:9999; min-width:280px; padding:18px 32px; border-radius:12px; box-shadow:0 4px 24px rgba(0,0,0,0.18); font-size:1.1em; font-weight:600; display:flex; align-items:center; gap:12px; background:<?php echo $_GET['telefono']==='ok' ? '#e6f9ed' : '#ffeaea'; ?>; color:<?php echo $_GET['telefono']==='ok' ? '#1a7f4f' : '#b30000'; ?>; border:2px solid <?php echo $_GET['telefono']==='ok' ? '#1a7f4f' : '#b30000'; ?>;">
+        <?php if($_GET['telefono']==='ok'): ?>
+            <svg width="28" height="28" fill="#1a7f4f" viewBox="0 0 24 24"><path d="M20.285 6.709l-11.285 11.285-5.285-5.285 1.414-1.414 3.871 3.871 9.871-9.871z"/></svg>
+            ¡Teléfono actualizado con éxito!
+        <?php else: ?>
+            <svg width="28" height="28" fill="#b30000" viewBox="0 0 24 24"><path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95 1.414-1.414z"/></svg>
+            Error al actualizar el teléfono.
+        <?php endif; ?>
+    </div>
+    <script>setTimeout(function(){var msg=document.getElementById('mensaje-telefono-lider');if(msg)msg.style.display='none';},3500);</script>
+<?php endif; ?>
 </body>
 </html>
