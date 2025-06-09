@@ -78,24 +78,9 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'lider') {
             </ul> 
         </nav>
         <div>
-            <div class="linea">
-            </div>
-            <div class="modo-oscuro">
-                <div class="info">
-                    <ion-icon name="moon-outline"></ion-icon>
-                    <span> Modo Oscuro</span>
-                </div>
-                <div class="switch">
-                    <div class="base">
-                        <Div class="circulo">
-    
-                        </Div>
-                    </div>  
-                </div>
-            </div>
     
             <div class="usuario">
-                <img src="<?php echo isset($_SESSION['img']) ? '../imagen/' . $_SESSION['img'] : '../imagen/Fondo1.jpg'; ?>" alt="">
+                <img src="<?php echo isset($_SESSION['img']) ? '../uploads/' . $_SESSION['img'] : '../uploads/'; ?>" alt="">
                     <div class="info-usuario">
                         <div class="nombre-email">
                             <span class="nombre">
