@@ -22,11 +22,6 @@ menu.addEventListener("click", () => {
     }
 });
 
-palanca.addEventListener("click", () => {
-    let body = document.body;
-    body.classList.toggle("modo-black"); 
-    circulo.classList.toggle("prendido"); 
-});
 
 cloud.addEventListener("click", () => {
     barralateral.classList.toggle("mini-barra-lateral");
