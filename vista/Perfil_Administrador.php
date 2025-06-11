@@ -35,7 +35,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'administrador') {
             </div>
         </div>
         <div style="text-align:right; margin-top: 18px;">
-            <button type="button" id="btn-abrir-modal-contra" style="font-size: 0.95em; color: #007bff; background: #f7f9fa; border: 1px solid #e0e0e0; border-radius: 6px; padding: 6px 14px; cursor:pointer;"onclick="btnAbrirModal('modal-cambiar-contra')">Cambiar contraseña</button>
+            <button type="button" id="btn-abrir-modal-contra" style="font-size: 0.95em; color: #007bff; background: #f7f9fa; border: 1px solid #e0e0e0; border-radius: 6px; padding: 6px 14px; cursor:pointer;" onclick="btnAbrirModal('modal-cambiar-contra')">Cambiar contraseña</button>
         </div>
     </div>
 </div>
