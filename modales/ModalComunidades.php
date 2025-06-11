@@ -57,7 +57,7 @@
             </div>
             <div class="form-buttons">
                 <button type="submit">Guardar Cambios</button>
-            <button class="btn-cancelar" onclick="cerrarModal('editar-comunidad-container')">Cancelar</button
+            <button class="btn-cancelar" onclick="cerrarModal('editar-comunidad-container')">Cancelar</button>
             </div>
         </form>
     </div>

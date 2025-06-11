@@ -10,7 +10,7 @@ $familias_result = $conn->query($familias_query)->fetchAll(PDO::FETCH_ASSOC);
 
     <div class="Div-container">
         <h1>Gestión de Familias</h1>
-        <button id="btn-agregar-familia" class="btn-modificar" onclick="btnAbrirModal('modal-agregar-familia')">Agregar Familia</button>
+        <button id="btn-agregar-familia" class="btn-modificar" onclick="btnAbrirModal('modal-agregar-familia'); cargarComunidades();">Agregar Familia</button>
     </div>
     <!-- Tabla Familias -->
     <div class="table-container">

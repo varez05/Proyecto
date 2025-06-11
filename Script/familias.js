@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Validar campos obligatorios
             if (!validarFormulario(formFamilia)) return;
             // Obtener fecha de nacimiento
-            const fechaNacimiento = formFamilia.querySelector('#fecha_nacimiento').value;
+            const fechaNacimiento = formFamilia.querySelector('#fecha_nacimiento_agregar').value;
             if (!fechaNacimiento) {
                 mostrarAlerta('Debe ingresar la fecha de nacimiento', 'error');
                 return;
@@ -140,6 +140,9 @@ document.addEventListener('DOMContentLoaded', function() {
             guardarRegistro(formData, 'familia');
         });
     }
+
+    // Cargar comunidades al iniciar
+    cargarComunidades();
 });
 
 // --- FUNCIONES PARA ELIMINAR Y EDITAR FAMILIA (como en unidades.js) ---
@@ -211,4 +214,27 @@ function editarFamilia(event, familia) {
             });
         };
     }
+}
+
+function cargarComunidades() {
+    fetch('../modales/get_comunidades.php')
+        .then(response => response.json())
+        .then(data => {
+            // IDs de los selects a poblar
+            const selectIds = ['id_familia_comunidad_agregar', 'id_familia_comunidad_editar'];
+            selectIds.forEach(id => {
+                const select = document.getElementById(id);
+                if (select) {
+                    // Limpiar opciones previas excepto la primera
+                    select.length = 1;
+                    data.forEach(comunidad => {
+                        const option = document.createElement('option');
+                        option.value = comunidad.Id_comunidad;
+                        option.textContent = comunidad.Nombre_comunidad;
+                        select.appendChild(option);
+                    });
+                }
+            });
+        })
+        .catch(error => console.error('Error cargando comunidades:', error));
 }

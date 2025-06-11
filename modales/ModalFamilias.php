@@ -80,8 +80,8 @@ date_default_timezone_set('America/Bogota');
                 <input type="text" id="madre_agregar" name="madre">
             </div>
             <div class="form-buttons">
-                <button type="button">Guardar</button>
-                <a class="btn-cancelar" onclick="cerrarModal('modal-modificar-familia')">Cancelar</a>
+                <button type="submit">Guardar</button>
+                <a class="btn-cancelar" onclick="cerrarModal('modal-agregar-familia')">Cancelar</a>
             </div>
         </form>
     </div>

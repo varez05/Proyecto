@@ -12,10 +12,15 @@ try {
     die(json_encode(["success" => false, "message" => "Error de conexión: " . $e->getMessage()]));
 }
 
-// Validar documento único en Familias
-function validarDocumentoFamilia($tipo_documento, $numero_documento, $conn) {
-    $stmt = $conn->prepare("SELECT COUNT(*) FROM Familias WHERE Tipo_documento = ? AND Numero_documento = ?");
-    $stmt->execute([$tipo_documento, $numero_documento]);
+// Validar documento único en Familias (excluyendo un id opcional)
+function validarDocumentoFamilia($tipo_documento, $numero_documento, $conn, $excluir_id = null) {
+    if ($excluir_id) {
+        $stmt = $conn->prepare("SELECT COUNT(*) FROM Familias WHERE Tipo_documento = ? AND Numero_documento = ? AND Id_familia != ?");
+        $stmt->execute([$tipo_documento, $numero_documento, $excluir_id]);
+    } else {
+        $stmt = $conn->prepare("SELECT COUNT(*) FROM Familias WHERE Tipo_documento = ? AND Numero_documento = ?");
+        $stmt->execute([$tipo_documento, $numero_documento]);
+    }
     $count = $stmt->fetchColumn();
     return $count === 0;
 }
@@ -35,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['validar_documento']))
     }
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && !isset($_POST['validar_documento'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && !isset($_POST['validar_documento']) && !isset($_POST['id_familia'])) {
     try {
         $conn->beginTransaction();
         // Insertar nueva familia
@@ -95,6 +100,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !isset($_POST['validar_documento']))
         echo json_encode(["success" => false, "message" => $e->getMessage()]);
         exit;
     }
+}
+
+// Actualizar familia
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_familia'])) {
+    try {
+        $conn->beginTransaction();
+        $id_familia = $_POST['id_familia'];
+        // Validar documento único excluyendo el propio id
+        if (!validarDocumentoFamilia($_POST['tipo_documento'], $_POST['numero_documento'], $conn, $id_familia)) {
+            throw new Exception("El número de documento ya existe para otra familia");
+        }
+        $stmt = $conn->prepare("UPDATE Familias SET Id_comunidad=?, Tipo_documento=?, Numero_documento=?, Nombres=?, Apellidos=?, Fecha_nacimiento=?, Lugar_nacimiento=?, Sexo=?, Telefono=?, Correo=?, Autoreconicido=?, Etnia=?, Cuidador=?, Padre=?, Madre=? WHERE Id_familia=?");
+        $stmt->execute([
+            $_POST['id_comunidad'],
+            $_POST['tipo_documento'],
+            $_POST['numero_documento'],
+            $_POST['nombres'],
+            $_POST['apellidos'],
+            $_POST['fecha_nacimiento'],
+            $_POST['lugar_nacimiento'],
+            $_POST['sexo'],
+            $_POST['telefono'],
+            $_POST['correo'],
+            $_POST['autoreconicido'],
+            $_POST['etnia'],
+            $_POST['cuidador'],
+            $_POST['padre'],
+            $_POST['madre'],
+            $id_familia
+        ]);
+        $conn->commit();
+        echo json_encode(["success" => true, "message" => "Familia actualizada correctamente"]);
+    } catch (Exception $e) {
+        $conn->rollBack();
+        echo json_encode(["success" => false, "message" => $e->getMessage()]);
+    }
+    exit();
 }
 
 // Eliminar familia
