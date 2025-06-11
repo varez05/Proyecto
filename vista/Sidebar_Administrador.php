@@ -143,6 +143,10 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'administrador') {
     <script src="../Script/comunidades.js"></script>
     <script src="../Script/familias.js"></script>
     <script src="../Script/lideres.js"></script>
+    <!-- Enlaza jsPDF y el script de exportación de reportes -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+    <script src="/Proyecto/Script/reportes_pdf.js"></script>
 
 
     <script>
@@ -179,6 +183,10 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'administrador') {
                 if (response.ok) {
                     const html = await response.text();
                     contenido.innerHTML = html;
+                    // Si es la sección de reportes, vuelve a asignar los eventos PDF
+                    if(id === 'contenido-reportes' && document.asignarEventosPDFReportes) {
+                        document.asignarEventosPDFReportes();
+                    }
                 } else {
                     contenido.innerHTML = '<p>Error al cargar el contenido.</p>';
                 }

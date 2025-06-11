@@ -64,9 +64,9 @@ $familias_result = $conn->query($familias_query)->fetchAll(PDO::FETCH_ASSOC);
                             <td class="center">
                                 <div class="dropdown">
                                     <ion-icon name="ellipsis-vertical-outline" class="dropdown-icon"></ion-icon>
-                                    <div class="dropdown-menu arriba">
-                                        <a href="../Controladores/FamiliasController.php?eliminar=<?php echo $familia['Id_familia']; ?>" class="dropdown-item btn-eliminar" onclick="eliminarFamilia(event, this.href)">Eliminar</a>
-                                        <a href="#" class="dropdown-item btn-modificar" onclick='editarFamilia(event, <?php echo json_encode($familia, JSON_HEX_APOS | JSON_HEX_QUOT); ?>)'>Modificar</a>
+                                    <div class="dropdown-menu">
+                                        <a href="../Controladores/FamiliasController.php?eliminar=<?php echo $familia['Id_familia']; ?>" class="dropdown-item" onclick="eliminarFamilia(event, this.href)">Eliminar</a>
+                                        <a href="#" class="dropdown-item" onclick='editarFamilia(event, <?php echo json_encode($familia, JSON_HEX_APOS | JSON_HEX_QUOT); ?>)'>Modificar</a>
                                     </div>
                                 </div>
                             </td>

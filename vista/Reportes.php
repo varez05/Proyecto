@@ -42,12 +42,34 @@ WHERE TIMESTAMPDIFF(YEAR, f.Fecha_nacimiento, CURDATE()) BETWEEN 6 AND 14
 GROUP BY c.Id_comunidad, c.Nombre_comunidad
 ORDER BY c.Nombre_comunidad";
 $familias_6a14 = $conn->query($sql4)->fetchAll(PDO::FETCH_ASSOC);
+
+// 5. Detalle de niños menores de 5 años (usando tabla Familias, mostrando campos relevantes)
+$sql5 = "SELECT f.Id_familia, f.Tipo_documento, f.Numero_documento, f.Nombres, f.Apellidos, f.Fecha_nacimiento, f.Telefono, f.Correo, f.Cuidador, c.Nombre_comunidad
+FROM Familias f
+INNER JOIN Comunidad c ON f.Id_comunidad = c.Id_comunidad
+WHERE TIMESTAMPDIFF(YEAR, f.Fecha_nacimiento, CURDATE()) < 5
+ORDER BY c.Nombre_comunidad, f.Nombres, f.Apellidos";
+$detalle_ninos_menores_5 = $conn->query($sql5)->fetchAll(PDO::FETCH_ASSOC);
+
+// 6. Detalle de niños de 6 a 14 años (usando tabla Familias, mostrando campos relevantes)
+$sql6 = "SELECT f.Id_familia, f.Tipo_documento, f.Numero_documento, f.Nombres, f.Apellidos, f.Fecha_nacimiento, f.Telefono, f.Correo, f.Cuidador, c.Nombre_comunidad
+FROM Familias f
+INNER JOIN Comunidad c ON f.Id_comunidad = c.Id_comunidad
+WHERE TIMESTAMPDIFF(YEAR, f.Fecha_nacimiento, CURDATE()) BETWEEN 6 AND 14
+ORDER BY c.Nombre_comunidad, f.Nombres, f.Apellidos";
+$detalle_ninos_6a14 = $conn->query($sql6)->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <div class="container">
     <h1>Reportes</h1>
-    <h2>Cantidad de Comunidades por Unidad</h2>
-    <table class="tabla-lideres">
+    <div class="header-container">
+        <h2>Cantidad de Comunidades por Unidad</h2>
+        <button class="boton" id="pdf-comunidades-unidad">
+            <ion-icon name="download-outline"></ion-icon>
+            <span> PDF </span>
+        </button>
+    </div>
+    <table class="tabla-lideres" id="tabla-comunidades-unidad">
         <thead>
             <tr>
                 <th>Unidad</th>
@@ -64,16 +86,15 @@ $familias_6a14 = $conn->query($sql4)->fetchAll(PDO::FETCH_ASSOC);
         </tbody>
     </table>
 </div>
-
 <div class="container">
     <div class="header-container">
         <h2>Cantidad de Familias por Comunidad</h2>
-        <button class="boton">
+        <button class="boton" id="pdf-familias-comunidad">
             <ion-icon name="download-outline"></ion-icon>
             <span> PDF </span>
         </button>
     </div>
-    <table class="tabla-lideres">
+    <table class="tabla-lideres" id="tabla-familias-comunidad">
         <thead>
             <tr>
                 <th>Comunidad</th>
@@ -93,12 +114,12 @@ $familias_6a14 = $conn->query($sql4)->fetchAll(PDO::FETCH_ASSOC);
 <div class="container">
     <div class="header-container">
         <h2>Familias con niños menores de 5 años</h2>
-        <button class="boton">
+        <button class="boton" id="pdf-familias-menores5">
             <ion-icon name="download-outline"></ion-icon>
             <span> PDF </span>
         </button>
     </div>
-    <table class="tabla-lideres">
+    <table class="tabla-lideres" id="tabla-familias-menores5">
         <thead>
             <tr>
                 <th>Comunidad</th>
@@ -118,12 +139,12 @@ $familias_6a14 = $conn->query($sql4)->fetchAll(PDO::FETCH_ASSOC);
 <div class="container">
     <div class="header-container">
         <h2>Familias con niños de 6 a 14 años</h2>
-        <button class="boton">
+        <button class="boton" id="pdf-familias-6a14">
             <ion-icon name="download-outline"></ion-icon>
             <span> PDF </span>
         </button>
     </div>
-    <table class="tabla-lideres">
+    <table class="tabla-lideres" id="tabla-familias-6a14">
         <thead>
             <tr>
                 <th>Comunidad</th>
@@ -140,3 +161,107 @@ $familias_6a14 = $conn->query($sql4)->fetchAll(PDO::FETCH_ASSOC);
         </tbody>
     </table>
 </div>
+<div class="container">
+    <div class="header-container">
+        <h2>Detalle de niños menores de 5 años</h2>
+        <button class="boton" id="pdf-detalle-menores5">
+            <ion-icon name="download-outline"></ion-icon>
+            <span> PDF </span>
+        </button>
+    </div>
+    <table class="tabla-lideres" id="tabla-detalle-menores5">
+        <thead>
+            <tr>
+                <th>ID Familia</th>
+                <th>Tipo Doc</th>
+                <th>N° Doc</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Fecha Nac.</th>
+                <th>Teléfono</th>
+                <th>Correo</th>
+                <th>Cuidador</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $comunidad_actual = null;
+            foreach ($detalle_ninos_menores_5 as $row):
+                if ($comunidad_actual !== $row['Nombre_comunidad']):
+                    $comunidad_actual = $row['Nombre_comunidad'];
+            ?>
+                <tr class="encabezado-comunidad">
+                    <td colspan="9" style="font-weight:bold; background:#e3e3e3; color:#2c3e50;">
+                        <?= htmlspecialchars($comunidad_actual) ?>
+                    </td>
+                </tr>
+            <?php endif; ?>
+                <tr>
+                    <td><?= htmlspecialchars($row['Id_familia']) ?></td>
+                    <td><?= htmlspecialchars($row['Tipo_documento']) ?></td>
+                    <td><?= htmlspecialchars($row['Numero_documento']) ?></td>
+                    <td><?= htmlspecialchars($row['Nombres']) ?></td>
+                    <td><?= htmlspecialchars($row['Apellidos']) ?></td>
+                    <td><?= htmlspecialchars($row['Fecha_nacimiento']) ?></td>
+                    <td><?= htmlspecialchars($row['Telefono']) ?></td>
+                    <td><?= htmlspecialchars($row['Correo']) ?></td>
+                    <td><?= htmlspecialchars($row['Cuidador']) ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
+<div class="container">
+    <div class="header-container">
+        <h2>Detalle de niños de 6 a 14 años</h2>
+        <button class="boton" id="pdf-detalle-6a14">
+            <ion-icon name="download-outline"></ion-icon>
+            <span> PDF </span>
+        </button>
+    </div>
+    <table class="tabla-lideres" id="tabla-detalle-6a14">
+        <thead>
+            <tr>
+                <th>ID Familia</th>
+                <th>Tipo Doc</th>
+                <th>N° Doc</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Fecha Nac.</th>
+                <th>Teléfono</th>
+                <th>Correo</th>
+                <th>Cuidador</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $comunidad_actual = null;
+            foreach ($detalle_ninos_6a14 as $row):
+                if ($comunidad_actual !== $row['Nombre_comunidad']):
+                    $comunidad_actual = $row['Nombre_comunidad'];
+            ?>
+                <tr class="encabezado-comunidad">
+                    <td colspan="9" style="font-weight:bold; background:#e3e3e3; color:#2c3e50;">
+                        <?= htmlspecialchars($comunidad_actual) ?>
+                    </td>
+                </tr>
+            <?php endif; ?>
+                <tr>
+                    <td><?= htmlspecialchars($row['Id_familia']) ?></td>
+                    <td><?= htmlspecialchars($row['Tipo_documento']) ?></td>
+                    <td><?= htmlspecialchars($row['Numero_documento']) ?></td>
+                    <td><?= htmlspecialchars($row['Nombres']) ?></td>
+                    <td><?= htmlspecialchars($row['Apellidos']) ?></td>
+                    <td><?= htmlspecialchars($row['Fecha_nacimiento']) ?></td>
+                    <td><?= htmlspecialchars($row['Telefono']) ?></td>
+                    <td><?= htmlspecialchars($row['Correo']) ?></td>
+                    <td><?= htmlspecialchars($row['Cuidador']) ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
+
+<!-- Enlaza jsPDF y el script de exportación de reportes -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="/Proyecto/Script/reportes_pdf.js"></script>
