@@ -142,15 +142,35 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-/**
- * Abre el modal de edición de familia y carga los datos en el formulario.
- * @param {Object} familia Objeto con los datos de la familia a editar
- */
-function editarFamilia(familia) {
+// --- FUNCIONES PARA ELIMINAR Y EDITAR FAMILIA (como en unidades.js) ---
+
+function eliminarFamilia(event, url) {
+    event.preventDefault();
+    if (confirm('¿Estás seguro de que deseas eliminar esta familia?')) {
+        fetch(url, {
+            method: 'GET'
+        })
+        .then(response => response.json())
+        .then(data => {
+            mostrarAlerta(data.message, data.success ? 'success' : 'error');
+            if (data.success) {
+                // Eliminar la fila de la tabla
+                const fila = event.target.closest('tr');
+                if (fila) fila.remove();
+            }
+        })
+        .catch(error => {
+            mostrarAlerta('Error al eliminar la familia', 'error');
+            console.error('Error al eliminar la familia:', error);
+        });
+    }
+}
+
+function editarFamilia(event, familia) {
+    event.preventDefault();
+    // Cargar los datos en el modal de edición con los mismos IDs y estructura que el de crear
     document.getElementById('id_familia_editar').value = familia.Id_familia;
-    document.getElementById('fecha_inscripcion_familia_editar').value = familia.Fecha_inscripcion;
-    document.getElementById('id_comunidad_familia_editar').value = familia.Id_comunidad;
-    document.getElementById('tipo_usuario_familia_editar').value = familia.Tipo_usuario;
+    document.getElementById('id_familia_comunidad_editar').value = familia.Id_comunidad;
     document.getElementById('tipo_documento_familia_editar').value = familia.Tipo_documento;
     document.getElementById('numero_documento_familia_editar').value = familia.Numero_documento;
     document.getElementById('nombres_familia_editar').value = familia.Nombres;
@@ -165,17 +185,30 @@ function editarFamilia(familia) {
     document.getElementById('cuidador_familia_editar').value = familia.Cuidador;
     document.getElementById('padre_familia_editar').value = familia.Padre;
     document.getElementById('madre_familia_editar').value = familia.Madre;
-    btnAbrirModal('editar-familia-container');
-}
-function editarMadres(madre) {
-    console.log(madre);
-    document.getElementById('id_madre_editar').value = madre.Id_madre;
-    document.getElementById('madre_tipo_documento_editar').value = madre.Tipo_documento;
-    document.getElementById('madre_numero_documento_editar').value = madre.Numero_documento;
-    document.getElementById('madre_nombres_editar').value = madre.Nombres;
-    document.getElementById('madre_apellidos_editar').value = madre.Apellidos;
-    document.getElementById('madre_fecha_nacimiento_editar').value = madre.Fecha_nacimiento;
-    document.getElementById('madre_lugar_nacimiento_editar').value = madre.Lugar_nacimiento;
-    // El campo sexo es readonly y siempre es "Femenino", no es necesario modificarlo
-    btnAbrirModal('modal-modificar-madre');
+    btnAbrirModal('modal-modificar-familia');
+
+    // Manejar el envío del formulario de edición (solo una vez)
+    const formularioEditar = document.getElementById('form-familia-editar');
+    if (formularioEditar) {
+        formularioEditar.onsubmit = function(e) {
+            e.preventDefault();
+            const formData = new FormData(formularioEditar);
+            formData.append('id_familia', familia.Id_familia); // Asegura que el backend reciba el id
+            fetch('../Controladores/FamiliasController.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                mostrarAlerta(data.message, data.success ? 'success' : 'error');
+                if (data.success) {
+                    location.reload();
+                }
+            })
+            .catch(error => {
+                mostrarAlerta('Error al editar la familia', 'error');
+                console.error('Error al editar la familia:', error);
+            });
+        };
+    }
 }

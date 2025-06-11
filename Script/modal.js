@@ -1,15 +1,14 @@
 function btnAbrirModal(identificador) {
     const modal = document.getElementById(identificador);
     if (modal) {
-        modal.style.display = 'flex';
         modal.classList.add('show');
+        console.log("abrir", modal)
     }
 }
 
 function cerrarModal(identificador) {
     const modal = document.getElementById(identificador);
     if (modal) {
-        modal.style.display = 'none';
         modal.classList.remove('show');
     }
 }

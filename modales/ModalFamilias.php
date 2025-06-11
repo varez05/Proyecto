@@ -86,12 +86,15 @@ date_default_timezone_set('America/Bogota');
         </form>
     </div>
 </div>
+
+
 <!-- Modal para modificar familia -->
 <div id="modal-modificar-familia" class="modal" >
     <div class="modal-content">
         <span id="btn-cerrar-modal-familia" class="close" onclick="cerrarModal('modal-modificar-familia')">&times;</span>
         <h2>Modificar Familia</h2>
         <form action="Familias.php" method="POST" class="form-modificar" id="form-familia-editar">
+            <input type="hidden" id="id_familia_editar" name="id_familia_editar" value="">
             <div class="form-group">
                 <label for="id_familia_comunidad_editar">Comunidad:</label>
                 <select id="id_familia_comunidad_editar" name="id_comunidad" required>

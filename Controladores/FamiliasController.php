@@ -96,4 +96,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !isset($_POST['validar_documento']))
         exit;
     }
 }
+
+// Eliminar familia
+if (isset($_GET['eliminar'])) {
+    $id = intval($_GET['eliminar']);
+    try {
+        $stmt = $conn->prepare("DELETE FROM Familias WHERE Id_familia = ?");
+        $stmt->execute([$id]);
+        echo json_encode(["success" => true, "message" => "Familia eliminada correctamente"]);
+    } catch (Exception $e) {
+        echo json_encode(["success" => false, "message" => "Error al eliminar la familia: " . $e->getMessage()]);
+    }
+    exit();
+}
+
 // ...existing code for selects and queries...
