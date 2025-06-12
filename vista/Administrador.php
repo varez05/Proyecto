@@ -7,7 +7,6 @@ $result = $conexion->query($sql);
 <div class="container">
     <div class="header-container">
         <h1>Gestión de Administradores</h1>
-        <button id="btn-agregar" class="btn-modificar" onclick="btnAbrirModal('agregar-administrador-container')">Agregar Administrador</button>
     </div>
 
 
@@ -21,7 +20,6 @@ $result = $conexion->query($sql);
                 <th>Correo</th>
                 <th>Teléfono</th>
                 <th>Foto</th>
-                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -35,25 +33,10 @@ $result = $conexion->query($sql);
                         <td><?php echo htmlspecialchars($row['Telefono']); ?></td>
                         <td class="center">
                             <?php if (!empty($row['Img'])): ?>
-                                <img src="../uploads/<?php echo htmlspecialchars($row['Img']); ?>" alt="Foto de perfil" class="profile-img">
+                                <img src="<?php echo (strpos($row['Img'], 'admin_') === 0 ? '../imagen/' : '../uploads/') . htmlspecialchars($row['Img']); ?>" alt="Foto de perfil" class="profile-img" style="width:48px; height:48px; border-radius:50%; object-fit:cover;">
                             <?php else: ?>
                                 <span>Sin imagen</span>
                             <?php endif; ?>
-                        </td>
-                        <td class="center">
-                            <div class="dropdown">
-                                <ion-icon name="ellipsis-vertical-outline" class="dropdown-icon"></ion-icon>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" onclick="EditarAdmin({
-                                        Id_admin: <?php echo $row['Id_admin']; ?>,
-                                        Nombre: '<?php echo htmlspecialchars($row['Nombre']); ?>',
-                                        Usuario: '<?php echo htmlspecialchars($row['Usuario']); ?>',
-                                        Correo: '<?php echo htmlspecialchars($row['Correo']); ?>',
-                                        Telefono: '<?php echo htmlspecialchars($row['Telefono']); ?>'
-                                    })">Modificar</a>
-                                    <a class="dropdown-item" onclick="eliminarAdminHandler(event, <?php echo $row['Id_admin']; ?>)">Eliminar</a>
-                                </div>
-                            </div>
                         </td>
                     </tr>
                 <?php endwhile; ?>

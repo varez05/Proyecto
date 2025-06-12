@@ -29,6 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($resultado->num_rows == 1) {
         $fila = $resultado->fetch_assoc();
+        $_SESSION['id'] = $fila['Id_admin'];
         $_SESSION['usuario'] = $usuario;
         $_SESSION['nombre'] = $fila['Nombre'];
         $_SESSION['correo'] = $fila['Correo'];
