@@ -81,11 +81,8 @@
                     <div class="input_box Consultar">
                         <select id="tipoDocumento" name="tipoDocumento" required>
                             <option value="" disabled selected>Seleccione tipo de documento</option>
-                            <option value="CC">Cédula de Ciudadanía</option>
-                            <option value="RC">Registro Civil</option>
-                            <option value="TI">Tarjeta de Identidad</option>
-                            <option value="CE">Cédula de Extranjería</option>
-                            <option value="PT">Permiso de Proteccion</option>
+                            <option value="Registro Civil">Registro Civil</option>
+                            <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
                         </select>
                         <i class="uil uil-document-info document-type"></i>
                     </div>
