@@ -249,6 +249,9 @@ transition: all 0.4s ease-out;
     z-index: 1000;
 }
 
+.show {
+    display: flex;
+}
 
 .modal-content {
     background-color: #fefefe;
